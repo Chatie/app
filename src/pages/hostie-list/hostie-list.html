@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Hostie List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <button ion-item
+      class="item-icon-left"
+      ui-sref="menu.hostieNick({&quot;id&quot;:&quot;&quot;+ hostie.id +&quot;&quot;})"
+      *ngFor="let hostie of hostieList | async"
+      (click)="itemTapped($event, item)"
+    >
+      <ion-icon
+        name='ion-help'
+        item-left
+        ng-class="hostie.status ? 'ion-ios-cloud-upload' : 'ion-ios-cloud-upload-outline'"
+      ></ion-icon>
+      {{ hostie.nick }}
+      <div class="item-note" item-right>
+        {{hostie.nick}}
+      </div>
+    </button>
+  </ion-list>
+
+</ion-content>
