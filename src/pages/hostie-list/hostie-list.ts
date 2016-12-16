@@ -1,6 +1,16 @@
 /**
- * 3 Common Rxjs Pitfalls that you might find while building Angular 2 Applications
- * http://blog.angular-university.io/angular-2-rxjs-common-pitfalls/
+ * Wechaty APP for Android & Ios
+ * Your ChatBot Pocket Manager
+ *
+ * https://github.com/wechaty/wechaty-ionic
+ * Zhuohuan LI <zixia@zixia.net>
+ * License Apache-2.0
+ */
+
+/**
+ * An Introduction to Lists in Ionic 2
+ * http://www.joshmorony.com/an-introduction-to-lists-in-ionic-2/
+ *
  */
 import {
   Component,
@@ -9,6 +19,7 @@ import {
 import {
   NavController,
   NavParams,
+  reorderArray,
 }                 from 'ionic-angular'
 import {
   Observable,
@@ -24,40 +35,30 @@ import { HostieDetailsPage }  from '../hostie-details/'
   templateUrl: 'hostie-list.html',
 })
 export class HostieListPage implements OnInit {
-  selectedItem: any
-  icons: string[]
-  items: Array<{title: string, note: string, icon: string}>
-
-  hostieList: Observable<Hostie[]>
+  private hostieList: Hostie[]
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public hostieStore: HostieStore,
   ) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
 
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
-
-    this.items = [];
-    for(let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
   }
 
   ngOnInit() {
-    this.hostieList = this.hostieStore.hostieList
+    this.hostieStore.list().subscribe(list => {
+      this.hostieList = list
+    })
   }
 
-  itemTapped(event, item) {
+  select(hostie, event) {
     this.navCtrl.push(HostieDetailsPage, {
-      item: item
-    });
+      hostie
+    })
+  }
+
+  reorder(indexes) {
+    this.hostieList = reorderArray(this.hostieList, indexes)
+    // TODO save to backend
   }
 }

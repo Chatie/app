@@ -1,3 +1,11 @@
+/**
+ * Wechaty APP for Android & Ios
+ * Your ChatBot Pocket Manager
+ *
+ * https://github.com/wechaty/wechaty-ionic
+ * Zhuohuan LI <zixia@zixia.net>
+ * License Apache-2.0
+ */
 import { Http }       from '@angular/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
@@ -74,10 +82,13 @@ export class HostieBackend {
     return false
   }
 
-  list(): any[]
-  list(id?): any[] | any {
+  list(): any[] | any {
     console.log(this.hostieList)
 
+    return this.hostieList
+  }
+
+  search(id) {
     if (typeof id !== 'undefined') {
       const result = this.hostieList.filter(hostie => hostie.id == id)
       if (result.length) {
@@ -85,7 +96,5 @@ export class HostieBackend {
       }
       return null
     }
-    return this.hostieList
   }
-
 }

@@ -1,3 +1,11 @@
+/**
+ * Wechaty APP for Android & Ios
+ * Your ChatBot Pocket Manager
+ *
+ * https://github.com/wechaty/wechaty-ionic
+ * Zhuohuan LI <zixia@zixia.net>
+ * License Apache-2.0
+ */
 import { Injectable } from '@angular/core'
 import { Http }       from '@angular/http'
 import {
@@ -7,35 +15,37 @@ import {
 
 import 'rxjs/add/operator/map'
 
-import { Hostie }               from '../models/hostie'
+import { Hostie }        from '../models/hostie'
 
 import { HostieBackend } from './hostie-backend'
 
 /**
+ * How to build Angular 2 apps using Observable Data Services - Pitfalls to avoid
+ * http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/
  *
+ * 3 Common Rxjs Pitfalls that you might find while building Angular 2 Applications
+ * http://blog.angular-university.io/angular-2-rxjs-common-pitfalls/
  */
 @Injectable()
 export class HostieStore {
-  private _hostieList:  BehaviorSubject<Hostie[]>   = new BehaviorSubject([])
-  public hostieList:    Observable<Hostie[]>        = this._hostieList.asObservable()
+  private hostieList:  BehaviorSubject<Hostie[]> = new BehaviorSubject([])
 
   constructor(
     private http: Http,
     private hostieBackend: HostieBackend,
   ) {
     console.log('Hello Hostie Provider')
-    const list = hostieBackend.list()
-    this._hostieList.next(list)
+    this.hostieList.next(hostieBackend.list())
   }
 
   add(newHostie: Hostie): Observable<boolean> {
     const obs = this.hostieBackend.add(newHostie)
 
     obs.subscribe(res => {
-      const hostieList = this._hostieList.getValue()
+      const hostieList = this.hostieList.getValue()
       hostieList.push(newHostie)
 
-      this._hostieList.next(hostieList)
+      this.hostieList.next(hostieList)
     })
 
     return obs
@@ -45,13 +55,13 @@ export class HostieStore {
     const obs = this.hostieBackend.del(delHostie)
 
     obs.subscribe(res => {
-      const hostieList = this._hostieList.getValue()
+      const hostieList = this.hostieList.getValue()
 
       hostieList.forEach((hostie, idx) => {
         if (hostie.id === delHostie.id) {
           hostieList.splice(idx, 1)
 
-          this._hostieList.next(hostieList)
+          this.hostieList.next(hostieList)
         }
       })
     })
@@ -59,6 +69,17 @@ export class HostieStore {
     return obs
   }
 
+  list(): Observable<Hostie[]> {
+    return this.hostieList.asObservable()
+  }
+
+  search(id) {
+
+  }
+
+  update(hostie: Hostie) {
+
+  }
 }
 
 

@@ -1,3 +1,11 @@
+/**
+ * Wechaty APP for Android & Ios
+ * Your ChatBot Pocket Manager
+ *
+ * https://github.com/wechaty/wechaty-ionic
+ * Zhuohuan LI <zixia@zixia.net>
+ * License Apache-2.0
+ */
 import {
   Component,
   OnInit,
@@ -25,7 +33,7 @@ export class DashboardPage implements OnInit {
   }
 
   ngOnInit() {
-    this.hostieStore.hostieList.subscribe(list => {
+    this.hostieStore.list().subscribe(list => {
       this.hostieList     = list
       this.hostieTotalNum = list.length
     })

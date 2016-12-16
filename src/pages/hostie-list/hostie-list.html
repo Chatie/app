@@ -9,23 +9,45 @@
 
 <ion-content>
 
-  <ion-list>
-    <button ion-item
-      class="item-icon-left"
-      ui-sref="menu.hostieNick({&quot;id&quot;:&quot;&quot;+ hostie.id +&quot;&quot;})"
-      *ngFor="let hostie of hostieList | async"
-      (click)="itemTapped($event, item)"
-    >
-      <ion-icon
-        name='ion-help'
-        item-left
-        ng-class="hostie.status ? 'ion-ios-cloud-upload' : 'ion-ios-cloud-upload-outline'"
-      ></ion-icon>
-      {{ hostie.nick }}
-      <div class="item-note" item-right>
-        {{hostie.nick}}
-      </div>
-    </button>
+  <ion-list
+    reorder="true"
+    (ionItemReorder)="reorder($event)"
+  >
+    <ion-item-sliding>
+
+      <button ion-item
+        *ngFor="let hostie of hostieList"
+        (click)="select(hostie, $event)"
+      >
+        <ion-icon
+          name='ion-help'
+          item-left
+          ng-class="hostie.status ? 'ion-ios-cloud-upload' : 'ion-ios-cloud-upload-outline'"
+        ></ion-icon>
+        {{ hostie.nick }}
+        <div class="item-note" item-right>
+          {{hostie.nick}}
+        </div>
+      </button>
+
+      <ion-item-options side="left">
+        <button ion-button color="primary">
+          <ion-icon name="text"></ion-icon>
+          Text
+        </button>
+        <button ion-button color="secondary">
+          <ion-icon name="call"></ion-icon>
+          Call
+        </button>
+      </ion-item-options>
+      <ion-item-options side="right">
+        <button ion-button color="primary">
+          <ion-icon name="mail"></ion-icon>
+          Email
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
   </ion-list>
 
 </ion-content>

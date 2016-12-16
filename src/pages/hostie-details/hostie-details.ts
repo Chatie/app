@@ -1,3 +1,11 @@
+/**
+ * Wechaty APP for Android & Ios
+ * Your ChatBot Pocket Manager
+ *
+ * https://github.com/wechaty/wechaty-ionic
+ * Zhuohuan LI <zixia@zixia.net>
+ * License Apache-2.0
+ */
 import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
