@@ -8,8 +8,10 @@
  */
 import { Http }       from '@angular/http'
 import { Injectable } from '@angular/core'
+
 import { Observable } from 'rxjs'
 import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/catch'
 
 import {
   Hostie,
@@ -64,7 +66,7 @@ export class HostieBackend {
 
     return this.http.get('https://www.wechaty.io')
                     .map(res => res.ok)
-                    .cache()
+                    // .cache()
   }
 
   del(delHostie: Hostie): Observable<boolean> {
@@ -74,7 +76,7 @@ export class HostieBackend {
 
     return this.http.get('https://www.wechaty.io')
                     .map(res => lenAfter < lenBefore && res.ok)
-                    .cache()
+                    // .cache()
   }
 
   edit(hostie: Hostie) {
