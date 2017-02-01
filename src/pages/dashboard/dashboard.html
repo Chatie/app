@@ -7,40 +7,44 @@
   </ion-navbar>
 </ion-header>
 
+<ion-content>
 
-<ion-content padding>
+  <ion-list-header>Click for detail</ion-list-header>
 
-  <div id="dashboard-container2">
-    <div class="item item-body">
-      <div class="show-list-numbers-and-dots">
-        <p style="margin-top:0px;">Click for detail</p>
-      </div>
+  <ion-list>
+    <ion-item>
+      Hosties
+      <ion-note>
+        {{ hostieActiveNum }} / {{ hostieList?.length}}
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      Boties
+      <ion-note>
+        {{ botieActiveNum }} / {{ botieList?.length }}
+      </ion-note>
+    </ion-item>
+  </ion-list>
 
-      <ion-list>
-        <ion-item (click)="menu.hostieList">Hosties
-          <span class="item-note">{{ hostieActiveNum }} / {{ hostieTotalNum }}</span>
-        </ion-item>
-        <ion-item (click)="menu.botieList">Boties
-          <span class="item-note">{{ activeBotieNum }} / {{ botieList?.length }}</span>
-        </ion-item>
-      </ion-list>
+  <ion-card>
+    <ion-card-header>
+      News
+    </ion-card-header>
 
-    </div>
-  </div>
-
-  <div class="list card" id="dashboard-card22">
-    <ion-item id="dashboard-list-item49">News</ion-item>
-    <div class="item item-body" id="dashboard-list-item-container15">
+    <ion-card-content>
       <h3 id="dashboard-heading12">Wechaty APP Published, Cheers!</h3>
       <div id="dashboard-markdown25" class="show-list-numbers-and-dots">
         <p style="margin-top:0px;">Thanks Ionic Creator, We can build
           <strong>Wechaty APP</strong> in a week.</p>
       </div>
-    </div>
-    <ion-item class="balanced" id="dashboard-list-item50">
-      <span class="item-note">Read more ...</span>
+    </ion-card-content>
+    <ion-item>
+      <ion-badge color="secondary" item-right>
+        Read more ...
+      </ion-badge>
     </ion-item>
-  </div>
+
+  </ion-card>
 
 </ion-content>
 

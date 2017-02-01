@@ -6,17 +6,28 @@
  * Zhuohuan LI <zixia@zixia.net>
  * License Apache-2.0
  */
-import { NgModule, ErrorHandler } from '@angular/core'
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular'
-import { MyApp } from './app.component'
+import {
+  NgModule,
+  ErrorHandler,
+}                     from '@angular/core'
+import {
+  IonicApp,
+  IonicModule,
+  IonicErrorHandler,
+}                     from 'ionic-angular'
 
 import { DashboardPage }      from '../pages/dashboard/'
+
 import { HostieDetailsPage }  from '../pages/hostie-details/'
 import { HostieListPage }     from '../pages/hostie-list/'
+import { NewHostiePage }      from '../pages/new-hostie/'
+
 import { WelcomePage }        from '../pages/welcome/'
+import { LoginPage }          from '../pages/login/'
 
 import { HostieStore }        from '../providers/hostie-store'
-import { HostieBackend }      from '../providers/hostie-backend'
+
+import { MyApp }      from './app.component'
 
 @NgModule({
   declarations: [
@@ -24,8 +35,10 @@ import { HostieBackend }      from '../providers/hostie-backend'
     DashboardPage,
     HostieDetailsPage,
     HostieListPage,
+    NewHostiePage,
     WelcomePage,
-  ],
+    LoginPage,
+],
   imports: [
     IonicModule.forRoot(MyApp)
   ],
@@ -35,12 +48,13 @@ import { HostieBackend }      from '../providers/hostie-backend'
     DashboardPage,
     HostieDetailsPage,
     HostieListPage,
+    NewHostiePage,
     WelcomePage,
+    LoginPage,
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HostieStore,
-    HostieBackend,
   ],
 })
 

@@ -21,8 +21,12 @@ import {
 }                   from 'ionic-native'
 
 import { DashboardPage }  from '../pages/dashboard/'
+
 import { HostieListPage } from '../pages/hostie-list/'
-import { WelcomePage }    from '../pages/welcome/'
+import { NewHostiePage }  from '../pages/new-hostie/'
+// import { WelcomePage }    from '../pages/welcome/'
+
+import { LoginPage }      from '../pages/login/'
 
 @Component({
   templateUrl: 'app.html'
@@ -32,7 +36,10 @@ export class MyApp {
 
   // make HelloIonicPage the root (or first) page
   // rootPage: any = WelcomePage
-  rootPage: any = DashboardPage
+  // rootPage: any = DashboardPage
+  rootPage: any = HostieListPage
+  // rootPage: any = NewHostiePage
+
   pages: Array<{title: string, component: any}>
 
   constructor(
@@ -43,8 +50,11 @@ export class MyApp {
 
     // set our app's pages
     this.pages = [
-      { title: 'Dashboard', component: DashboardPage },
-      { title: 'Hostie List', component: HostieListPage }
+      { title: 'Dashboard'  , component: DashboardPage },
+      // { title: 'Giftie List', component: GiftieListPage },
+      // { title: 'Botie List' , component: BotieListPage },
+      { title: 'Hostie List', component: HostieListPage },
+      { title: 'Login'      , component: LoginPage },
     ]
   }
 

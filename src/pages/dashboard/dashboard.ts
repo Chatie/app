@@ -11,7 +11,10 @@ import {
   OnInit,
 } from '@angular/core'
 
-import { Hostie }       from '../../models/hostie'
+import {
+  Hostie,
+  HostieStatus
+}                       from '../../models/hostie'
 import { HostieStore }  from '../../providers/hostie-store'
 
 @Component({
@@ -19,12 +22,11 @@ import { HostieStore }  from '../../providers/hostie-store'
   templateUrl: 'dashboard.html'
 })
 export class DashboardPage implements OnInit {
-  hostieList: Hostie[] = []
-  hostieTotalNum  = 0
-  hostieActiveNum = 0
+  hostieList: Hostie[]  = []
+  hostieActiveNum       = 0
 
-  botieList   = [1,2,3]
-  activeBotieNum = 1
+  botieList       = [1,2,3]
+  botieActiveNum  = 1
 
   constructor(
     private hostieStore: HostieStore,
@@ -34,8 +36,9 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
     this.hostieStore.list().subscribe(list => {
-      this.hostieList     = list
-      this.hostieTotalNum = list.length
+      this.hostieList       = list
+      this.hostieActiveNum  = list.filter( l => l.status === HostieStatus.ONLINE )
+                                  .length
     })
   }
 }

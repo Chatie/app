@@ -17,7 +17,7 @@ import 'rxjs/add/operator/map'
 
 import { Hostie }        from '../models/hostie'
 
-import { HostieBackend } from './hostie-backend'
+import { HostieBackend } from '../backends/hostie'
 
 /**
  * How to build Angular 2 apps using Observable Data Services - Pitfalls to avoid
@@ -29,13 +29,14 @@ import { HostieBackend } from './hostie-backend'
 @Injectable()
 export class HostieStore {
   private hostieList:  BehaviorSubject<Hostie[]> = new BehaviorSubject([])
+  private hostieBackend: HostieBackend
 
   constructor(
     private http: Http,
-    private hostieBackend: HostieBackend,
   ) {
     console.log('Hello Hostie Provider')
-    this.hostieList.next(hostieBackend.list())
+    this.hostieBackend = new HostieBackend(http)
+    this.hostieList.next(this.hostieBackend.list())
   }
 
   add(newHostie: Hostie): Observable<boolean> {

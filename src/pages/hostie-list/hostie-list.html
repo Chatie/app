@@ -3,14 +3,16 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+
     <ion-title>Hostie List</ion-title>
+
   </ion-navbar>
 </ion-header>
 
 <ion-content>
 
   <ion-list
-    reorder="true"
+    [reorder]="reordering"
     (ionItemReorder)="reorder($event)"
   >
     <ion-item-sliding>
@@ -19,35 +21,36 @@
         *ngFor="let hostie of hostieList"
         (click)="select(hostie, $event)"
       >
+
         <ion-icon
-          name='ion-help'
+          [name]="hostieIcon(hostie)"
           item-left
-          ng-class="hostie.status ? 'ion-ios-cloud-upload' : 'ion-ios-cloud-upload-outline'"
         ></ion-icon>
+
         {{ hostie.nick }}
-        <div class="item-note" item-right>
-          {{hostie.nick}}
-        </div>
+
+        <ion-note item-right>
+          {{hostie.note}}
+        </ion-note>
+
       </button>
 
-      <ion-item-options side="left">
-        <button ion-button color="primary">
-          <ion-icon name="text"></ion-icon>
-          Text
-        </button>
-        <button ion-button color="secondary">
-          <ion-icon name="call"></ion-icon>
-          Call
-        </button>
-      </ion-item-options>
       <ion-item-options side="right">
-        <button ion-button color="primary">
-          <ion-icon name="mail"></ion-icon>
-          Email
+        <button ion-button>
+          <ion-icon name="trash"></ion-icon>
+          Trash
         </button>
       </ion-item-options>
 
     </ion-item-sliding>
+
   </ion-list>
+
+  <button ion-button block clear (click)="add()">
+    <ion-icon name="add"></ion-icon>
+  </button>
+<pre>
+    reordering: {{ reordering }}
+</pre>
 
 </ion-content>

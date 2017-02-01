@@ -15,6 +15,7 @@
 import {
   Component,
   OnInit,
+  OnDestroy,
 }                 from '@angular/core'
 import {
   NavController,
@@ -22,20 +23,29 @@ import {
   reorderArray,
 }                 from 'ionic-angular'
 import {
-  Observable,
+  // Observable,
+  Subscription,
 }                 from 'rxjs'
 
-import { Hostie }             from '../../models/hostie'
+import {
+  Hostie,
+  HostieStatus,
+}                             from '../../models/hostie'
 import { HostieStore }        from '../../providers/hostie-store'
 
 import { HostieDetailsPage }  from '../hostie-details/'
+import { NewHostiePage }      from '../new-hostie/'
 
 @Component({
   selector: 'hostie-list',
   templateUrl: 'hostie-list.html',
 })
-export class HostieListPage implements OnInit {
-  private hostieList: Hostie[]
+
+export class HostieListPage implements OnInit, OnDestroy {
+  hostieList: Hostie[]
+  hostieListSubscription: Subscription
+
+  reordering = false
 
   constructor(
     public navCtrl: NavController,
@@ -46,19 +56,39 @@ export class HostieListPage implements OnInit {
   }
 
   ngOnInit() {
-    this.hostieStore.list().subscribe(list => {
+    this.hostieListSubscription = this.hostieStore.list().subscribe(list => {
       this.hostieList = list
     })
   }
 
+  ngOnDestroy() {
+    this.hostieListSubscription.unsubscribe()
+  }
+
   select(hostie, event) {
+    console.log(event)
     this.navCtrl.push(HostieDetailsPage, {
       hostie
     })
   }
 
+  toggleReordering() {
+    this.reordering = !this.reordering
+  }
+
   reorder(indexes) {
     this.hostieList = reorderArray(this.hostieList, indexes)
     // TODO save to backend
+  }
+
+  hostieIcon(hostie: Hostie) {
+    if (hostie.status === HostieStatus.ONLINE) {
+      return 'ios-cloud-upload'
+    }
+    return 'ios-cloud-upload-outline'
+  }
+
+  add() {
+    this.navCtrl.push(NewHostiePage)
   }
 }
