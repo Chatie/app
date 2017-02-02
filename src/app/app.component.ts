@@ -23,7 +23,7 @@ import {
 import { DashboardPage }  from '../pages/dashboard/'
 
 import { HostieListPage } from '../pages/hostie-list/'
-// import { NewHostiePage }  from '../pages/new-hostie/'
+import { HostieCreatePage } from '../pages/hostie-create/'
 // import { WelcomePage }    from '../pages/welcome/'
 
 import { LoginPage }      from '../pages/login/'
@@ -37,8 +37,8 @@ export class MyApp {
   // make HelloIonicPage the root (or first) page
   // rootPage: any = WelcomePage
   // rootPage: any = DashboardPage
-  rootPage: any = HostieListPage
-  // rootPage: any = NewHostiePage
+  // rootPage: any = HostieListPage
+  rootPage: any = HostieCreatePage
 
   pages: Array<{title: string, component: any}>
 

@@ -20,7 +20,7 @@ import { DashboardPage }      from '../pages/dashboard/'
 
 import { HostieDetailsPage }  from '../pages/hostie-details/'
 import { HostieListPage }     from '../pages/hostie-list/'
-import { NewHostiePage }      from '../pages/new-hostie/'
+import { HostieCreatePage }   from '../pages/hostie-create/'
 
 import { WelcomePage }        from '../pages/welcome/'
 import { LoginPage }          from '../pages/login/'
@@ -35,7 +35,7 @@ import { MyApp }      from './app.component'
     DashboardPage,
     HostieDetailsPage,
     HostieListPage,
-    NewHostiePage,
+    HostieCreatePage,
     WelcomePage,
     LoginPage,
 ],
@@ -48,7 +48,7 @@ import { MyApp }      from './app.component'
     DashboardPage,
     HostieDetailsPage,
     HostieListPage,
-    NewHostiePage,
+    HostieCreatePage,
     WelcomePage,
     LoginPage,
   ],

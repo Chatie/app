@@ -34,7 +34,7 @@ import {
 import { HostieStore }        from '../../providers/hostie-store'
 
 import { HostieDetailsPage }  from '../hostie-details/'
-import { NewHostiePage }      from '../new-hostie/'
+import { HostieCreatePage }   from '../hostie-create/'
 
 @Component({
   selector: 'hostie-list',
@@ -89,6 +89,6 @@ export class HostieListPage implements OnInit, OnDestroy {
   }
 
   add() {
-    this.navCtrl.push(NewHostiePage)
+    this.navCtrl.push(HostieCreatePage)
   }
 }
