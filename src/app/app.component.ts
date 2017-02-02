@@ -23,7 +23,7 @@ import {
 import { DashboardPage }  from '../pages/dashboard/'
 
 import { HostieListPage } from '../pages/hostie-list/'
-import { NewHostiePage }  from '../pages/new-hostie/'
+// import { NewHostiePage }  from '../pages/new-hostie/'
 // import { WelcomePage }    from '../pages/welcome/'
 
 import { LoginPage }      from '../pages/login/'
