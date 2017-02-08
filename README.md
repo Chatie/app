@@ -41,3 +41,10 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 
 * [Writing Marble Tests](https://github.com/ReactiveX/rxjs/blob/master/doc/writing-marble-tests.md)
 * [Introduction to RxJS Marble Testing](https://egghead.io/lessons/rxjs-introduction-to-rxjs-marble-testing)
+
+# Open API Specification
+
+* [Top Specification Formats for REST APIs](http://nordicapis.com/top-specification-formats-for-rest-apis/)
+* [Speed up your RESTful API development in Node.js with Swagger](https://scotch.io/tutorials/speed-up-your-restful-api-development-in-node-js-with-swagger)
+* [Medium.com API Specification](https://github.com/amardeshbd/medium-api-specification)
+* [Writing OpenAPI (Swagger) Specification Tutorial](https://apihandyman.io/writing-openapi-swagger-specification-tutorial-part-1-introduction/)
