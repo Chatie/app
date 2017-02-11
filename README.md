@@ -31,7 +31,7 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 
 * [Zero to GraphQL in 30 Minutes – Steven Luscher](https://www.youtube.com/watch?v=UBGzsb2UkeY)
 * [New features in GraphQL: Batch, defer, stream, live, and subscribe](https://dev-blog.apollodata.com/new-features-in-graphql-batch-defer-stream-live-and-subscribe-7585d0c28b07#.tzc669fjv)
-* [GraphQL Backend As A Service](https://scaphold.io/)
+* [GraphQL(with Subscription) Backend As A Service](https://scaphold.io/)
 
 # RxJS/Observable
 
