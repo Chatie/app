@@ -28,7 +28,7 @@
   "devDependencies": {
     "@ionic/app-scripts": "1.0.0",
     "sw-toolbox": "3.4.0",
-    "typescript": "2.1.4"
+    "typescript": "2.2.1"
   },
   "cordovaPlugins": [
     "cordova-plugin-whitelist",
