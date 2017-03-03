@@ -1,8 +1,8 @@
 {
-  "name": "wechaty-ionic",
+  "name": "@chatie/app",
   "version": "0.0.1",
   "author": "Zhuohuan LI <zixia@zixia.net>",
-  "homepage": "https://github.com/wechaty/wechaty-ionic/",
+  "homepage": "https://github.com/chatie/app/",
   "private": true,
   "scripts": {
     "ionic:build": "ionic-app-scripts build",
@@ -48,5 +48,5 @@
       "locator": "ios"
     }
   ],
-  "description": "Wechaty: An Ionic project"
+  "description": "Chatie: An Ionic project"
 }
