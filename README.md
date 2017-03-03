@@ -31,7 +31,7 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 
 * [Zero to GraphQL in 30 Minutes – Steven Luscher](https://www.youtube.com/watch?v=UBGzsb2UkeY)
 * [New features in GraphQL: Batch, defer, stream, live, and subscribe](https://dev-blog.apollodata.com/new-features-in-graphql-batch-defer-stream-live-and-subscribe-7585d0c28b07#.tzc669fjv)
-* [GraphQL Backend As A Service](https://scaphold.io/)
+* [GraphQL(with Subscription) Backend As A Service](https://scaphold.io/)
 
 # RxJS/Observable
 
@@ -41,3 +41,10 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 
 * [Writing Marble Tests](https://github.com/ReactiveX/rxjs/blob/master/doc/writing-marble-tests.md)
 * [Introduction to RxJS Marble Testing](https://egghead.io/lessons/rxjs-introduction-to-rxjs-marble-testing)
+
+# Open API Specification
+
+* [Top Specification Formats for REST APIs](http://nordicapis.com/top-specification-formats-for-rest-apis/)
+* [Speed up your RESTful API development in Node.js with Swagger](https://scotch.io/tutorials/speed-up-your-restful-api-development-in-node-js-with-swagger)
+* [Medium.com API Specification](https://github.com/amardeshbd/medium-api-specification)
+* [Writing OpenAPI (Swagger) Specification Tutorial](https://apihandyman.io/writing-openapi-swagger-specification-tutorial-part-1-introduction/)
