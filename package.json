@@ -26,9 +26,9 @@
     "zone.js": "0.7.7"
   },
   "devDependencies": {
+    "typescript": "2.1.6"
     "sw-toolbox": "3.5.0",
     "@ionic/app-scripts": "1.0.1",
-    "typescript": "2.1.4"
   },
   "cordovaPlugins": [
     "cordova-plugin-whitelist",
