@@ -26,8 +26,8 @@
     "zone.js": "0.7.7"
   },
   "devDependencies": {
+    "sw-toolbox": "3.5.0",
     "@ionic/app-scripts": "1.0.1",
-    "sw-toolbox": "3.4.0",
     "typescript": "2.1.4"
   },
   "cordovaPlugins": [
