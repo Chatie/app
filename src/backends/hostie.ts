@@ -16,7 +16,7 @@ import 'rxjs/add/operator/catch'
 import {
   Hostie,
   HostieStatus,
-}               from '../models/hostie'
+}               from '@chatie/db'
 
 /**
  * How to build Angular 2 apps using Observable Data Services - Pitfalls to avoid
@@ -26,25 +26,25 @@ import {
 export class HostieBackend {
   private hostieList: Hostie[] = [
     {
-      id: 1,
+      id: '1',
       token: '111',
-      nick: 'lizhuohuan',
+      name: 'lizhuohuan',
       createTime: 4132412343241,
       note: 'zixia memo',
       status: HostieStatus.OFFLINE,
       version: '0.7.1',
       runtime: 'win32',
-    },
+    } as Hostie,
     {
-      id: 2,
+      id: '2',
       token: '222',
-      nick: 'I am hostie',
+      name: 'I am hostie',
       createTime: 1479609614286,
       note: 'token memo',
       status: HostieStatus.ONLINE,
       version: '0.7.0',
       runtime: 'docker',
-    },
+    } as Hostie,
   ]
 
   constructor(public http: Http) {
