@@ -18,6 +18,9 @@ import {
   OnDestroy,
 }                 from '@angular/core'
 import {
+  Database,
+}                 from '@ionic/cloud-angular'
+import {
   NavController,
   NavParams,
   reorderArray,
@@ -30,9 +33,8 @@ import {
 import {
   Hostie,
   HostieStatus,
-}                             from '@chatie/db'
-
-import { HostieStore }        from '../../providers/hostie-store'
+  HostieStore,
+}                 from '@chatie/db'
 
 import { HostieDetailsPage }  from '../hostie-details/'
 import { HostieCreatePage }   from '../hostie-create/'
@@ -46,18 +48,23 @@ export class HostieListPage implements OnInit, OnDestroy {
   hostieList: Hostie[]
   hostieListSubscription: Subscription
 
+  private hostieStore: HostieStore
+
   reordering = false
 
   constructor(
-    public navCtrl: NavController,
+    public database:  Database,
+    public navCtrl:   NavController,
     public navParams: NavParams,
-    public hostieStore: HostieStore,
   ) {
-
+    this.hostieStore = HostieStore.instance({
+      database,
+      log: null,
+    })
   }
 
   ngOnInit() {
-    this.hostieListSubscription = this.hostieStore.list().subscribe(list => {
+    this.hostieListSubscription = this.hostieStore.hosties.subscribe(list => {
       this.hostieList = list
     })
   }

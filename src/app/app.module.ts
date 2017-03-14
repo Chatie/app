@@ -11,6 +11,11 @@ import {
   ErrorHandler,
 }                     from '@angular/core'
 import {
+  CloudSettings,
+  CloudModule,
+}                     from '@ionic/cloud-angular'
+
+import {
   IonicApp,
   IonicModule,
   IonicErrorHandler,
@@ -25,13 +30,20 @@ import { HostieCreatePage }   from '../pages/hostie-create/'
 import { WelcomePage }        from '../pages/welcome/'
 import { LoginPage }          from '../pages/login/'
 
-import { HostieStore }        from '../providers/hostie-store'
+import { ChatieApp }          from './app.component'
 
-import { MyApp }      from './app.component'
+const cloudSettings: CloudSettings = {
+  'core': {
+    'app_id': 'f08d588e',
+  },
+  // 'database': {
+  //   'authType': 'authenticated',
+  // },
+}
 
 @NgModule({
   declarations: [
-    MyApp,
+    ChatieApp,
     DashboardPage,
     HostieDetailsPage,
     HostieListPage,
@@ -40,11 +52,12 @@ import { MyApp }      from './app.component'
     LoginPage,
 ],
   imports: [
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(ChatieApp),
+    CloudModule.forRoot(cloudSettings),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    ChatieApp,
     DashboardPage,
     HostieDetailsPage,
     HostieListPage,
@@ -54,7 +67,6 @@ import { MyApp }      from './app.component'
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HostieStore,
   ],
 })
 

@@ -31,7 +31,7 @@ import { LoginPage }      from '../pages/login/'
 @Component({
   templateUrl: 'app.html',
 })
-export class MyApp {
+export class ChatieApp {
   @ViewChild(Nav) nav: Nav
 
   // make HelloIonicPage the root (or first) page
