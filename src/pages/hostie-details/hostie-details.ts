@@ -10,10 +10,9 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 
-
 @Component({
   selector: 'page-hostie-details',
-  templateUrl: 'hostie-details.html'
+  templateUrl: 'hostie-details.html',
 })
 export class HostieDetailsPage {
   selectedItem: any;

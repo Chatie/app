@@ -40,7 +40,7 @@ import { MyApp }      from './app.component'
     LoginPage,
 ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
   entryComponents: [

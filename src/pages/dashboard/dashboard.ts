@@ -14,18 +14,19 @@ import {
 import {
   Hostie,
   HostieStatus,
-}                       from '../../models/hostie'
+}                       from '@chatie/db'
+
 import { HostieStore }  from '../../providers/hostie-store'
 
 @Component({
   selector: 'page-dashboard',
-  templateUrl: 'dashboard.html'
+  templateUrl: 'dashboard.html',
 })
 export class DashboardPage implements OnInit {
   hostieList: Hostie[]  = []
   hostieActiveNum       = 0
 
-  botieList       = [1,2,3]
+  botieList       = [1, 2, 3]
   botieActiveNum  = 1
 
   constructor(

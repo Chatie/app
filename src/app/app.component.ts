@@ -29,7 +29,7 @@ import { HostieCreatePage } from '../pages/hostie-create/'
 import { LoginPage }      from '../pages/login/'
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav
@@ -44,7 +44,7 @@ export class MyApp {
 
   constructor(
     public platform: Platform,
-    public menu: MenuController
+    public menu: MenuController,
   ) {
     this.initializeApp()
 

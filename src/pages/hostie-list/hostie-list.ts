@@ -30,7 +30,8 @@ import {
 import {
   Hostie,
   HostieStatus,
-}                             from '../../models/hostie'
+}                             from '@chatie/db'
+
 import { HostieStore }        from '../../providers/hostie-store'
 
 import { HostieDetailsPage }  from '../hostie-details/'
@@ -68,7 +69,7 @@ export class HostieListPage implements OnInit, OnDestroy {
   select(hostie, event) {
     console.log(event)
     this.navCtrl.push(HostieDetailsPage, {
-      hostie
+      hostie,
     })
   }
 

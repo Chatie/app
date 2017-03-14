@@ -15,7 +15,7 @@ import {
 
 import 'rxjs/add/operator/map'
 
-import { Hostie }        from '../models/hostie'
+import { Hostie }        from '@chatie/db'
 
 import { HostieBackend } from '../backends/hostie'
 
@@ -75,12 +75,10 @@ export class HostieStore {
   }
 
   search(id) {
-
+    //
   }
 
   update(hostie: Hostie) {
-
+    //
   }
 }
-
-
