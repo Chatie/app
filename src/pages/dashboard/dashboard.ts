@@ -13,7 +13,7 @@ import {
 
 import {
   Hostie,
-  HostieStatus
+  HostieStatus,
 }                       from '../../models/hostie'
 import { HostieStore }  from '../../providers/hostie-store'
 
