@@ -8,7 +8,7 @@
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
     "lint": "npm run tslint",
-    "tslint": "tslint \"{src,test}/**/*.ts\""
+    "tslint": "tslint \"{src,test}/**/*.ts\" && tsc --noEmit"
   },
   "dependencies": {
     "@angular/common": "2.4.8",
