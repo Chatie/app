@@ -26,11 +26,11 @@
     "zone.js": "0.7.7"
   },
   "devDependencies": {
+    "sw-toolbox": "3.6.0",
     "@ionic/app-scripts": "1.1.4",
     "typescript": "2.2.1",
     "@types/node": "^7.0.5",
     "cordova": "6.5.0",
-    "sw-toolbox": "3.5.0",
   },
   "cordovaPlugins": [
     "cordova-plugin-whitelist",
