@@ -21,6 +21,11 @@ import {
   IonicErrorHandler,
 }                     from 'ionic-angular'
 
+import {
+  Brolog,
+  LogLevel,
+}                     from 'brolog'
+
 import { DashboardPage }      from '../pages/dashboard/'
 
 import { HostieDetailsPage }  from '../pages/hostie-details/'
@@ -67,6 +72,7 @@ const cloudSettings: CloudSettings = {
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {provide: Brolog, useClass: Brolog('verbose')},
   ],
 })
 

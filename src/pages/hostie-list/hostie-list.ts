@@ -30,6 +30,8 @@ import {
   Subscription,
 }                 from 'rxjs'
 
+import { Brolog } from 'brolog'
+
 import {
   Hostie,
   HostieStatus,
@@ -53,23 +55,30 @@ export class HostieListPage implements OnInit, OnDestroy {
   reordering = false
 
   constructor(
-    public database:  Database,
-    public navCtrl:   NavController,
-    public navParams: NavParams,
+    private database:  Database,
+    private log:       Brolog,
+    private navCtrl:   NavController,
+    private navParams: NavParams,
   ) {
+    this.log.verbose('HostieListPage', 'constructor()')
+
     this.hostieStore = HostieStore.instance({
       database,
-      log: null,
+      log,
     })
   }
 
   ngOnInit() {
+    this.log.verbose('HostieListPage', 'ngOnInit()')
+
     this.hostieListSubscription = this.hostieStore.hosties.subscribe(list => {
       this.hostieList = list
     })
   }
 
   ngOnDestroy() {
+    this.log.verbose('HostieListPage', 'ngOnDestroy()')
+
     this.hostieListSubscription.unsubscribe()
   }
 
