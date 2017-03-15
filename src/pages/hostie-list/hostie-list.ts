@@ -50,13 +50,13 @@ export class HostieListPage implements OnInit, OnDestroy {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public hostieStore: HostieStore,
+    public store: HostieStore,
   ) {
 
   }
 
   ngOnInit() {
-    this.hostieListSubscription = this.hostieStore.list().subscribe(list => {
+    this.hostieListSubscription = this.store.hosties.subscribe(list => {
       this.hostieList = list
     })
   }
@@ -82,7 +82,7 @@ export class HostieListPage implements OnInit, OnDestroy {
   }
 
   hostieIcon(hostie: Hostie) {
-    if (hostie.status === HostieStatus.ONLINE) {
+    if (hostie.status === HostieStatus.Online) {
       return 'ios-cloud-upload'
     }
     return 'ios-cloud-upload-outline'

@@ -37,7 +37,7 @@ export class DashboardPage implements OnInit {
   ngOnInit() {
     this.hostieStore.list().subscribe(list => {
       this.hostieList       = list
-      this.hostieActiveNum  = list.filter( l => l.status === HostieStatus.ONLINE )
+      this.hostieActiveNum  = list.filter( l => l.status === HostieStatus.Online )
                                   .length
     })
   }

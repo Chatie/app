@@ -11,70 +11,67 @@ import { Http }       from '@angular/http'
 import {
   BehaviorSubject,
   Observable,
-}                     from 'rxjs'
+}                     from  'rxjs'
+import                      'rxjs/add/operator/map'
 
-import 'rxjs/add/operator/map'
+import {
+  Hostie,
+  HostieBackend,
+  HostieStatus,
+}                 from '../backends/hostie-backend'
 
-import { Hostie }        from '../models/hostie'
-
-import { HostieBackend } from '../backends/hostie'
-
-/**
- * How to build Angular 2 apps using Observable Data Services - Pitfalls to avoid
- * http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/
- *
- * 3 Common Rxjs Pitfalls that you might find while building Angular 2 Applications
- * http://blog.angular-university.io/angular-2-rxjs-common-pitfalls/
- */
 @Injectable()
 export class HostieStore {
-  private hostieList:  BehaviorSubject<Hostie[]> = new BehaviorSubject([])
-  private hostieBackend: HostieBackend
+  private backend: HostieBackend
+
+  private _hosties:  BehaviorSubject<Hostie[]> = new BehaviorSubject([])
+  get hosties() {
+    return this._hosties
+                .asObservable()
+                .share()
+  }
 
   constructor(
     private http: Http,
   ) {
     console.log('Hello Hostie Provider')
-    this.hostieBackend = new HostieBackend(http)
-    this.hostieList.next(this.hostieBackend.list())
+    this.backend = new HostieBackend(http)
+    this._hosties.next(this.backend.list())
   }
 
-  add(newHostie: Hostie): Observable<boolean> {
-    const obs = this.hostieBackend.add(newHostie)
+  insert(newHostie: Hostie): Observable<boolean> {
+    const obs = this.backend.insert(newHostie)
 
     obs.subscribe(res => {
-      const hostieList = this.hostieList.getValue()
-      hostieList.push(newHostie)
+      const newHosties = this._hosties.getValue()
+      newHosties.push(newHostie)
 
-      this.hostieList.next(hostieList)
+      this._hosties.next(newHosties)
     })
 
     return obs
   }
 
-  del(delHostie: Hostie): Observable<boolean> {
-    const obs = this.hostieBackend.del(delHostie)
+  remove(delHostie: Hostie): Observable<boolean> {
+    const obs = this.backend.remove(delHostie)
 
     obs.subscribe(res => {
-      const hostieList = this.hostieList.getValue()
+      const hostieList = this._hosties.getValue()
 
-      hostieList.forEach((hostie, idx) => {
+      hostieList.some((hostie, idx) => {
         if (hostie.id === delHostie.id) {
           hostieList.splice(idx, 1)
-
-          this.hostieList.next(hostieList)
+          this._hosties.next(hostieList)
+          return true
         }
+        return false
       })
     })
 
     return obs
   }
 
-  list(): Observable<Hostie[]> {
-    return this.hostieList.asObservable()
-  }
-
-  search(id) {
+  find(id: string) {
 
   }
 
@@ -83,4 +80,4 @@ export class HostieStore {
   }
 }
 
-
+export { Hostie }

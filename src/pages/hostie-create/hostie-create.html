@@ -15,26 +15,71 @@
 
 <ion-content padding>
 
-  <ion-item no-lines>
-    <ion-icon name="cloud-upload"></ion-icon>
-    testab
+  <ion-item
+    no-lines
+  >
+    <ion-icon
+      name="md-home"
+      item-left
+    ></ion-icon>
+    <h2>
+      Hostie
+    </h2>
+    <p>
+      The place where bot lives in.
+    </p>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Token</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input
+      [(ngModel)]="token"
+      type="text"
+    ></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Nick(optional)</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input
+      [(ngModel)]="nick"
+      type="text"
+    ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Note(optional)</ion-label>
+    <ion-textarea
+      [(ngModel)]="note"
+    ></ion-textarea>
   </ion-item>
 
   <ion-item-divider no-lines></ion-item-divider>
 
-  <button ion-button block>
+  <button
+    ion-button
+    block
+    (click)="create()"
+  >
     <ion-icon name="checkmark"></ion-icon>
     Done
   </button>
 
+  <ion-item-divider no-lines></ion-item-divider>
+
+  <div>
+    <h3>What is a Hostie?</h3>
+
+    <p>
+      <strong>Hostie</strong> is the home for Botie. In order to make a Botie work, you need a Hostie to run Botie.
+    </p>
+
+    <p>More technic:</p>
+
+    <ol>
+      <li>
+        <strong>Hostie</strong> is a Wechaty Runtime with CPU &amp; Memory &amp; Network resources.</li>
+      <li>
+        <strong>Botie</strong> is a group of Functions(Gifties) that you want your bot behavior.</li>
+    </ol>
+  </div>
 </ion-content>

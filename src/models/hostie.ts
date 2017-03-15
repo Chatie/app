@@ -1,15 +1,15 @@
 export enum HostieStatus {
-  OFFLINE = 0,
-  ONLINE  = 1,
+  Offline = 0,
+  Online  = 1,
 }
 
 export type Hostie = {
-  id:         number,
+  id?:         number,
   token:      string,
   nick:       string,
-  createTime: number,
-  note:       string,
-  status:     HostieStatus,
-  version:    string,
-  runtime:    string,
+  createTime?: number,
+  note?:       string,
+  status?:     HostieStatus,
+  version?:    string,
+  runtime?:    string,
 }
