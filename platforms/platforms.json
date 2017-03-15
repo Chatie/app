@@ -1,5 +1,8 @@
 {
+<<<<<<< HEAD
     "ios": "4.3.1",
     "android": "6.1.0",
+=======
+>>>>>>> 66ddebd5bb2f4e6aca85cac451f142af3d56fdb2
     "browser": "4.1.0"
 }

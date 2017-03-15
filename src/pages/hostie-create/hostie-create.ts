@@ -8,7 +8,7 @@ import {
 
 @Component({
   selector: 'page-hostie-create',
-  templateUrl: 'hostie-create.html'
+  templateUrl: 'hostie-create.html',
 })
 export class HostieCreatePage {
   token: string

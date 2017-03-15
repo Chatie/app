@@ -13,7 +13,7 @@ import { DashboardPage } from '../dashboard/'
 
 @Component({
   selector: 'page-welcome',
-  templateUrl: 'welcome.html'
+  templateUrl: 'welcome.html',
 })
 
 export class WelcomePage {
@@ -24,7 +24,7 @@ export class WelcomePage {
     console.log('Hello WelcomePage Page')
   }
 
-  goToDashboard(){
+  goToDashboard() {
     this.navCtrl.setRoot(DashboardPage)
   }
 }

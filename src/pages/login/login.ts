@@ -14,7 +14,7 @@ import { NavController } from 'ionic-angular'
 export class LoginPage {
 
   constructor(
-    public navCtrl: NavController
+    public navCtrl: NavController,
   ) {
 
   }

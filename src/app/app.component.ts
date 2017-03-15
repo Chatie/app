@@ -29,22 +29,22 @@ import { HostieCreatePage } from '../pages/hostie-create/'
 import { LoginPage }      from '../pages/login/'
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
 })
-export class MyApp {
+export class ChatieApp {
   @ViewChild(Nav) nav: Nav
 
   // make HelloIonicPage the root (or first) page
   // rootPage: any = WelcomePage
   // rootPage: any = DashboardPage
-  // rootPage: any = HostieListPage
-  rootPage: any = HostieCreatePage
+  rootPage: any = HostieListPage
+  // rootPage: any = HostieCreatePage
 
   pages: Array<{title: string, component: any}>
 
   constructor(
     public platform: Platform,
-    public menu: MenuController
+    public menu: MenuController,
   ) {
     this.initializeApp()
 

@@ -18,6 +18,9 @@ import {
   OnDestroy,
 }                 from '@angular/core'
 import {
+  Database,
+}                 from '@ionic/cloud-angular'
+import {
   NavController,
   NavParams,
   reorderArray,
@@ -27,11 +30,13 @@ import {
   Subscription,
 }                 from 'rxjs'
 
+import { Brolog } from 'brolog'
+
 import {
   Hostie,
   HostieStatus,
-}                             from '../../models/hostie'
-import { HostieStore }        from '../../providers/hostie-store'
+  HostieStore,
+}                 from '@chatie/db'
 
 import { HostieDetailsPage }  from '../hostie-details/'
 import { HostieCreatePage }   from '../hostie-create/'
@@ -45,30 +50,43 @@ export class HostieListPage implements OnInit, OnDestroy {
   hostieList: Hostie[]
   hostieListSubscription: Subscription
 
+  private hostieStore: HostieStore
+
   reordering = false
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public store: HostieStore,
+    private database:  Database,
+    private log:       Brolog,
+    private navCtrl:   NavController,
+    private navParams: NavParams,
   ) {
+    this.log.verbose('HostieListPage', 'constructor()')
 
+    this.hostieStore = HostieStore.instance({
+      database,
+      log,
+    })
   }
 
   ngOnInit() {
-    this.hostieListSubscription = this.store.hosties.subscribe(list => {
+    this.log.verbose('HostieListPage', 'ngOnInit()')
+
+    this.hostieListSubscription = this.hostieStore.hosties.subscribe(list => {
+      this.log.silly('HostieListPage', 'ngOnInit() subscript list: %s', list)
       this.hostieList = list
     })
   }
 
   ngOnDestroy() {
+    this.log.verbose('HostieListPage', 'ngOnDestroy()')
+
     this.hostieListSubscription.unsubscribe()
   }
 
   select(hostie, event) {
-    console.log(event)
+    this.log.verbose('HostieListPage', 'select(%s, %s)', hostie.id, event)
     this.navCtrl.push(HostieDetailsPage, {
-      hostie
+      hostie,
     })
   }
 
