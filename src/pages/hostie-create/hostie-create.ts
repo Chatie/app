@@ -1,22 +1,43 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component }      from '@angular/core'
+import { NavController }  from 'ionic-angular'
 
-/*
-  Generated class for the NewHostie page.
+import {
+  Hostie,
+  HostieStatus,
+  HostieStore,
+}                 from '@chatie/db'
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-hostie-create',
   templateUrl: 'hostie-create.html',
 })
 export class HostieCreatePage {
+  token: string
+  nick: string
+  note: string
 
-  constructor(public navCtrl: NavController) {}
+  constructor(
+    public navCtrl: NavController,
+    public hostieStore: HostieStore,
+  ) {
+
+  }
 
   ionViewDidLoad() {
     console.log('Hello HostieCreate Page');
   }
 
+  create() {
+    console.log('create', this.nick)
+
+    const newHostie: Hostie = {
+      token:      this.token,
+      name:       this.nick,
+      updateTime: 222,
+      status:     HostieStatus.OFFLINE,
+      createTime: Date.now(),
+    }
+
+    this.hostieStore.insert(newHostie)
+  }
 }
