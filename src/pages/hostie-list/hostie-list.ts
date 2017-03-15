@@ -72,6 +72,7 @@ export class HostieListPage implements OnInit, OnDestroy {
     this.log.verbose('HostieListPage', 'ngOnInit()')
 
     this.hostieListSubscription = this.hostieStore.hosties.subscribe(list => {
+      this.log.silly('HostieListPage', 'ngOnInit() subscript list: %s', list)
       this.hostieList = list
     })
   }
@@ -83,7 +84,7 @@ export class HostieListPage implements OnInit, OnDestroy {
   }
 
   select(hostie, event) {
-    console.log(event)
+    this.log.verbose('HostieListPage', 'select(%s, %s)', hostie.id, event)
     this.navCtrl.push(HostieDetailsPage, {
       hostie,
     })

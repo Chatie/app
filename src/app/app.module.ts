@@ -72,7 +72,7 @@ const cloudSettings: CloudSettings = {
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    {provide: Brolog, useClass: Brolog('verbose')},
+    {provide: Brolog, useClass: Brolog('silly')},
   ],
 })
 

@@ -37,8 +37,8 @@ export class ChatieApp {
   // make HelloIonicPage the root (or first) page
   // rootPage: any = WelcomePage
   // rootPage: any = DashboardPage
-  // rootPage: any = HostieListPage
-  rootPage: any = HostieCreatePage
+  rootPage: any = HostieListPage
+  // rootPage: any = HostieCreatePage
 
   pages: Array<{title: string, component: any}>
 
