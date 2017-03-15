@@ -20,6 +20,7 @@ import {
   HostieStatus,
 }                 from '../backends/hostie-backend'
 
+
 @Injectable()
 export class HostieStore {
   private backend: HostieBackend

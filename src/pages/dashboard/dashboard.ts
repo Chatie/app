@@ -51,7 +51,7 @@ export class DashboardPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.hostieStore.hosties.subscribe(list => {
       this.hostieList       = list
-      this.hostieActiveNum  = list.filter( l => l.status === HostieStatus.Online )
+      this.hostieActiveNum  = list.filter( l => l.status === HostieStatus.ONLINE )
                                   .length
     })
   }
