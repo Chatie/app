@@ -100,7 +100,7 @@ export class HostieListPage implements OnInit, OnDestroy {
   }
 
   hostieIcon(hostie: Hostie) {
-    if (hostie.status === HostieStatus.Online) {
+    if (hostie.status === HostieStatus.ONLINE) {
       return 'ios-cloud-upload'
     }
     return 'ios-cloud-upload-outline'

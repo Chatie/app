@@ -2,9 +2,10 @@ import { Component }      from '@angular/core'
 import { NavController }  from 'ionic-angular'
 
 import {
-  HostieStore,
   Hostie,
-}                 from '../../providers/hostie-store'
+  HostieStatus,
+  HostieStore,
+}                 from '@chatie/db'
 
 @Component({
   selector: 'page-hostie-create',
@@ -31,7 +32,9 @@ export class HostieCreatePage {
 
     const newHostie: Hostie = {
       token:      this.token,
-      nick:       this.nick,
+      name:       this.nick,
+      updateTime: 222,
+      status:     HostieStatus.OFFLINE,
       createTime: Date.now(),
     }
 
