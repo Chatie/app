@@ -22,12 +22,25 @@ npm run lint
   npm version patch
   WECHATY_INNER_PRE_HOOK=1 git push
 
-  echo
+  cat <<'_STR_'
+  ____ _ _        ____            _
+ / ___(_) |_     |  _ \ _   _ ___| |__
+| |  _| | __|    | |_) | | | / __| '_ \
+| |_| | | |_     |  __/| |_| \__ \ | | |
+ \____|_|\__|    |_|    \__,_|___/_| |_|
+
+ ____                              _ _
+/ ___| _   _  ___ ___ ___  ___  __| | |
+\___ \| | | |/ __/ __/ _ \/ _ \/ _` | |
+ ___) | |_| | (_| (_|  __/  __/ (_| |_|
+|____/ \__,_|\___\___\___|\___|\__,_(_)
+
+_STR_
+
   echo
   echo
   echo " ### Npm verion bumped and pushed by inner push inside hook pre-push ###"
   echo " ------- vvvvvvv outer push will be canceled, never mind vvvvvvv -------"
-  echo
   echo
   echo
   exit 127
