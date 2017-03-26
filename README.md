@@ -1,4 +1,4 @@
-# wechaty-ionic
+# chatie-app
 Wechaty Android &amp; Ios App
 
 Chatie.io - Make your own ChatBot in no language, in minutes.
