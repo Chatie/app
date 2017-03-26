@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="io.wechaty.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Wechaty</name>
+<widget id="io.chatie.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Chatie</name>
   <description>Your Cloud ChatBot Manager</description>
-  <author email="dev@wechaty.io" href="https://github.com/wechaty/">Wechaty Team</author>
+  <author email="dev@chatie.io" href="https://github.com/chatie/">Chatie Team</author>
   <content src="index.html"/>
   <access origin="*"/>
   <allow-intent href="http://*/*"/>
