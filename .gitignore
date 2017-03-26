@@ -66,3 +66,4 @@ jspm_packages
 
 res/
 yarn.lock
+t.*
