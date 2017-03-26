@@ -37,9 +37,11 @@ import { LoginPage }          from '../pages/login/'
 
 import { ChatieApp }          from './app.component'
 
+const ionicConfig = require('../../ionic.config.json')
+
 const cloudSettings: CloudSettings = {
   'core': {
-    'app_id': 'f08d588e',
+    'app_id': ionicConfig['app_id'],
   },
   // 'database': {
   //   'authType': 'authenticated',
