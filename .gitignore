@@ -67,3 +67,5 @@ jspm_packages
 res/
 yarn.lock
 t.*
+www.zip
+.io-config.json
