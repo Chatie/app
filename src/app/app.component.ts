@@ -20,13 +20,13 @@ import {
   Splashscreen,
 }                   from 'ionic-native'
 
-import { DashboardPage }  from '../pages/dashboard/'
+import { DashboardPage }    from '../pages/dashboard/'
 
-import { HostieListPage } from '../pages/hostie-list/'
+import { HostieListPage }   from '../pages/hostie-list/'
 import { HostieCreatePage } from '../pages/hostie-create/'
 // import { WelcomePage }    from '../pages/welcome/'
 
-import { LoginPage }      from '../pages/login/'
+import { LoginPage }        from '../pages/login/'
 
 @Component({
   templateUrl: 'app.html',

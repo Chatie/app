@@ -32,22 +32,22 @@
 
   <ion-item>
     <ion-label floating>Token</ion-label>
-    <ion-input
+    <ion-input disabled
       [(ngModel)]="token"
       type="text"
     ></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label floating>Nick(optional)</ion-label>
+    <ion-label floating>Name</ion-label>
     <ion-input
-      [(ngModel)]="nick"
+      [(ngModel)]="name"
       type="text"
     ></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label floating>Note(optional)</ion-label>
+    <ion-label floating>Note</ion-label>
     <ion-textarea
       [(ngModel)]="note"
     ></ion-textarea>
@@ -58,9 +58,16 @@
   <button
     ion-button
     block
+    [disabled]="loading"
     (click)="create()"
   >
-    <ion-icon name="checkmark"></ion-icon>
+    <ion-icon
+      *ngIf="!loading"
+      name="checkmark"
+    ></ion-icon>
+    <ion-spinner
+      *ngIf="loading"
+    ></ion-spinner>
     Done
   </button>
 

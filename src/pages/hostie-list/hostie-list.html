@@ -15,16 +15,16 @@
     [reorder]="reordering"
     (ionItemReorder)="reorder($event)"
   >
-    <ion-item-sliding>
+    <ion-item-sliding
+      *ngFor="let hostie of hostieStore.hosties | async"
+    >
 
       <button ion-item
-        *ngFor="let hostie of store.hosties"
         (click)="select(hostie, $event)"
       >
 
-        <ion-icon
+        <ion-icon item-left
           [name]="hostieIcon(hostie)"
-          item-left
         ></ion-icon>
 
         {{ hostie.name }}
@@ -35,8 +35,11 @@
 
       </button>
 
-      <ion-item-options side="right">
-        <button ion-button>
+      <ion-item-options>
+        <button ion-button
+          color="danger"
+          (click)="trash(hostie)"
+        >
           <ion-icon name="trash"></ion-icon>
           Trash
         </button>
@@ -49,8 +52,5 @@
   <button ion-button block clear (click)="add()">
     <ion-icon name="add"></ion-icon>
   </button>
-<pre>
-    reordering: {{ reordering }}
-</pre>
 
 </ion-content>

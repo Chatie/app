@@ -106,6 +106,11 @@ export class HostieListPage implements OnInit, OnDestroy {
     return 'ios-cloud-upload-outline'
   }
 
+  trash(hostie: Hostie) {
+    this.log.verbose('HostieListPage', 'trash(%s)', hostie.id)
+    this.hostieStore.remove(hostie.id)
+  }
+
   add() {
     this.navCtrl.push(HostieCreatePage)
   }
