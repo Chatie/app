@@ -16,7 +16,8 @@
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
     "lint": "npm run tslint",
-    "tslint": "tslint \"{src,test}/**/*.ts\" && tsc --noEmit"
+    "tslint": "tslint \"{src,test}/**/*.ts\" && tsc --noEmit",
+    "upload": "ionic upload"
   },
   "dependencies": {
     "@angular/common": "2.4.8",
