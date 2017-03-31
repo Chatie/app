@@ -39,6 +39,7 @@ _STR_
 
   echo
   echo
+  echo
   echo " ### Npm verion bumped and pushed by inner push inside hook pre-push ###"
   echo " ------- vvvvvvv outer push will be canceled, never mind vvvvvvv -------"
   echo
