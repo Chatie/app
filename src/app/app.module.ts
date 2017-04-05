@@ -26,11 +26,13 @@ import {
   LogLevel,
 }                     from 'brolog'
 
+import { AboutPage }          from '../pages/about/'
 import { DashboardPage }      from '../pages/dashboard/'
 
 import { HostieDetailsPage }  from '../pages/hostie-details/'
 import { HostieListPage }     from '../pages/hostie-list/'
 import { HostieCreatePage }   from '../pages/hostie-create/'
+import { SettingPage }        from '../pages/setting/'
 
 import { WelcomePage }        from '../pages/welcome/'
 import { LoginPage }          from '../pages/login/'
@@ -51,12 +53,15 @@ const cloudSettings: CloudSettings = {
 @NgModule({
   declarations: [
     ChatieApp,
+    // Pages
+    AboutPage,
     DashboardPage,
+    HostieCreatePage,
     HostieDetailsPage,
     HostieListPage,
-    HostieCreatePage,
-    WelcomePage,
     LoginPage,
+    SettingPage,
+    WelcomePage,
 ],
   imports: [
     IonicModule.forRoot(ChatieApp),
@@ -65,12 +70,15 @@ const cloudSettings: CloudSettings = {
   bootstrap: [IonicApp],
   entryComponents: [
     ChatieApp,
+    // Pages
+    AboutPage,
     DashboardPage,
+    HostieCreatePage,
     HostieDetailsPage,
     HostieListPage,
-    HostieCreatePage,
-    WelcomePage,
     LoginPage,
+    SettingPage,
+    WelcomePage,
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

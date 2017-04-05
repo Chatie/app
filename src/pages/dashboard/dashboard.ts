@@ -18,6 +18,8 @@ import {
   Subscription,
 }                   from 'rxjs'
 
+import { Brolog }   from 'brolog'
+
 import {
   Hostie,
   HostieStatus,
@@ -25,8 +27,8 @@ import {
 }                   from '@chatie/db'
 
 @Component({
-  selector: 'page-dashboard',
-  templateUrl: 'dashboard.html',
+  selector:     'page-dashboard',
+  templateUrl:  'dashboard.html',
 })
 export class DashboardPage implements OnInit, OnDestroy {
   private subscription: Subscription
@@ -40,8 +42,10 @@ export class DashboardPage implements OnInit, OnDestroy {
   botieActiveNum  = 1
 
   constructor(
+    private log:      Brolog,
     private database: Database,
   ) {
+    this.log.verbose('DashboardPage', 'constructor()')
     this.hostieStore = HostieStore.instance({
       database,
       log: null,
@@ -49,6 +53,7 @@ export class DashboardPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.log.verbose('DashboardPage', 'ngOnInit()')
     this.subscription = this.hostieStore.hosties.subscribe(list => {
       this.hostieList       = list
       this.hostieActiveNum  = list.filter( l => l.status === HostieStatus.ONLINE )
@@ -57,6 +62,7 @@ export class DashboardPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.log.verbose('DashboardPage', 'ngOnDestroy()')
     this.subscription.unsubscribe()
   }
 }

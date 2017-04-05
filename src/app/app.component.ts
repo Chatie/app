@@ -22,12 +22,14 @@ import {
   Splashscreen,
 }                   from 'ionic-native'
 
+import { Brolog }   from 'brolog'
+
 import { DashboardPage }    from '../pages/dashboard/'
 
 import { HostieListPage }   from '../pages/hostie-list/'
 import { HostieCreatePage } from '../pages/hostie-create/'
 // import { WelcomePage }    from '../pages/welcome/'
-
+import { SettingPage }      from '../pages/setting/'
 import { LoginPage }        from '../pages/login/'
 
 @Component({
@@ -42,22 +44,28 @@ export class ChatieApp {
   rootPage: any = HostieListPage
   // rootPage: any = HostieCreatePage
 
-  pages: Array<{title: string, component: any}>
+  pages: Array<{
+    title: string,
+    icon: string,
+    component: any,
+  }>
 
   constructor(
     public auth:      Auth,
+    public log:       Brolog,
     public platform:  Platform,
     public menu:      MenuController,
   ) {
     this.initializeApp()
 
-    // set our app's pages
+    // // set our app's pages
     this.pages = [
-      { title: 'Dashboard'  , component: DashboardPage },
-      // { title: 'Giftie List', component: GiftieListPage },
-      // { title: 'Botie List' , component: BotieListPage },
-      { title: 'Hostie List', component: HostieListPage },
-      { title: 'Login'      , component: LoginPage },
+      { title: 'Dashboard'  , icon: 'speedometer' , component: DashboardPage },
+      // { title: 'Gifties'    , icon: 'flash'       , component: GiftieListPage },
+      // { title: 'Boties'     , icon: 'logo-android', component: BotieListPage },
+      { title: 'Hosties'    , icon: 'home'        , component: HostieListPage },
+      // { title: 'Feedback'   , icon: 'people'      , component: FeedbackPage },
+      { title: 'Setting'    , icon: 'cog'         , component: SettingPage },
     ]
   }
 
@@ -79,6 +87,8 @@ export class ChatieApp {
   }
 
   openPage(page) {
+    this.log.verbose('ChatieApp', 'openPage(%s)', page)
+
     // close the menu when clicking a link from the menu
     this.menu.close()
     // navigate to the new page if it is not the current page

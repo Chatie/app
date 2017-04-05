@@ -1,0 +1,97 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>About</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+
+    <ion-list-header>
+      Chatie v{{ version }}
+    </ion-list-header>
+
+    <button
+      ion-item
+      block
+      (click)="rate()"
+    >
+      <ion-icon name="star"></ion-icon>
+      Rate Chatie
+    </button>
+
+    <button
+      ion-item
+      block
+      (click)="releaseNote()"
+    >
+      <ion-icon name="paper"></ion-icon>
+      Release Notes
+    </button>
+
+    <button
+      ion-item
+      block
+      (click)="feedback()"
+    >
+      <ion-icon name="people"></ion-icon>
+      Feedback
+    </button>
+
+    <button
+      ion-item
+      block
+      (click)="status()"
+    >
+      <ion-icon name="pulse"></ion-icon>
+      Status
+    </button>
+
+    <button
+      ion-item
+      block
+      (click)="help()"
+    >
+      <ion-icon name="help"></ion-icon>
+      Help
+    </button>
+
+    <button
+      ion-item
+      block
+      (click)="update()"
+    >
+      <ion-icon name="refresh"></ion-icon>
+      Check for Update
+    </button>
+
+    <button
+      ion-item
+      block
+      (click)="github()"
+    >
+      <ion-icon name="logo-github"></ion-icon>
+      Github
+    </button>
+
+    <button
+      ion-item
+      block
+      (click)="issue()"
+    >
+      <ion-icon name="bug"></ion-icon>
+      Submit Issue
+    </button>
+
+  </ion-list>
+
+  <div align="center">
+    Copyright © 2017 ♥
+    @<a href="https://twitter.com/zixia">zixia</a>
+  </div>
+
+</ion-content>
