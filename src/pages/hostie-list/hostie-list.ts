@@ -83,7 +83,7 @@ export class HostieListPage implements OnInit, OnDestroy {
     this.hostieListSubscription.unsubscribe()
   }
 
-  select(hostie, event) {
+  select(hostie: Hostie, event) {
     this.log.verbose('HostieListPage', 'select(%s, %s)', hostie.id, event)
     this.navCtrl.push(HostieDetailsPage, {
       hostie,

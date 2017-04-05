@@ -8,11 +8,39 @@
 </ion-header>
 
 <ion-content>
-  <h3 text-center *ngIf="hostie">
-    {{hostie.name}}
-    <ion-icon [name]="hostie.icon"></ion-icon>
-  </h3>
-  <h4 text-center *ngIf="hostie">
-    You navigated here from <b>{{hostie.token}}</b>
-  </h4>
+
+  <ion-item>
+    <ion-icon name="home"></ion-icon>
+    {{ hostie.nick }}
+    <ion-note>
+      create at {{ hostie.createTime }}
+    </ion-note>
+  </ion-item>
+
+  <div>
+    <p>Status: {{ online() ? 'Online' : 'Offline' }}</p>
+    <p>Create: {{ hostie.createTime }}</p>
+  </div>
+
+  <ion-list>
+    <div *ngIf="online()">
+      <p>Hostie environment:</p>
+      <ion-item>
+        Wechaty v{{ hostie.version }}
+        <ion-icon [name]="icon()"></ion-icon>
+      </ion-item>
+    </div>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      Token
+    </ion-item>
+    <ion-item>
+      {{ hostie.token }}
+      <ion-icon name="copy"></ion-icon>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
+
