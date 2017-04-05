@@ -46,9 +46,9 @@ export class LoginPage {
   }
 
   async loginEmail(): Promise<void> {
-    this.log.verbose('LoginPage', 'loginEmail() with email:%s password:%s'
-                                , this.email
-                                , this.password
+    this.log.verbose('LoginPage', 'loginEmail() with email:%s password:%s',
+                                  this.email,
+                                  this.password,
                     )
 
     let details = {
@@ -70,9 +70,9 @@ export class LoginPage {
       this.hideLoader()
 
       this.alertCtrl.create({
-        title:'Login Error',
-        subTitle:'Exception: ' + e.message,
-        buttons:['OK']
+        title:    'Login Error',
+        subTitle: 'Exception: ' + e.message,
+        buttons:  ['OK'],
       }).present()
 
     }
@@ -89,21 +89,20 @@ export class LoginPage {
       return
     }
 
-
     try {
       const authLoginResult = await this.auth.login('github')
       if (authLoginResult.signup) {
-        this.log.verbose('LoginPage', 'login() new user signup for %s'
-                                    , this.user.social.github.uid
+        this.log.verbose('LoginPage', 'login() new user signup for %s',
+                                      this.user.social.github.uid,
                         )
       } else {
-        this.log.verbose('LoginPage', 'login() returned user login for %s'
-                                    , this.user.social.github.uid
+        this.log.verbose('LoginPage', 'login() returned user login for %s',
+                                      this.user.social.github.uid,
                         )
       }
 
-      this.log.silly('LoginPage', 'login() %s'
-                                , JSON.stringify(this.user.social.github.data)
+      this.log.silly('LoginPage', 'login() %s',
+                                  JSON.stringify(this.user.social.github.data),
                     )
 
       const github = this.user.social.github
@@ -121,9 +120,9 @@ export class LoginPage {
       this.log.warn('LoginPage', 'loginGithub() %s', e.message)
 
       this.alertCtrl.create({
-        title:'Login Error',
-        subTitle:'Exception: ' + e.message,
-        buttons:['OK']
+        title:    'Login Error',
+        subTitle: 'Exception: ' + e.message,
+        buttons:  ['OK'],
       }).present()
 
     }
@@ -139,7 +138,7 @@ export class LoginPage {
     this.log.verbose('LoginPage', 'showLoader()')
 
     this.loading = this.loadingCtrl.create({
-      content: "Loading..."
+      content: 'Loading...',
     })
     this.loading.present()
   }

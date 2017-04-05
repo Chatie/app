@@ -70,7 +70,7 @@ export class ChatieApp {
     Splashscreen.hide()
 
     // https://www.raymondcamden.com/2016/11/04/an-example-of-the-ionic-auth-service-with-ionic-2
-    if(this.auth.isAuthenticated()) {
+    if (this.auth.isAuthenticated()) {
       this.rootPage = DashboardPage
     } else {
       this.rootPage = LoginPage
