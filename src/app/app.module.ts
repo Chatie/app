@@ -26,17 +26,6 @@ import {
   LogLevel,
 }                     from 'brolog'
 
-import { AboutPage }          from '../pages/about/'
-import { DashboardPage }      from '../pages/dashboard/'
-
-import { HostieDetailsPage }  from '../pages/hostie-details/'
-import { HostieListPage }     from '../pages/hostie-list/'
-import { HostieCreatePage }   from '../pages/hostie-create/'
-import { SettingPage }        from '../pages/setting/'
-
-import { WelcomePage }        from '../pages/welcome/'
-import { LoginPage }          from '../pages/login/'
-
 import { ChatieApp }          from './app.component'
 
 const ionicConfig = require('../../ionic.config.json')
@@ -50,12 +39,26 @@ const cloudSettings: CloudSettings = {
   // },
 }
 
+/**
+ * Pages
+ */
+import { AboutPage }          from '../pages/about/'
+import { DashboardPage }      from '../pages/dashboard/'
+import { FeedbackPage }       from '../pages/feedback/'
+import { HostieDetailsPage }  from '../pages/hostie-details/'
+import { HostieListPage }     from '../pages/hostie-list/'
+import { HostieCreatePage }   from '../pages/hostie-create/'
+import { LoginPage }          from '../pages/login/'
+import { SettingPage }        from '../pages/setting/'
+import { WelcomePage }        from '../pages/welcome/'
+
 @NgModule({
   declarations: [
     ChatieApp,
     // Pages
     AboutPage,
     DashboardPage,
+    FeedbackPage,
     HostieCreatePage,
     HostieDetailsPage,
     HostieListPage,
@@ -73,6 +76,7 @@ const cloudSettings: CloudSettings = {
     // Pages
     AboutPage,
     DashboardPage,
+    FeedbackPage,
     HostieCreatePage,
     HostieDetailsPage,
     HostieListPage,

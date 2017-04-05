@@ -26,11 +26,12 @@ import { Brolog }   from 'brolog'
 
 import { DashboardPage }    from '../pages/dashboard/'
 
+import { FeedbackPage }     from '../pages/feedback/'
 import { HostieListPage }   from '../pages/hostie-list/'
 import { HostieCreatePage } from '../pages/hostie-create/'
-// import { WelcomePage }    from '../pages/welcome/'
-import { SettingPage }      from '../pages/setting/'
 import { LoginPage }        from '../pages/login/'
+import { SettingPage }      from '../pages/setting/'
+// import { WelcomePage }    from '../pages/welcome/'
 
 @Component({
   templateUrl: 'app.html',
@@ -64,7 +65,7 @@ export class ChatieApp {
       // { title: 'Gifties'    , icon: 'flash'       , component: GiftieListPage },
       // { title: 'Boties'     , icon: 'logo-android', component: BotieListPage },
       { title: 'Hosties'    , icon: 'home'        , component: HostieListPage },
-      // { title: 'Feedback'   , icon: 'people'      , component: FeedbackPage },
+      { title: 'Feedback'   , icon: 'people'      , component: FeedbackPage },
       { title: 'Setting'    , icon: 'cog'         , component: SettingPage },
     ]
   }
