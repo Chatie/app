@@ -10,6 +10,8 @@ import {
   Component,
   ViewChild,
 }                   from '@angular/core'
+
+import { Auth }     from '@ionic/cloud-angular'
 import {
   Platform,
   MenuController,
@@ -43,8 +45,9 @@ export class ChatieApp {
   pages: Array<{title: string, component: any}>
 
   constructor(
-    public platform: Platform,
-    public menu: MenuController,
+    public auth:      Auth,
+    public platform:  Platform,
+    public menu:      MenuController,
   ) {
     this.initializeApp()
 
@@ -58,13 +61,21 @@ export class ChatieApp {
     ]
   }
 
-  initializeApp() {
-    this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault()
-      Splashscreen.hide()
-    })
+  async initializeApp() {
+    await this.platform.ready()
+    // Okay, so the platform is ready and our plugins are available.
+    // Here you can do any higher level native things you might need.
+
+    StatusBar.styleDefault()
+    Splashscreen.hide()
+
+    // https://www.raymondcamden.com/2016/11/04/an-example-of-the-ionic-auth-service-with-ionic-2
+    if(this.auth.isAuthenticated()) {
+      this.rootPage = DashboardPage
+    } else {
+      this.rootPage = LoginPage
+    }
+
   }
 
   openPage(page) {
