@@ -5,7 +5,6 @@ import {
   NavParams,
 }                     from 'ionic-angular'
 
-
 import { Brolog }     from 'brolog'
 
 import { AboutPage }  from '../about/'
