@@ -9,6 +9,24 @@
 
 <ion-content padding>
 
+  <p padding>
+    Currently we are in Alpha stage, login will only support login via Github.
+    If you want to join Chatie, please login by authorize your Github account.
+  </p>
+
+  <div padding>
+    <button
+      ion-button
+      color="primary"
+      block
+      (click)="loginGithub()"
+    >
+    <ion-icon name="logo-github"></ion-icon>
+      &nbsp;
+      Github Login
+    </button>
+  </div>
+
   <ion-list>
 
     <ion-item>
@@ -32,33 +50,25 @@
   <div padding>
     <button
       ion-button
-      color="primary"
       block
+      color="light"
       (click)="loginEmail()"
     >
       Sign In</button>
-  </div>
-
-  <p padding>
-    Currently we are in Alpha stage, login will only support login via Github.
-    If you want to join Chatie, please login by authorize your Github account.
-  </p>
-
-  <div padding>
-    <button
-      ion-button
-      color="primary"
-      block
-      (click)="loginGithub()"
-    >
-    <ion-icon name="logo-github"></ion-icon>
-      &nbsp;
-      Sign In via Github
-    </button>
   </div>
 
   <pre *ngIf="user.details">
     {{ user.details.email }}
     {{ user.details | json }}
   </pre>
+
+  <div padding>
+    <button
+      ion-button
+      color="light"
+      block
+      (click)="logout()"
+    >Logout</button>
+  </div>
+
 </ion-content>
