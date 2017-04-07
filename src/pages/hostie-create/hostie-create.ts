@@ -17,9 +17,9 @@ import {
 export class HostieCreatePage {
   private hostieStore: HostieStore
 
-  private token = uuid()
-  private name  = 'Unnamed Hostie'
-  private note:   string
+  private token = uuid() as string
+  private name = 'Hostie #' + this.token.substr(-1, 4)
+  private note: string
 
   private loading = false
 

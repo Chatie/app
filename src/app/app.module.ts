@@ -43,6 +43,7 @@ const cloudSettings: CloudSettings = {
  * Pages
  */
 import { AboutPage }          from '../pages/about/'
+import { BotieListPage }      from '../pages/botie-list/'
 import { DashboardPage }      from '../pages/dashboard/'
 import { FeedbackPage }       from '../pages/feedback/'
 import { GiftieListPage }     from '../pages/giftie-list/'
@@ -61,6 +62,7 @@ import { WelcomePage }        from '../pages/welcome/'
     ChatieApp,
     // Pages
     AboutPage,
+    BotieListPage,
     DashboardPage,
     FeedbackPage,
     GiftieListPage,
@@ -83,6 +85,7 @@ import { WelcomePage }        from '../pages/welcome/'
     ChatieApp,
     // Pages
     AboutPage,
+    BotieListPage,
     DashboardPage,
     FeedbackPage,
     GiftieListPage,

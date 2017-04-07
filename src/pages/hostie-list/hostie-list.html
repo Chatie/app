@@ -27,7 +27,7 @@
           [name]="hostieIcon(hostie)"
         ></ion-icon>
 
-        {{ hostie.name }}
+        {{ hostie.name || 'Unnamed Hostie' }}
 
         <ion-note item-right>
           {{hostie.note}}
@@ -49,8 +49,26 @@
 
   </ion-list>
 
-  <button ion-button block clear (click)="add()">
-    <ion-icon name="add"></ion-icon>
-  </button>
+  <div padding>
+    <button
+      ion-button
+      color="secondary"
+      block
+      (click)="add()"
+      [disabled]="(hostieStore.hosties | async).length"
+    >
+      <ion-icon name="add"></ion-icon>
+      &nbsp;
+      Create Hostie
+    </button>
+
+    <ion-note>
+      Notice: we only support 1 Hostie in Alpha stage for testing.
+      <!-- pre>
+        {{ hostieStore.hosties | async | json }}
+      </pre -->
+    </ion-note>
+
+  </div>
 
 </ion-content>

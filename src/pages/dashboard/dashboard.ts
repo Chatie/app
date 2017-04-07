@@ -10,21 +10,25 @@ import {
   Component,
   OnInit,
   OnDestroy,
-}                   from '@angular/core'
+}                         from '@angular/core'
+import { NavController }  from 'ionic-angular'
 import {
   Database,
-}                   from '@ionic/cloud-angular'
+}                         from '@ionic/cloud-angular'
 import {
   Subscription,
-}                   from 'rxjs'
+}                         from 'rxjs'
 
-import { Brolog }   from 'brolog'
+import { Brolog }         from 'brolog'
 
 import {
   Hostie,
   HostieStatus,
   HostieStore,
-}                   from '@chatie/db'
+}                         from '@chatie/db'
+
+import { HostieListPage } from '../hostie-list/'
+import { BotieListPage }  from '../botie-list/'
 
 @Component({
   selector:     'page-dashboard',
@@ -44,6 +48,7 @@ export class DashboardPage implements OnInit, OnDestroy {
   constructor(
     private log:      Brolog,
     private database: Database,
+    private navCtrl:  NavController,
   ) {
     this.log.verbose('DashboardPage', 'constructor()')
     this.hostieStore = HostieStore.instance({
@@ -65,4 +70,13 @@ export class DashboardPage implements OnInit, OnDestroy {
     this.log.verbose('DashboardPage', 'ngOnDestroy()')
     this.subscription.unsubscribe()
   }
+
+  gotoHostieListPage() {
+    this.navCtrl.push(HostieListPage)
+  }
+
+  gotoBotieListPage() {
+    this.navCtrl.push(BotieListPage)
+  }
+
 }

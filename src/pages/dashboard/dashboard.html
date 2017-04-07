@@ -9,21 +9,30 @@
 
 <ion-content>
 
-  <ion-list-header>Click for detail</ion-list-header>
+  <h4 padding>Click for detail</h4>
 
   <ion-list>
-    <ion-item>
-      Hosties
-      <ion-note>
-        {{ hostieActiveNum }} / {{ hostieList?.length}}
-      </ion-note>
-    </ion-item>
-    <ion-item>
+
+    <ion-item
+      button
+      (click)="gotoBotieListPage()"
+    >
       Boties
       <ion-note>
         {{ botieActiveNum }} / {{ botieList?.length }}
       </ion-note>
     </ion-item>
+
+    <ion-item
+      button
+      (click)="gotoHostieListPage()"
+    >
+      Hosties
+      <ion-note>
+        {{ hostieActiveNum }} / {{ hostieList?.length}}
+      </ion-note>
+    </ion-item>
+
   </ion-list>
 
   <ion-card>

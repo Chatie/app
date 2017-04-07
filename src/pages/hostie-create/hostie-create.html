@@ -56,10 +56,11 @@
   <ion-item-divider no-lines></ion-item-divider>
 
   <button
-    ion-button
     block
-    [disabled]="loading"
+    color="secondary"
+    ion-button
     (click)="create()"
+    [disabled]="loading"
   >
     <ion-icon
       *ngIf="!loading"
