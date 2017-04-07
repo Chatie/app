@@ -1,7 +1,7 @@
 import { Component }  from '@angular/core'
 import {
   NavController,
-  NavParams
+  NavParams,
 }                     from 'ionic-angular'
 
 import { Brolog }     from 'brolog'
