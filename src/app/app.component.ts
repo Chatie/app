@@ -27,6 +27,7 @@ import { Brolog }   from 'brolog'
 import { DashboardPage }    from '../pages/dashboard/'
 
 import { FeedbackPage }     from '../pages/feedback/'
+import { GiftieListPage }   from '../pages/giftie-list/'
 import { HostieListPage }   from '../pages/hostie-list/'
 import { HostieCreatePage } from '../pages/hostie-create/'
 import { LoginPage }        from '../pages/login/'
@@ -62,7 +63,7 @@ export class ChatieApp {
     // // set our app's pages
     this.pages = [
       { title: 'Dashboard'  , icon: 'speedometer' , component: DashboardPage },
-      // { title: 'Gifties'    , icon: 'flash'       , component: GiftieListPage },
+      { title: 'Gifties'    , icon: 'flash'       , component: GiftieListPage },
       // { title: 'Boties'     , icon: 'logo-android', component: BotieListPage },
       { title: 'Hosties'    , icon: 'home'        , component: HostieListPage },
       { title: 'Feedback'   , icon: 'people'      , component: FeedbackPage },

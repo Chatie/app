@@ -9,6 +9,7 @@ import { Brolog }     from 'brolog'
 
 import { AboutPage }  from '../about/'
 import { LoginPage }  from '../login/'
+import { HelpPage }   from '../help/'
 
 @Component({
   selector: 'page-setting',
@@ -32,6 +33,10 @@ export class SettingPage {
 
   about() {
     this.navCtrl.push(AboutPage)
+  }
+
+  help() {
+    this.navCtrl.push(HelpPage)
   }
 
   logout() {

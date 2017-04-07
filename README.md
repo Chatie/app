@@ -61,3 +61,11 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 * [Speed up your RESTful API development in Node.js with Swagger](https://scotch.io/tutorials/speed-up-your-restful-api-development-in-node-js-with-swagger)
 * [Medium.com API Specification](https://github.com/amardeshbd/medium-api-specification)
 * [Writing OpenAPI (Swagger) Specification Tutorial](https://apihandyman.io/writing-openapi-swagger-specification-tutorial-part-1-introduction/)
+
+# Todo
+
+[ ] Boties Event Page
+[ ] Boties List Page
+[ ] Boties Create Page
+[ ] Feedback enable Wilddog & Scrollglue
+[ ] Gavatar in menu with Matrix CSS

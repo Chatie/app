@@ -45,11 +45,15 @@ const cloudSettings: CloudSettings = {
 import { AboutPage }          from '../pages/about/'
 import { DashboardPage }      from '../pages/dashboard/'
 import { FeedbackPage }       from '../pages/feedback/'
+import { GiftieListPage }     from '../pages/giftie-list/'
+import { HelpPage }           from '../pages/help/'
 import { HostieDetailsPage }  from '../pages/hostie-details/'
 import { HostieListPage }     from '../pages/hostie-list/'
 import { HostieCreatePage }   from '../pages/hostie-create/'
 import { LoginPage }          from '../pages/login/'
 import { SettingPage }        from '../pages/setting/'
+import { StatusPage }         from '../pages/status/'
+import { UnlockPage }         from '../pages/unlock/'
 import { WelcomePage }        from '../pages/welcome/'
 
 @NgModule({
@@ -59,11 +63,15 @@ import { WelcomePage }        from '../pages/welcome/'
     AboutPage,
     DashboardPage,
     FeedbackPage,
+    GiftieListPage,
+    HelpPage,
     HostieCreatePage,
     HostieDetailsPage,
     HostieListPage,
     LoginPage,
     SettingPage,
+    StatusPage,
+    UnlockPage,
     WelcomePage,
 ],
   imports: [
@@ -77,11 +85,15 @@ import { WelcomePage }        from '../pages/welcome/'
     AboutPage,
     DashboardPage,
     FeedbackPage,
+    GiftieListPage,
+    HelpPage,
     HostieCreatePage,
     HostieDetailsPage,
     HostieListPage,
     LoginPage,
     SettingPage,
+    StatusPage,
+    UnlockPage,
     WelcomePage,
   ],
   providers: [

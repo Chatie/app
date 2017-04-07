@@ -6,6 +6,9 @@ import {
 
 import { Brolog }     from 'brolog'
 
+import { HelpPage }   from '../help/'
+import { StatusPage } from '../status/'
+
 @Component({
   selector:     'page-about',
   templateUrl:  'about.html',
@@ -24,4 +27,11 @@ export class AboutPage {
     this.log.verbose('AboutPage', 'ionViewDidLoad()')
   }
 
+  help() {
+    this.navCtrl.push(HelpPage)
+  }
+
+  status() {
+    this.navCtrl.push(StatusPage)
+  }
 }
