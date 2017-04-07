@@ -1,0 +1,86 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Giftie List</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <h3>
+    Giftie Management
+  </h3>
+
+  <ion-card>
+
+    <ion-card-header>
+      About
+    </ion-card-header>
+
+    <ion-card-content>
+      <p>
+        Giftie are extensions of Wechaty functionality written by the community using our plugin development SDK.
+      </p>
+      <p>
+        Are you interested in creating a Wechaty plugin? Check out our SDK and documentation to see exactly what plugins can do, how they work and how easy plugin development can be.
+      </p>
+    </ion-card-content>
+
+    <ion-item>
+      <button ion-button icon-left clear item-right>
+        VIEW DOCUMENTATION
+      </button>
+    </ion-item>
+
+  </ion-card>
+
+  <ion-card *ngFor="let giftie of gifties">
+
+    <ion-item>
+      {{ giftie.title }}
+      <ion-icon
+        [name]="giftie.icon"
+        item-right
+        large
+      ></ion-icon>
+    </ion-item>
+
+    <ion-card-content>
+      {{ giftie.description }}
+    </ion-card-content>
+
+    <ion-item>
+      <span item-left>222 Installs</span>
+      <span item-left>18 Stars</span>
+
+      <button ion-button icon-left clear item-right>
+        <ion-icon name="open"></ion-icon>
+        Install
+      </button>
+    </ion-item>
+
+  </ion-card>
+
+
+  <div>
+    <p>Giftie Management is part of our Pro pack.</p>
+
+    <p>Click below for a full list of all of the features included in out pro pack and to upgrade</p>
+  </div>
+
+  <button
+    ion-button
+    block
+    clear
+    (click)="unlock()"
+  >
+    <ion-icon name="unlock"></ion-icon>
+    Unlock
+  </button>
+
+</ion-content>
