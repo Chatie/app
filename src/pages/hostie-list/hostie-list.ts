@@ -84,7 +84,7 @@ export class HostieListPage implements OnInit, OnDestroy {
     // this.hostieListSubscription.unsubscribe()
   }
 
-  gotoHostieDetail(hostie: Hostie, event) {
+  gotoHostieDetail(hostie: Hostie, event: any) {
     this.log.verbose('HostieListPage', 'select(%s, %s)', hostie.id, event)
     this.navCtrl.push(HostieDetailsPage, {
       hostie,
@@ -95,7 +95,7 @@ export class HostieListPage implements OnInit, OnDestroy {
     this.reordering = !this.reordering
   }
 
-  reorder(indexes) {
+  reorder(indexes: number[]) {
     // this.hostieList = reorderArray(this.hostieList, indexes)
     // TODO save to backend
   }

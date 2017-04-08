@@ -10,10 +10,12 @@
     , "noImplicitReturns": true
     , "noFallthroughCasesInSwitch": true
     , "strictNullChecks": true
-
-    , "noImplicitAny": false
+    , "alwaysStrict": true
+    , "strict": true
+    , "noImplicitAny": true
+    , "noImplicitThis": true
+    
     , "noUnusedParameters": false
-    , "noImplicitThis": false
     , "traceResolution": false
 
     , "lib": [
