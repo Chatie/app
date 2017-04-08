@@ -1,0 +1,41 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Hostie Edit</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <ion-input type="text"
+        name="name"
+        [value]="hostie.name"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Note</ion-label>
+      <ion-input type="text"
+        name="note"
+        [value]="hostie.note"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Token</ion-label>
+      <ion-input type="text"
+        name="token"
+        [value]="hostie.token"
+        disabled
+      ></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

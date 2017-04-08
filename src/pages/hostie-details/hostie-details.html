@@ -1,23 +1,26 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Hostie Details</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="edit(hostie)">
+        <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
 
   <h4>
-    <ion-icon name="home"></ion-icon>
-    {{ hostie.name() }}
-    <ion-note>
-      create at {{ hostie.createTime }}
-    </ion-note>
+    <ion-icon [name]="online()? 'ios-home' : 'ios-home-outline'"></ion-icon>
+    {{ hostie.name }}
   </h4>
 
-  <div>
-    <p>Status: {{ online() ? 'Online' : 'Offline' }}</p>
-    <p>Create: {{ hostie.createTime }}</p>
-  </div>
+  <ion-note>
+    {{ hostie.note }}
+  </ion-note>
 
   <ion-list>
     <div *ngIf="online()">
@@ -30,13 +33,15 @@
   </ion-list>
 
   <ion-list>
-    <ion-item>
-      Token
-    </ion-item>
-    <ion-item>
+
+    <ion-item
+      (click)="copyToken()"
+    >
+      <ion-icon name="key" item-left></ion-icon>
       {{ hostie.token }}
-      <ion-icon name="copy"></ion-icon>
+      <ion-icon name="copy" item-right></ion-icon>
     </ion-item>
+
   </ion-list>
 
 </ion-content>

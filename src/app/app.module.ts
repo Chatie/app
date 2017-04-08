@@ -49,6 +49,7 @@ import { FeedbackPage }       from '../pages/feedback/'
 import { GiftieListPage }     from '../pages/giftie-list/'
 import { HelpPage }           from '../pages/help/'
 import { HostieDetailsPage }  from '../pages/hostie-details/'
+import { HostieEditPage }     from '../pages/hostie-edit/'
 import { HostieListPage }     from '../pages/hostie-list/'
 import { HostieCreatePage }   from '../pages/hostie-create/'
 import { LoginPage }          from '../pages/login/'
@@ -69,6 +70,7 @@ import { WelcomePage }        from '../pages/welcome/'
     HelpPage,
     HostieCreatePage,
     HostieDetailsPage,
+    HostieEditPage,
     HostieListPage,
     LoginPage,
     SettingPage,
@@ -92,6 +94,7 @@ import { WelcomePage }        from '../pages/welcome/'
     HelpPage,
     HostieCreatePage,
     HostieDetailsPage,
+    HostieEditPage,
     HostieListPage,
     LoginPage,
     SettingPage,

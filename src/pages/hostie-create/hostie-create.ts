@@ -1,14 +1,16 @@
 import { Component }      from '@angular/core'
 import { Database }       from '@ionic/cloud-angular'
 import { NavController }  from 'ionic-angular'
-import * as uuid          from 'uuid'
+
 import { Brolog }         from 'brolog'
+import uuid               from 'uuid'
+import shortid            from 'shortid'
 
 import {
   Hostie,
   HostieStatus,
   HostieStore,
-}                 from '@chatie/db'
+}                         from '@chatie/db'
 
 @Component({
   selector: 'page-hostie-create',
@@ -18,7 +20,7 @@ export class HostieCreatePage {
   private hostieStore: HostieStore
 
   private token = uuid() as string
-  private name = 'Hostie #' + this.token.substr(-4, 4)
+  private name = 'Hostie #' + this.token.substr(-2, 2)
   private note: string
 
   private loading = false

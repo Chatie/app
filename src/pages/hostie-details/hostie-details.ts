@@ -2,24 +2,31 @@
  * Wechaty APP for Android & Ios
  * Your ChatBot Pocket Manager
  *
- * https://github.com/wechaty/wechaty-ionic
+ * https://github.com/chatie/app
  * Zhuohuan LI <zixia@zixia.net>
  * License Apache-2.0
  */
 import {
   Component,
   ChangeDetectionStrategy,
-} from '@angular/core'
+}                           from '@angular/core'
 
-import { NavController, NavParams } from 'ionic-angular'
+import {
+  AlertController,
+  AlertInputOptions,
+  NavController,
+  NavParams,
+}                           from 'ionic-angular'
 
-import { Brolog } from 'brolog'
+import { Brolog }           from 'brolog'
 
 import {
   Hostie,
   HostieStatus,
   HostieRuntime,
-}                 from '@chatie/db'
+}                           from '@chatie/db'
+
+import { HostieEditPage }   from '../hostie-edit/'
 
 @Component({
   selector:     'page-hostie-details',
@@ -35,6 +42,7 @@ export class HostieDetailsPage {
   hostie: Hostie
 
   constructor(
+    private alertCtrl:  AlertController,
     private log:        Brolog,
     private navCtrl:    NavController,
     private navParams:  NavParams,
@@ -69,5 +77,29 @@ export class HostieDetailsPage {
       case HostieRuntime.APPLE:   return 'logo-apple'
       default:                    return 'help'
     }
+  }
+
+  copyToken() {
+    this.alertCtrl.create({
+      title:    'Hostie TOKEN',
+      subTitle: 'Copy the follow string as your token',
+      inputs: [
+        {
+          label: 'Token',
+          name: 'TOKEN',
+          placeholder: 'Token',
+          value: this.hostie.token,
+          disabled: true,
+        },
+      ],
+      buttons:  ['Done'],
+    }).present()
+  }
+
+  edit(hostie: Hostie) {
+    this.log.verbose('HostieDetailsPage', 'edit() for hostie #%s', this.hostie.id)
+    this.navCtrl.push(HostieEditPage, {
+      hostie,
+    })
   }
 }

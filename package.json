@@ -37,6 +37,7 @@
     "ionic-native": "2.7.0",
     "ionicons": "3.0.0",
     "rxjs": "5.0.1",
+    "shortid": "^2.2.8",
     "uuid": "^3.0.1",
     "zone.js": "0.7.2"
   },
@@ -46,6 +47,8 @@
     "@ionic/cli-build-ionic-angular": "0.0.3",
     "@ionic/cli-plugin-cordova": "0.0.9",
     "@types/node": "^7.0.5",
+    "@types/shortid": "0.0.28",
+    "@types/uuid": "^2.0.29",
     "codelyzer": "^3.0.0-beta.3",
     "cordova": "6.5.0",
     "ionic": "^2.2.1",

@@ -11,27 +11,27 @@
 
   <h4 padding>Click for detail</h4>
 
-  <ion-list>
+  <ion-list no-lines>
 
-    <ion-item
-      button
+    <button
+      ion-item
       (click)="gotoBotieListPage()"
     >
       Boties
-      <ion-note>
-        {{ botieActiveNum }} / {{ botieList?.length }}
+      <ion-note item-right>
+        {{ botieActiveNum }}
       </ion-note>
-    </ion-item>
+    </button>
 
-    <ion-item
-      button
+    <button
+      ion-item
       (click)="gotoHostieListPage()"
     >
       Hosties
-      <ion-note>
-        {{ hostieActiveNum }} / {{ hostieList?.length}}
+      <ion-note item-right>
+        {{ hostieActiveNum }}
       </ion-note>
-    </ion-item>
+    </button>
 
   </ion-list>
 
