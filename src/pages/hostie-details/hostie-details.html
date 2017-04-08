@@ -1,21 +1,18 @@
 <ion-header>
   <ion-navbar>
-    <button menuToggle *ngIf="!hostie">
-      <ion-icon name="menu"></ion-icon>
-    </button>
     <ion-title>Hostie Details</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-item>
+  <h4>
     <ion-icon name="home"></ion-icon>
-    {{ hostie.nick }}
+    {{ hostie.name() }}
     <ion-note>
       create at {{ hostie.createTime }}
     </ion-note>
-  </ion-item>
+  </h4>
 
   <div>
     <p>Status: {{ online() ? 'Online' : 'Offline' }}</p>

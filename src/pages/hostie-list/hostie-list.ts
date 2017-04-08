@@ -47,7 +47,7 @@ import { HostieCreatePage }   from '../hostie-create/'
 })
 
 export class HostieListPage implements OnInit, OnDestroy {
-  hostieList: Hostie[]
+  // hostieList: Hostie[]
   hostieListSubscription: Subscription
 
   private hostieStore: HostieStore
@@ -71,16 +71,16 @@ export class HostieListPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.log.verbose('HostieListPage', 'ngOnInit()')
 
-    this.hostieListSubscription = this.hostieStore.hosties.subscribe(list => {
-      this.log.silly('HostieListPage', 'ngOnInit() subscript list: %s', list)
-      this.hostieList = list
-    })
+    // this.hostieListSubscription = this.hostieStore.hosties.subscribe(list => {
+    //   this.log.silly('HostieListPage', 'ngOnInit() subscript list: %s', list)
+    //   this.hostieList = list
+    // })
   }
 
   ngOnDestroy() {
     this.log.verbose('HostieListPage', 'ngOnDestroy()')
 
-    this.hostieListSubscription.unsubscribe()
+    // this.hostieListSubscription.unsubscribe()
   }
 
   select(hostie: Hostie, event) {
@@ -95,15 +95,17 @@ export class HostieListPage implements OnInit, OnDestroy {
   }
 
   reorder(indexes) {
-    this.hostieList = reorderArray(this.hostieList, indexes)
+    // this.hostieList = reorderArray(this.hostieList, indexes)
     // TODO save to backend
   }
 
   hostieIcon(hostie: Hostie) {
+    this.log.verbose('HostieListPage', 'hostieIcon()')
+
     if (hostie.status === HostieStatus.ONLINE) {
-      return 'ios-cloud-upload'
+      return 'ios-home'
     }
-    return 'ios-cloud-upload-outline'
+    return 'ios-home-outline'
   }
 
   trash(hostie: Hostie) {

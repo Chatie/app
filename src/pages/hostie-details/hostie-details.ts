@@ -61,16 +61,13 @@ export class HostieDetailsPage {
    * http://ionicframework.com/docs/ionicons/
    */
   icon(): string {
-    const iconMap = {}
-    iconMap[HostieRuntime.UNKNOWN]  = 'help'
-    iconMap[HostieRuntime.DOCKER]   = 'cube'
-    iconMap[HostieRuntime.LINUX]    = 'logo-tux'
-    iconMap[HostieRuntime.WINDOWS]  = 'logo-windows'
-    iconMap[HostieRuntime.APPLE]    = 'logo-apple'
-
-    const iconName = iconMap[this.hostie.runtime]
-                  || iconMap[HostieRuntime.UNKNOWN]
-
-    return iconName
+    switch (this.hostie.runtime) {
+      case HostieRuntime.UNKNOWN: return 'help'
+      case HostieRuntime.DOCKER:  return 'cube'
+      case HostieRuntime.LINUX:   return 'logo-tux'
+      case HostieRuntime.WINDOWS: return 'logo-windows'
+      case HostieRuntime.APPLE:   return 'logo-apple'
+      default:                    return 'help'
+    }
   }
 }
