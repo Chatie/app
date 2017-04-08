@@ -64,8 +64,9 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 
 # Todo
 
-[ ] Boties Event Page
-[ ] Boties List Page
-[ ] Boties Create Page
-[ ] Feedback enable Wilddog & Scrollglue
-[ ] Gavatar in menu with Matrix CSS
+* [ ] Hostie Event Page
+* [ ] Hostie QR Code Push
+* [ ] Store Publish
+* [ ] Other
+  - [ ] Feedback enable Wilddog & Scrollglue
+  - [ ] Gavatar in menu with Matrix CSS

@@ -82,10 +82,10 @@ export class HostieDetailsPage {
     }
   }
 
-  copyToken() {
+  copy() {
     this.alertCtrl.create({
       title:    'Copy TOKEN',
-      subTitle: 'Use this token to set WECHATY_TOKEN',
+      subTitle: 'Use this string as WECHATY_TOKEN',
       inputs: [
         {
           label: 'Token',
