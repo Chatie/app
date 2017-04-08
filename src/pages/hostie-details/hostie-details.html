@@ -44,5 +44,48 @@
 
   </ion-list>
 
+
+    <ion-list>
+
+      <ion-list-header>Status</ion-list-header>
+
+      <ion-item>
+        <ion-icon name="heart"></ion-icon>
+        Heartbeat
+        <ion-note item-right>at 10:49:03</ion-note>
+      </ion-item>
+
+      <ion-item
+        *ngFor="let event of eventList"
+      >
+        <ion-icon [name]="eventToIcon(event.type)"></ion-icon>
+        {{ event.type }}
+        <ion-note item-right>at {{ event.time }}</ion-note>
+      </ion-item>
+
+    </ion-list>
+
+
+    <p>Last 5 Event Log</p>
+
+    <ion-list>
+      <ion-item>
+        <ion-icon name="ionic"></ion-icon>
+        Item
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="qr-scaner"></ion-icon>
+        Scan
+      </ion-item>
+
+      <ion-thumbnail>
+        <img 
+          src="https://raw.githubusercontent.com/chatie/wechaty/master/image/BotQrcode.png"
+        />
+      </ion-thumbnail>
+
+    </ion-list>
+
 </ion-content>
 

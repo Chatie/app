@@ -64,7 +64,7 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 
 # Todo
 
-* [ ] Hostie Event Page
+* [x] Hostie Event Page
 * [ ] Hostie QR Code Push
 * [ ] Store Publish
 * [ ] Other

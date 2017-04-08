@@ -43,6 +43,34 @@ export class HostieDetailsPage {
   hostie:       Hostie
   hostieStore:  HostieStore
 
+  eventList = [
+    {
+        type: 'scan',
+        time: '10:01',
+        data: 'fasdfas',
+    },
+    {
+        type: 'login',
+        time: '10:01',
+        data: 'fasdfas',
+    },
+    {
+        type: 'message',
+        time: '10:01',
+        data: 'fasdfas',
+    },
+    {
+        type: 'logout',
+        time: '10:01',
+        data: 'fasdfas',
+    },
+    {
+        type: 'error',
+        time: '10:01',
+        data: 'fasdfas',
+    },
+  ]
+
   constructor(
     public alertCtrl:  AlertController,
     public log:        Brolog,
@@ -116,5 +144,16 @@ export class HostieDetailsPage {
         this.cdRef.markForCheck()
       },
     })
+  }
+
+  eventToIcon(event: string): string {
+    switch (event) {
+      case 'scan':    return 'qr-scanner'
+      case 'login':   return 'log-in'
+      case 'logout':  return 'log-out'
+      case 'message': return 'chatboxes'
+      case 'error':   return 'alert'
+      default:        return 'help'
+    }
   }
 }
