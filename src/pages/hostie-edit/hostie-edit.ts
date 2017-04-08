@@ -22,7 +22,7 @@ import {
 })
 export class HostieEditPage {
   hostie:       Hostie
-  callback:     (newHostie: Hostie) => Promise<void>
+  done:         (newHostie: Hostie) => Promise<void>
   hostieStore:  HostieStore
 
   loading:      Loading
@@ -30,7 +30,6 @@ export class HostieEditPage {
   constructor(
     public log:         Brolog,
     public database:    Database,
-    // public hostieStore: HostieStore,
     public loadingCtrl: LoadingController,
     public navCtrl:     NavController,
     public navParams:   NavParams,
@@ -38,13 +37,10 @@ export class HostieEditPage {
     this.log.verbose('HostieEditPage', 'constructor()')
 
     this.hostie   = Object.assign({}, navParams.get('hostie'))
-    this.callback = navParams.get('callback')
+    this.done     = navParams.get('done')
     this.log.silly('HostieEditPage', 'constructor() hostie id:%s', this.hostie.id)
 
-    this.hostieStore = HostieStore.instance({
-      database,
-      log,
-    })
+    this.hostieStore = HostieStore.instance()
 
   }
 
@@ -60,7 +56,7 @@ export class HostieEditPage {
       id:   this.hostie.id,
       name: this.hostie.name,
     }).toPromise()
-    await this.callback(this.hostie)
+    await this.done(this.hostie)
     this.hideLoader()
 
     this.log.silly('HostieEditPage', 'update return: %s', JSON.stringify(ret))

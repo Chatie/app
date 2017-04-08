@@ -109,8 +109,8 @@ export class HostieDetailsPage {
        * [SOLVED] Ionic2 navController pop with params
        * https://forum.ionicframework.com/t/solved-ionic2-navcontroller-pop-with-params/58104
        */
-      callback: (newHostie: Hostie) => {
-        this.log.verbose('HostieDetailsPage', 'edit() callback() %s',
+      done: (newHostie: Hostie) => {
+        this.log.verbose('HostieDetailsPage', 'edit() done() %s',
                                               JSON.stringify(newHostie),
                         )
         this.hostie = newHostie
