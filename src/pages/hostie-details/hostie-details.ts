@@ -7,8 +7,9 @@
  * License Apache-2.0
  */
 import {
-  Component,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
 }                           from '@angular/core'
 
 import {
@@ -23,6 +24,7 @@ import { Brolog }           from 'brolog'
 import {
   Hostie,
   HostieStatus,
+  HostieStore,
   HostieRuntime,
 }                           from '@chatie/db'
 
@@ -39,11 +41,13 @@ import { HostieEditPage }   from '../hostie-edit/'
   changeDetection:  ChangeDetectionStrategy.OnPush,
 })
 export class HostieDetailsPage {
-  hostie: Hostie
+  hostie:       Hostie
+  hostieStore:  HostieStore
 
   constructor(
     private alertCtrl:  AlertController,
     private log:        Brolog,
+    private cdRef:      ChangeDetectorRef,
     private navCtrl:    NavController,
     private navParams:  NavParams,
   ) {
@@ -81,8 +85,8 @@ export class HostieDetailsPage {
 
   copyToken() {
     this.alertCtrl.create({
-      title:    'Hostie TOKEN',
-      subTitle: 'Copy the follow string as your token',
+      title:    'Copy TOKEN',
+      subTitle: 'Use this token to set WECHATY_TOKEN',
       inputs: [
         {
           label: 'Token',
@@ -96,10 +100,22 @@ export class HostieDetailsPage {
     }).present()
   }
 
-  edit(hostie: Hostie) {
-    this.log.verbose('HostieDetailsPage', 'edit() for hostie #%s', this.hostie.id)
+  edit() {
+    this.log.verbose('HostieDetailsPage', 'edit() hostie #%s', this.hostie.id)
+
     this.navCtrl.push(HostieEditPage, {
-      hostie,
+      hostie: this.hostie,
+      /**
+       * [SOLVED] Ionic2 navController pop with params
+       * https://forum.ionicframework.com/t/solved-ionic2-navcontroller-pop-with-params/58104
+       */
+      callback: (newHostie: Hostie) => {
+        this.log.verbose('HostieDetailsPage', 'edit() callback() %s',
+                                              JSON.stringify(newHostie),
+                        )
+        this.hostie = newHostie
+        this.cdRef.markForCheck()
+      },
     })
   }
 }

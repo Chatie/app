@@ -42,8 +42,8 @@ export class HostieCreatePage {
     this.log.verbose('HostieCreatePage', 'ionViewDidLoad()')
   }
 
-  create() {
-    this.log.verbose('HostieCreatePage', 'create()')
+  save() {
+    this.log.verbose('HostieCreatePage', 'save()')
     this.loading = true
 
     const newHostie: Hostie = {

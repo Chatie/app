@@ -53,7 +53,7 @@ export class DashboardPage implements OnInit, OnDestroy {
     this.log.verbose('DashboardPage', 'constructor()')
     this.hostieStore = HostieStore.instance({
       database,
-      log: null,
+      log,
     })
   }
 

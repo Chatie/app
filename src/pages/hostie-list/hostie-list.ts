@@ -13,24 +13,25 @@
  *
  */
 import {
+  ChangeDetectionStrategy,
   Component,
   OnInit,
   OnDestroy,
-}                 from '@angular/core'
+}                           from '@angular/core'
 import {
   Database,
-}                 from '@ionic/cloud-angular'
+}                           from '@ionic/cloud-angular'
 import {
   NavController,
   NavParams,
   reorderArray,
-}                 from 'ionic-angular'
+}                           from 'ionic-angular'
 import {
   // Observable,
   Subscription,
-}                 from 'rxjs'
+}                           from 'rxjs'
 
-import { Brolog } from 'brolog'
+import { Brolog }           from 'brolog'
 
 import {
   Hostie,
@@ -44,6 +45,7 @@ import { HostieCreatePage }   from '../hostie-create/'
 @Component({
   selector: 'hostie-list',
   templateUrl: 'hostie-list.html',
+  changeDetection:  ChangeDetectionStrategy.OnPush,
 })
 
 export class HostieListPage implements OnInit, OnDestroy {
@@ -61,7 +63,6 @@ export class HostieListPage implements OnInit, OnDestroy {
     private navParams: NavParams,
   ) {
     this.log.verbose('HostieListPage', 'constructor()')
-
     this.hostieStore = HostieStore.instance({
       database,
       log,

@@ -17,8 +17,8 @@ import { UserService }    from '../../provider/user-service'
 import { DashboardPage }  from '../../pages/dashboard/'
 
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector:     'page-login',
+  templateUrl:  'login.html',
 })
 export class LoginPage {
   private showLogin = false

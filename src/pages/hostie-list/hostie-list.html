@@ -6,6 +6,16 @@
 
     <ion-title>Hostie List</ion-title>
 
+    <ion-buttons end>
+      <button
+        ion-button
+        (click)="add()"
+        [disabled]="(hostieStore.hosties | async).length"
+      >
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 
@@ -49,26 +59,11 @@
 
   </ion-list>
 
-  <div padding>
-    <button
-      ion-button
-      color="secondary"
-      block
-      (click)="add()"
-      [disabled]="(hostieStore.hosties | async).length"
-    >
-      <ion-icon name="add"></ion-icon>
-      &nbsp;
-      Create Hostie
-    </button>
-
-    <ion-note>
-      Notice: we only support 1 Hostie in Alpha stage for testing.
-      <!-- pre>
-        {{ hostieStore.hosties | async | json }}
-      </pre -->
-    </ion-note>
-
-  </div>
+  <ion-note padding>
+    Notice: we only support 1 Hostie in Alpha stage for testing.
+    <!-- pre>
+      {{ hostieStore.hosties | async | json }}
+    </pre -->
+  </ion-note>
 
 </ion-content>

@@ -8,6 +8,16 @@
 
   <ion-navbar>
     <ion-title>New Hostie</ion-title>
+
+    <ion-buttons end>
+      <button
+        ion-button
+        (click)="save()"
+      >
+        Save
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 
 </ion-header>
@@ -52,25 +62,6 @@
       [(ngModel)]="note"
     ></ion-textarea>
   </ion-item>
-
-  <ion-item-divider no-lines></ion-item-divider>
-
-  <button
-    block
-    color="secondary"
-    ion-button
-    (click)="create()"
-    [disabled]="loading"
-  >
-    <ion-icon
-      *ngIf="!loading"
-      name="checkmark"
-    ></ion-icon>
-    <ion-spinner
-      *ngIf="loading"
-    ></ion-spinner>
-    Done
-  </button>
 
   <ion-item-divider no-lines></ion-item-divider>
 

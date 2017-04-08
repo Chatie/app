@@ -2,6 +2,16 @@
 
   <ion-navbar>
     <ion-title>Hostie Edit</ion-title>
+
+    <ion-buttons end>
+      <button 
+        ion-button
+        (click)="save()"
+      >
+        Save
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 
 </ion-header>
@@ -15,7 +25,7 @@
       <ion-label>Name</ion-label>
       <ion-input type="text"
         name="name"
-        [value]="hostie.name"
+        [(ngModel)]="hostie.name"
       ></ion-input>
     </ion-item>
 
@@ -23,19 +33,15 @@
       <ion-label>Note</ion-label>
       <ion-input type="text"
         name="note"
-        [value]="hostie.note"
-      ></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Token</ion-label>
-      <ion-input type="text"
-        name="token"
-        [value]="hostie.token"
-        disabled
+        [(ngModel)]="hostie.note"
       ></ion-input>
     </ion-item>
 
   </ion-list>
 
+  <ion-note padding>
+    TOKEN: {{ hostie.token }}
+  </ion-note>
+
+{{ hostie.name }}
 </ion-content>
