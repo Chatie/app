@@ -12,7 +12,7 @@ import {
 
 import { Brolog }         from 'brolog'
 
-import { UserService }    from '../../provider/user-service'
+// import { UserService }    from '../../provider/user-service'
 
 import { DashboardPage }  from '../../pages/dashboard/'
 
@@ -22,7 +22,7 @@ import { DashboardPage }  from '../../pages/dashboard/'
 })
 export class LoginPage {
   private showLogin = false
-  private loading: Loading = null
+  private loading: Loading | null
 
   public email:     string
   public password:  string
@@ -91,21 +91,25 @@ export class LoginPage {
 
     try {
       const authLoginResult = await this.auth.login('github')
+      const github = this.user.social.github
+
+      if (!github) {
+        throw new Error('no github data')
+      }
+
       if (authLoginResult.signup) {
         this.log.verbose('LoginPage', 'login() new user signup for %s',
-                                      this.user.social.github.uid,
+                                      github.uid,
                         )
       } else {
         this.log.verbose('LoginPage', 'login() returned user login for %s',
-                                      this.user.social.github.uid,
+                                      github.uid,
                         )
       }
 
       this.log.silly('LoginPage', 'login() %s',
-                                  JSON.stringify(this.user.social.github.data),
+                                  JSON.stringify(github.data),
                     )
-
-      const github = this.user.social.github
 
       // this.userService.login('github', github.uid, {
       //   email:  github.data.email,

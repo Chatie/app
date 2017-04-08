@@ -46,13 +46,13 @@ export class DashboardPage implements OnInit, OnDestroy {
   botieActiveNum  = 1
 
   constructor(
-    private log:      Brolog,
-    private database: Database,
-    private navCtrl:  NavController,
+    public log:      Brolog,
+    public database: Database,
+    public navCtrl:  NavController,
   ) {
     this.log.verbose('DashboardPage', 'constructor()')
     this.hostieStore = HostieStore.instance({
-      database,
+      database: database,
       log,
     })
   }

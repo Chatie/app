@@ -23,7 +23,6 @@ import {
 
 import {
   Brolog,
-  LogLevel,
 }                     from 'brolog'
 
 import { ChatieApp }          from './app.component'

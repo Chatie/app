@@ -16,7 +16,7 @@ import { HelpPage }   from '../help/'
   templateUrl: 'setting.html',
 })
 export class SettingPage {
-  private notificate: boolean = true
+  public notificate: boolean = true
 
   constructor(
     public auth:      Auth,

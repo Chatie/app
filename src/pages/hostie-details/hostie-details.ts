@@ -14,7 +14,6 @@ import {
 
 import {
   AlertController,
-  AlertInputOptions,
   NavController,
   NavParams,
 }                           from 'ionic-angular'
@@ -45,11 +44,11 @@ export class HostieDetailsPage {
   hostieStore:  HostieStore
 
   constructor(
-    private alertCtrl:  AlertController,
-    private log:        Brolog,
-    private cdRef:      ChangeDetectorRef,
-    private navCtrl:    NavController,
-    private navParams:  NavParams,
+    public alertCtrl:  AlertController,
+    public log:        Brolog,
+    public cdRef:      ChangeDetectorRef,
+    public navCtrl:    NavController,
+    public navParams:  NavParams,
   ) {
     this.log.verbose('HostieDetailsPage', 'constructor()')
 

@@ -25,7 +25,7 @@ export class HostieEditPage {
   done:         (newHostie: Hostie) => Promise<void>
   hostieStore:  HostieStore
 
-  loading:      Loading
+  loading:      Loading | null
 
   constructor(
     public log:         Brolog,

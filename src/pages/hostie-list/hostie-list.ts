@@ -24,7 +24,7 @@ import {
 import {
   NavController,
   NavParams,
-  reorderArray,
+  // reorderArray,
 }                           from 'ionic-angular'
 import {
   // Observable,
@@ -57,14 +57,14 @@ export class HostieListPage implements OnInit, OnDestroy {
   reordering = false
 
   constructor(
-    private database:  Database,
-    private log:       Brolog,
-    private navCtrl:   NavController,
-    private navParams: NavParams,
+    public database:  Database,
+    public log:       Brolog,
+    public navCtrl:   NavController,
+    public navParams: NavParams,
   ) {
     this.log.verbose('HostieListPage', 'constructor()')
     this.hostieStore = HostieStore.instance({
-      database,
+      database: database,
       log,
     })
   }
@@ -111,6 +111,9 @@ export class HostieListPage implements OnInit, OnDestroy {
 
   trash(hostie: Hostie) {
     this.log.verbose('HostieListPage', 'trash(%s)', hostie.id)
+    if (!hostie.id) {
+      throw new Error('no hostie id')
+    }
     this.hostieStore.remove(hostie.id)
   }
 

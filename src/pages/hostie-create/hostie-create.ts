@@ -4,7 +4,6 @@ import { NavController }  from 'ionic-angular'
 
 import { Brolog }         from 'brolog'
 import uuid               from 'uuid'
-import shortid            from 'shortid'
 
 import {
   Hostie,
