@@ -89,6 +89,8 @@ export class LoginPage {
   async loginGithub(): Promise<void> {
     this.log.verbose('LoginPage', 'loginGithub()')
 
+    this.showLoader()
+
     try {
       const authLoginResult = await this.auth.login('github')
       const github = this.user.social.github
@@ -120,11 +122,14 @@ export class LoginPage {
       // })
 
       this.user.set('loginTime', Date.now())
+      this.user.save()
 
+      this.hideLoader()
       this.gotoDashboard()
 
     } catch (e) {
       this.log.warn('LoginPage', 'loginGithub() %s', e.message)
+      this.hideLoader()
 
       this.alertCtrl.create({
         title:    'Login Error',
