@@ -23,7 +23,6 @@ export class Auth {
 
   }
 
-
   public login(): Promise<any> {
     this.log.verbose('Auth', 'login()')
 
