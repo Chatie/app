@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version='1.0' encoding='utf-8'?>
 <widget id="io.chatie.app" version="0.0.23" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Chatie</name>
     <description>Your Cloud Bot Manager</description>
@@ -98,4 +98,5 @@
     <allow-navigation href="http://192.168.43.126:8100" />
     <allow-navigation href="http://192.168.11.118:8100" />
     <allow-navigation href="http://192.168.1.177:8101" />
+    <plugin name="ionic-plugin-deploy" spec="~0.6.6" />
 </widget>

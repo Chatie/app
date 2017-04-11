@@ -11,7 +11,9 @@
 
   <ion-list>
 
-    <ion-list-header>
+    <ion-list-header
+      (click)="checkDeploy()"
+    >
       Chatie v{{ version }}
     </ion-list-header>
 
