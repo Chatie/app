@@ -15,8 +15,10 @@ sed -i \
   '/"io.chatie.app" version="/s/version="[^"]*"/version="'"$VERSION_NEXT"'"/' \
   config.xml
 
-MSG="bump(version): $VERSION -> $VERSION_NEXT"
+MSG="bump(version): $VERSION -> $VERSION_NEXT by sync-version.sh"
+echo
 echo "$MSG"
+echo
 
 git add config.xml
 git commit -m "$MSG"
