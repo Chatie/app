@@ -44,7 +44,7 @@ const cloudSettings: CloudSettings = {
         'iconColor': '#343434',
       },
     },
-  }
+  },
   // 'database': {
   //   'authType': 'authenticated',
   // },

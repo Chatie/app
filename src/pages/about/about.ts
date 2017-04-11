@@ -12,14 +12,12 @@ import { Brolog }     from 'brolog'
 import { HelpPage }   from '../help/'
 import { StatusPage } from '../status/'
 
-const packageJson = require('../../package.json')
-
 @Component({
   selector:     'page-about',
   templateUrl:  'about.html',
 })
 export class AboutPage {
-  version: string = packageJson.version
+  version = '0.0.0'
   clickCounter = 0
 
   constructor(
@@ -31,6 +29,18 @@ export class AboutPage {
     public toastCtrl: ToastController,
   ) {
     this.log.verbose('AboutPage', 'constructor()')
+    this.initVersion()
+  }
+
+  initVersion() {
+    this.log.verbose('AboutPage', 'getVersion()')
+
+    try {
+      const packageJson = require('../../../package.json')
+      this.version = packageJson.version
+    } catch (e) {
+      this.log.warn('AboutPage', 'getVersion() exception: %s', e.message)
+    }
   }
 
   ionViewDidLoad() {
@@ -78,7 +88,7 @@ export class AboutPage {
         const snapshotList = await this.deploy.getSnapshots() as string[]
         this.log.silly('AboutPage', 'check() we has %s snapshots: %s',
                                     snapshotList.length,
-                                    snapshotList.join(',')
+                                    snapshotList.join(','),
                       )
 
         this.log.silly('AboutPage', 'check() loading...')
