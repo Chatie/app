@@ -2,6 +2,8 @@ import { Component }  from '@angular/core'
 import { Deploy }     from '@ionic/cloud-angular'
 import {
   AlertController,
+  Loading,
+  LoadingController,
   NavController,
   NavParams,
   ToastController,
@@ -19,14 +21,16 @@ import { StatusPage } from '../status/'
 export class AboutPage {
   version = '0.0.0'
   clickCounter = 0
+  loading: Loading | null = null
 
   constructor(
-    public alertCtrl: AlertController,
-    public deploy:    Deploy,
-    public log:       Brolog,
-    public navCtrl:   NavController,
-    public navParams: NavParams,
-    public toastCtrl: ToastController,
+    public alertCtrl:   AlertController,
+    public deploy:      Deploy,
+    public log:         Brolog,
+    public loadingCtrl: LoadingController,
+    public navCtrl:     NavController,
+    public navParams:   NavParams,
+    public toastCtrl:   ToastController,
   ) {
     this.log.verbose('AboutPage', 'constructor()')
     this.initVersion()
@@ -76,6 +80,8 @@ export class AboutPage {
       if (hasUpdate) {
         this.log.silly('AboutPage', 'checkDeploy() found new update!')
 
+        this.showLoader()
+
         const metaData = this.deploy.getMetadata()
         this.log.silly('AboutPage', 'check() metaData of update: %s', JSON.stringify(metaData))
 
@@ -91,6 +97,8 @@ export class AboutPage {
                                     snapshotList.join(','),
                       )
 
+        this.hideLoader()
+
         this.log.silly('AboutPage', 'check() loading...')
         this.deploy.load()
 
@@ -99,12 +107,32 @@ export class AboutPage {
     } catch (e) {
       this.log.warn('AboutPage', 'check() exception: %s', e.message)
 
+      this.hideLoader()
       this.alertCtrl.create({
         title:    'Check Error',
         subTitle: 'Exception: ' + e.message,
         buttons:  ['OK'],
       }).present()
     }
+  }
+
+  showLoader(): void {
+    this.log.verbose('AboutPage', 'showLoader()')
+
+    this.loading = this.loadingCtrl.create({
+      content: 'Loading...',
+    })
+    this.loading.present()
+  }
+
+  hideLoader(): void {
+    this.log.verbose('AboutPage', 'hideLoader()')
+
+    if (!this.loading) {
+      return
+    }
+    this.loading.dismissAll()
+    this.loading = null
   }
 
 }
