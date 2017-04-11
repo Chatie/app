@@ -70,3 +70,4 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 * [ ] Other
   - [ ] Feedback enable Wilddog & Scrollglue
   - [ ] Gavatar in menu with Matrix CSS
+
