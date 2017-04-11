@@ -2,6 +2,17 @@
 
   <ion-navbar>
     <ion-title>Login</ion-title>
+
+    <ion-buttons end>
+      <button
+        ion-button
+        color="light"
+        (click)="loginEmail()"
+      >
+        Sign In
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 
 </ion-header>
@@ -17,7 +28,7 @@
   <div padding>
     <button
       ion-button
-      color="primary"
+      color="secondary"
       block
       (click)="loginGithub()"
     >
@@ -27,7 +38,7 @@
     </button>
   </div>
 
-  <ion-list>
+  <ion-list *ngIf="showLogin">
 
     <ion-item>
       <ion-label floating>Email</ion-label>
@@ -47,28 +58,8 @@
 
   </ion-list>
 
-  <div padding>
-    <button
-      ion-button
-      block
-      color="light"
-      (click)="loginEmail()"
-    >
-      Sign In</button>
-  </div>
-
   <pre *ngIf="user.details">
     {{ user.details.email }}
-    {{ user.details | json }}
   </pre>
-
-  <div padding>
-    <button
-      ion-button
-      color="light"
-      block
-      (click)="logout()"
-    >Logout</button>
-  </div>
 
 </ion-content>

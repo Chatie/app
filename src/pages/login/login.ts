@@ -51,6 +51,11 @@ export class LoginPage {
                                   this.password,
                     )
 
+    if (!this.showLogin) {
+      this.showLogin = true
+      return
+    }
+
     let details = {
       email:    this.email,
       password: this.password,
@@ -62,7 +67,7 @@ export class LoginPage {
       this.log.silly('LoginPage', 'loginEmail() successful!')
       this.hideLoader()
 
-      this.redirectAfterLogin()
+      this.gotoDashboard()
 
     } catch (e) {
       this.log.verbose('LoginPage', 'LoginEmail() failed: %s', e.message)
@@ -84,11 +89,6 @@ export class LoginPage {
   async loginGithub(): Promise<void> {
     this.log.verbose('LoginPage', 'loginGithub()')
 
-    if (!this.showLogin) {
-      this.showLogin = true
-      return
-    }
-
     try {
       const authLoginResult = await this.auth.login('github')
       const github = this.user.social.github
@@ -101,6 +101,7 @@ export class LoginPage {
         this.log.verbose('LoginPage', 'login() new user signup for %s',
                                       github.uid,
                         )
+        this.user.set('signupTime', Date.now())
       } else {
         this.log.verbose('LoginPage', 'login() returned user login for %s',
                                       github.uid,
@@ -118,7 +119,9 @@ export class LoginPage {
       //   avatar: github.data.profile_picture,
       // })
 
-      this.redirectAfterLogin()
+      this.user.set('loginTime', Date.now())
+
+      this.gotoDashboard()
 
     } catch (e) {
       this.log.warn('LoginPage', 'loginGithub() %s', e.message)
@@ -157,7 +160,7 @@ export class LoginPage {
     this.loading = null
   }
 
-  redirectAfterLogin(): void {
+  gotoDashboard(): void {
     this.navCtrl.setRoot(DashboardPage)
   }
 }

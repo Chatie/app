@@ -69,3 +69,5 @@ yarn.lock
 t.*
 www.zip
 .io-config.json
+*.apk
+*.keystore

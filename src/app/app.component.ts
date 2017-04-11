@@ -59,7 +59,7 @@ export class ChatieApp {
   ) {
     this.initializeApp()
 
-    // // set our app's pages
+    // set our app's pages
     this.pages = [
       { title: 'Dashboard'  , icon: 'speedometer' , component: DashboardPage },
       // { title: 'Gifties'    , icon: 'flash'       , component: GiftieListPage },
@@ -78,7 +78,9 @@ export class ChatieApp {
     StatusBar.styleDefault()
     Splashscreen.hide()
 
-    // https://www.raymondcamden.com/2016/11/04/an-example-of-the-ionic-auth-service-with-ionic-2
+    /**
+     * https://www.raymondcamden.com/2016/11/04/an-example-of-the-ionic-auth-service-with-ionic-2
+     */
     if (this.auth.isAuthenticated()) {
       this.rootPage = DashboardPage
     } else {

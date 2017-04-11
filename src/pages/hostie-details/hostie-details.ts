@@ -43,7 +43,7 @@ export class HostieDetailsPage {
   hostie:       Hostie
   hostieStore:  HostieStore
 
-  eventList = [
+  eventList: any[] = [
     {
         type: 'scan',
         time: '10:01',
