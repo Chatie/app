@@ -7,7 +7,6 @@
       <button
         ion-button
         color="light"
-        (click)="loginEmail()"
       >
         Sign In
       </button>
@@ -30,36 +29,12 @@
       ion-button
       color="secondary"
       block
-      (click)="loginGithub()"
+      (click)="login()"
     >
     <ion-icon name="logo-github"></ion-icon>
       &nbsp;
-      Github Login
+      Login
     </button>
   </div>
-
-  <ion-list *ngIf="showLogin">
-
-    <ion-item>
-      <ion-label floating>Email</ion-label>
-      <ion-input
-        type="text"
-        [(ngModel)]="email"
-      ></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input
-        type="password"
-        [(ngModel)]="password"
-      ></ion-input>
-    </ion-item>
-
-  </ion-list>
-
-  <pre *ngIf="user.details">
-    {{ user.details.email }}
-  </pre>
 
 </ion-content>

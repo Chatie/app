@@ -9,23 +9,26 @@
 import {
   NgModule,
   ErrorHandler,
-}                     from '@angular/core'
+}                         from '@angular/core'
 import {
   CloudSettings,
   CloudModule,
-}                     from '@ionic/cloud-angular'
+}                         from '@ionic/cloud-angular'
 
 import {
   IonicApp,
   IonicModule,
   IonicErrorHandler,
-}                     from 'ionic-angular'
+}                         from 'ionic-angular'
+
+import { AUTH_PROVIDERS } from 'angular2-jwt'
 
 import {
   Brolog,
-}                     from 'brolog'
+}                         from 'brolog'
 
-import { ChatieApp }          from './app.component'
+import { Auth }           from '../providers/auth'
+import { ChatieApp }      from './app.component'
 
 const ionicConfig = require('../../ionic.config.json')
 
@@ -119,6 +122,8 @@ import { WelcomePage }        from '../pages/welcome/'
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: Brolog, useClass: Brolog('silly')},
+    AUTH_PROVIDERS,
+    Auth,
   ],
 })
 
