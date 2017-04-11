@@ -30,10 +30,16 @@ export class LogoutPage {
     public push:        Push,
   ) {
     this.log.verbose('LogoutPage', 'constructor()')
+
   }
 
   ionViewDidLoad() {
     this.log.verbose('LogoutPage', 'ionViewDidLoad()')
+
+    if (!this.auth.isAuthenticated()) {
+      this.logout()
+    }
+
   }
 
   showLoader(): void {

@@ -62,47 +62,63 @@ export class AboutPage {
   async checkDeploy() {
     this.log.verbose('AboutPage', 'check() clickCounter=%s', this.clickCounter)
 
-    if (this.clickCounter <= 3) {
-      const toast = this.toastCtrl.create({
-        message: (3 - this.clickCounter).toString(),
+    if (this.loading) {
+      return
+    }
+
+    const MAX_NUM = 7
+    if (this.clickCounter <= MAX_NUM) {
+      this.toastCtrl.create({
+        message: (MAX_NUM - this.clickCounter).toString(),
         duration: 500,
         position: 'middle',
-      })
-      toast.onDidDismiss(() => this.clickCounter++)
-      toast.present()
+      }).present()
+
+      this.clickCounter++
       return
     }
 
     this.deploy.channel = 'dev'
+    this.showLoader()
 
     try {
       const hasUpdate = await this.deploy.check()
-      if (hasUpdate) {
-        this.log.silly('AboutPage', 'checkDeploy() found new update!')
 
-        this.showLoader()
-
-        const metaData = this.deploy.getMetadata()
-        this.log.silly('AboutPage', 'check() metaData of update: %s', JSON.stringify(metaData))
-
-        this.log.silly('AboutPage', 'check() downloading...')
-        await this.deploy.download()
-
-        this.log.silly('AboutPage', 'check() extracting...')
-        await this.deploy.extract()
-
-        const snapshotList = await this.deploy.getSnapshots() as string[]
-        this.log.silly('AboutPage', 'check() we has %s snapshots: %s',
-                                    snapshotList.length,
-                                    snapshotList.join(','),
-                      )
-
+      if (!hasUpdate) {
         this.hideLoader()
 
-        this.log.silly('AboutPage', 'check() loading...')
-        this.deploy.load()
+        this.toastCtrl.create({
+          message: 'You are cool!',
+          duration: 1500,
+          position: 'middle',
+        })
+        .present()
+
+        return
 
       }
+
+      this.log.silly('AboutPage', 'checkDeploy() found new update!')
+
+      const metaData = this.deploy.getMetadata()
+      this.log.silly('AboutPage', 'check() metaData of update: %s', JSON.stringify(metaData))
+
+      this.log.silly('AboutPage', 'check() downloading...')
+      await this.deploy.download()
+
+      this.log.silly('AboutPage', 'check() extracting...')
+      await this.deploy.extract()
+
+      const snapshotList = await this.deploy.getSnapshots() as string[]
+      this.log.silly('AboutPage', 'check() we has %s snapshots: %s',
+                                  snapshotList.length,
+                                  snapshotList.join(','),
+                    )
+
+      this.hideLoader()
+
+      this.log.silly('AboutPage', 'check() loading...')
+      this.deploy.load()
 
     } catch (e) {
       this.log.warn('AboutPage', 'check() exception: %s', e.message)

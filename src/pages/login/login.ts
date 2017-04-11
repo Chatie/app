@@ -45,6 +45,11 @@ export class LoginPage {
 
   ionViewDidLoad() {
     this.log.verbose('LoginPage', 'ionViewDidLoad()')
+
+    if (this.auth.isAuthenticated()) {
+      this.gotoDashboardPage()
+    }
+
   }
 
   async loginEmail(): Promise<void> {
