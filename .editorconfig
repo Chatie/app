@@ -7,6 +7,9 @@ root = true
 indent_style = space
 indent_size = 2
 
+[config.xml]
+indent_size = 4
+
 # We recommend you to keep these unchanged
 end_of_line = lf
 charset = utf-8
