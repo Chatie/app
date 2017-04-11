@@ -33,6 +33,18 @@ const cloudSettings: CloudSettings = {
   'core': {
     'app_id': ionicConfig['app_id'],
   },
+  'push': {
+    'sender_id': '673602949542',
+    'pluginConfig': {
+      'ios': {
+        'badge': true,
+        'sound': true,
+      },
+      'android': {
+        'iconColor': '#343434',
+      },
+    },
+  }
   // 'database': {
   //   'authType': 'authenticated',
   // },

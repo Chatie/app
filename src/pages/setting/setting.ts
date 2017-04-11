@@ -1,5 +1,4 @@
 import { Component }  from '@angular/core'
-import { Auth }       from '@ionic/cloud-angular'
 import {
   NavController,
   NavParams,
@@ -8,18 +7,16 @@ import {
 import { Brolog }     from 'brolog'
 
 import { AboutPage }  from '../about/'
-import { LoginPage }  from '../login/'
 import { HelpPage }   from '../help/'
 
 @Component({
-  selector: 'page-setting',
-  templateUrl: 'setting.html',
+  selector:     'page-setting',
+  templateUrl:  'setting.html',
 })
 export class SettingPage {
   public notificate: boolean = true
 
   constructor(
-    public auth:      Auth,
     public log:       Brolog,
     public navCtrl:   NavController,
     public navParams: NavParams,
@@ -39,8 +36,4 @@ export class SettingPage {
     this.navCtrl.push(HelpPage)
   }
 
-  logout() {
-    this.auth.logout()
-    this.navCtrl.setRoot(LoginPage)
-  }
 }

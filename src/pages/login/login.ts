@@ -1,6 +1,7 @@
 import { Component }      from '@angular/core'
 import {
   Auth,
+  Push,
   User,
 }                         from '@ionic/cloud-angular'
 import {
@@ -28,12 +29,13 @@ export class LoginPage {
   public password:  string
 
   constructor(
-    public alertCtrl:    AlertController,
-    public auth:         Auth,
-    public log:          Brolog,
-    public loadingCtrl:  LoadingController,
-    public navCtrl:      NavController,
-    public user:         User,
+    public alertCtrl:   AlertController,
+    public auth:        Auth,
+    public log:         Brolog,
+    public loadingCtrl: LoadingController,
+    public navCtrl:     NavController,
+    public push:        Push,
+    public user:        User,
   ) {
     this.log.verbose('LoginPage', 'constructor()')
     // this.userService.user.subscribe(userInfo => {
@@ -123,6 +125,30 @@ export class LoginPage {
 
       this.user.set('loginTime', Date.now())
       this.user.save()
+
+      /**
+       * Setup Push Service
+       */
+      const pushToken = await this.push.register()
+      this.push.saveToken(pushToken)
+      this.log.silly('LoginPage', 'loginGithub() push token saved: %s', pushToken)
+
+      this.push.rx.notification()
+                  .subscribe((msg) => {
+                    this.log.silly('LoginPage', 'loginGithub() notification received: %s - %s',
+                                                msg.title, msg.text,
+                                  )
+                    alert(msg.title + ': ' + msg.text)
+                  })
+
+          // do something with the push data
+          // then call finish to let the OS know we are done
+          // push.finish(function() {
+          //     console.log("processing of push data is finished");
+          // }, function() {
+          //     console.log("something went wrong with push.finish for ID = " + data.additionalData.notId)
+          // }, data.additionalData.notId);
+
 
       this.hideLoader()
       this.gotoDashboard()
