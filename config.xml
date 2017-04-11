@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="io.chatie.app" version="0.0.23" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Chatie</name>
     <description>Your Cloud Bot Manager</description>
@@ -91,10 +91,11 @@
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
     <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
     <plugin name="cordova-plugin-inappbrowser" spec="~1.6.1" />
-    <allow-navigation href="http://10.50.34.254:8100" />
-    <allow-navigation href="http://192.168.43.126:8100" />
-    <allow-navigation href="http://192.168.11.118:8100" />
     <plugin name="phonegap-plugin-push" spec="~1.10.1">
         <variable name="SENDER_ID" value="673602949542" />
     </plugin>
+    <allow-navigation href="http://10.50.34.254:8100" />
+    <allow-navigation href="http://192.168.43.126:8100" />
+    <allow-navigation href="http://192.168.11.118:8100" />
+    <allow-navigation href="http://192.168.1.177:8101" />
 </widget>

@@ -8,6 +8,7 @@ import { Brolog }     from 'brolog'
 
 import { AboutPage }  from '../about/'
 import { HelpPage }   from '../help/'
+import { LogoutPage } from '../logout/'
 
 @Component({
   selector:     'page-setting',
@@ -36,4 +37,7 @@ export class SettingPage {
     this.navCtrl.push(HelpPage)
   }
 
+  gotoLogoutPage() {
+    this.navCtrl.push(LogoutPage)
+  }
 }

@@ -9,11 +9,14 @@ import { Brolog }     from 'brolog'
 import { HelpPage }   from '../help/'
 import { StatusPage } from '../status/'
 
+const packageJson = require('../../package.json')
+
 @Component({
   selector:     'page-about',
   templateUrl:  'about.html',
 })
 export class AboutPage {
+  version: string = packageJson.version
 
   constructor(
     public log:       Brolog,

@@ -64,6 +64,7 @@ import { HostieEditPage }     from '../pages/hostie-edit/'
 import { HostieListPage }     from '../pages/hostie-list/'
 import { HostieCreatePage }   from '../pages/hostie-create/'
 import { LoginPage }          from '../pages/login/'
+import { LogoutPage }         from '../pages/logout/'
 import { SettingPage }        from '../pages/setting/'
 import { StatusPage }         from '../pages/status/'
 import { UnlockPage }         from '../pages/unlock/'
@@ -84,6 +85,7 @@ import { WelcomePage }        from '../pages/welcome/'
     HostieEditPage,
     HostieListPage,
     LoginPage,
+    LogoutPage,
     SettingPage,
     StatusPage,
     UnlockPage,
@@ -108,6 +110,7 @@ import { WelcomePage }        from '../pages/welcome/'
     HostieEditPage,
     HostieListPage,
     LoginPage,
+    LogoutPage,
     SettingPage,
     StatusPage,
     UnlockPage,
