@@ -30,26 +30,42 @@ export class Auth {
       // Add callback for lock `authenticated` event
       this.lock.on('authenticated', (authResult) => {
         this.log.verbose('Auth', 'login() on(authenticated)')
-        localStorage.setItem('id_token', authResult.idToken)
-        resolve(authResult)
-      })
 
-      this.lock.on('unrecoverable_error', error => {
-        this.log.verbose('Auth', 'login() on(unrecoverable_error)')
-        reject(error)
-      })
+        this.lock.getUserInfo(authResult.accessToken, (error, profile) => {
+          if (error) {
+            // Handle error
+            return reject(error)
+          }
 
-      this.lock.on('authorization_error', error => {
-        this.log.verbose('Auth', 'login() on(authorization_error)')
-        reject(error)
-      })
+          localStorage.setItem('accessToken', authResult.accessToken)
+          localStorage.setItem('profile', JSON.stringify(profile))
 
-      // Call the show method to display the widget.
-      this.lock.show()
+          localStorage.setItem('id_token', authResult.idToken)
+
+          /**
+           * Resolve
+           */
+          return resolve(authResult)
+        })
+
+        this.lock.on('unrecoverable_error', error => {
+          this.log.verbose('Auth', 'login() on(unrecoverable_error)')
+          return reject(error)
+        })
+
+        this.lock.on('authorization_error', error => {
+          this.log.verbose('Auth', 'login() on(authorization_error)')
+          return reject(error)
+        })
+
+        // Call the show method to display the widget.
+        this.lock.show()
+      })
     })
-  };
+  }
 
   public authenticated() {
+    this.log.verbose('Auth', 'authenticated()')
     // Check if there's an unexpired JWT
     // It searches for an item in localStorage with key == 'id_token'
     return tokenNotExpired()
