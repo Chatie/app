@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
+set -e
 
 VERSION=$(jq -r .version < package.json)
 
 MAJOR_MINOR=${VERSION%.*}
 PATCH=${VERSION##*.}
-PATCH_NEXT=$(($PATCH+1))
+PATCH_NEXT=$((PATCH+1))
 
 VERSION_NEXT="$MAJOR_MINOR.$PATCH_NEXT"
 
