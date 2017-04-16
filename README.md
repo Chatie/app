@@ -15,6 +15,13 @@ title: "What isPlatform?",
 description: "The <b>Ionic Platform</b> is a cloud platform for managing and scaling Ionic apps with integrated services like push notifications, native builds, user auth, and live updating.",
 
 
+# Build
+
+```shell
+# Ios: https://cocoapods.org/
+$ sudo gem install cocoapods
+```
+
 # Learning Resources
 
 ### Rxjs
