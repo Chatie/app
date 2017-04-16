@@ -12,7 +12,7 @@ VERSION_NEXT="$MAJOR_MINOR.$PATCH_NEXT"
 #
 # Sync the App version to package.json
 #
-sed -i \
+sed -i.bak \
   '/"io.chatie.app" version="/s/version="[^"]*"/version="'"$VERSION_NEXT"'"/' \
   config.xml
 
