@@ -15,6 +15,8 @@ title: "What isPlatform?",
 description: "The <b>Ionic Platform</b> is a cloud platform for managing and scaling Ionic apps with integrated services like push notifications, native builds, user auth, and live updating.",
 
 
+# Development
+
 ## Build
 
 ```shell
@@ -23,6 +25,19 @@ $ sudo gem install cocoapods
 ```
 
 ## Learning Resources
+=======
+## Format
+
+Sometimes `config.xml` will change the indent format due to managed by CLI, it seems different cli command will use the different indent style, which will cause a useless commit/diff.
+
+In order to deal with it, we use the VSCode plugin [_XML Formater_](https://marketplace.visualstudio.com/items?itemName=fabianlauer.vs-code-xml-format) to reformat it.
+
+Usage: 
+
+> Open config.xml in vscode, press Ctrl+Alt+P and enter 'Format Code'
+
+# Learning Resources
+>>>>>>> e488c4739058c0e57d280dca6421637ff6d7b512
 
 ### Rxjs
 
