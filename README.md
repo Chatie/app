@@ -25,7 +25,7 @@ $ sudo gem install cocoapods
 ```
 
 ## Learning Resources
-=======
+
 ## Format
 
 Sometimes `config.xml` will change the indent format due to managed by CLI, it seems different cli command will use the different indent style, which will cause a useless commit/diff.
@@ -35,9 +35,6 @@ In order to deal with it, we use the VSCode plugin [_XML Formater_](https://mark
 Usage: 
 
 > Open config.xml in vscode, press Ctrl+Alt+P and enter 'Format Code'
-
-# Learning Resources
->>>>>>> e488c4739058c0e57d280dca6421637ff6d7b512
 
 ### Rxjs
 
