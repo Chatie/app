@@ -83,10 +83,12 @@ export class ChatieApp {
      */
     if (this.auth.isAuthenticated()) {
       this.rootPage = DashboardPage
+      this.auth.startupTokenRefresh()
     } else {
       this.rootPage = LoginPage
     }
 
+    // Schedule a token refresh on app start up
   }
 
   openPage(page: any) {

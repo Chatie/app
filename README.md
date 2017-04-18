@@ -26,6 +26,12 @@ $ sudo gem install cocoapods
 
 ## Learning Resources
 
+## Auth0
+
+* [Auth0 Ionic2 Quick Start](https://auth0.com/docs/quickstart/native/ionic2)
+* [Ionic 2 and Auth0(outdated: v0.9)](http://blog.ionic.io/ionic-2-and-auth0/)
+* [Experimenting With Auth0 Passwordless Email Authentication In Angular 2.4.1](https://www.bennadel.com/blog/3207-experimenting-with-auth0-passwordless-email-authentication-in-angular-2-4-1.htm)
+
 ## Format
 
 Sometimes `config.xml` will change the indent format due to managed by CLI, it seems different cli command will use the different indent style, which will cause a useless commit/diff.
@@ -57,11 +63,17 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 * [Ionic PWA Blog](http://blog.ionic.io/navigating-the-world-of-progressive-web-apps-with-ionic-2/)
 * [Creating (near) native mobile web app (aka progressive web app) for iOS with Ionic 2](https://technology.amis.nl/2016/08/16/creating-near-native-mobile-web-app-aka-progressive-web-app-for-ios-with-ionic-2/)
 
-## GraphQL
+## Database
+
+### 1. GraphQL
 
 * [Zero to GraphQL in 30 Minutes – Steven Luscher](https://www.youtube.com/watch?v=UBGzsb2UkeY)
 * [New features in GraphQL: Batch, defer, stream, live, and subscribe](https://dev-blog.apollodata.com/new-features-in-graphql-batch-defer-stream-live-and-subscribe-7585d0c28b07#.tzc669fjv)
 * [GraphQL(with Subscription) Backend As A Service](https://scaphold.io/)
+
+### 2. PouchDB
+
+* [Offline Syncing in Ionic 2 with PouchDB & CouchDB](https://www.joshmorony.com/offline-syncing-in-ionic-2-with-pouchdb-couchdb/)
 
 ## RxJS/Observable
 
