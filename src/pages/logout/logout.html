@@ -16,5 +16,16 @@
   >
     Logout
   </button>
-  
+
+  <ion-card>
+    <ion-card-header>
+      Profile
+    </ion-card-header>
+    <ion-card-content>
+      <pre>
+        {{ auth.user | json }}
+      </pre>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
