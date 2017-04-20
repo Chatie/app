@@ -9,6 +9,28 @@
 
 <ion-content padding>
 
+  <ion-card>
+    <ion-card-header>
+      Profile
+    </ion-card-header>
+    <ion-card-content>
+      <pre>
+        {{ auth.userProfile | json }}
+      </pre>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-item *ngIf="auth.userProfile">
+      <ion-avatar item-left>
+        <img src="{{ auth.userProfile.picture }}">
+      </ion-avatar>
+      <h2>{{ auth.userProfile.nickname }}</h2>
+      <p>{{ auth.userProfile.email }}</p>
+    </ion-item>
+  </ion-card>
+
   <button
     ion-button
     block
@@ -16,31 +38,5 @@
   >
     Logout
   </button>
-
-  <ion-card>
-    <ion-card-header>
-      Profile
-    </ion-card-header>
-    <ion-card-content>
-      <pre>
-        {{ auth.user | json }}
-      </pre>
-    </ion-card-content>
-  </ion-card>
-
-
-  <ion-card>
-
-    <ion-item *ngIf="auth.user">
-      <ion-avatar item-left>
-        <img src="{{ auth.user.picture }}">
-      </ion-avatar>
-      <h2>{{ auth.user.nickname }}</h2>
-      <p>{{ auth.user.email }}</p>
-    </ion-item>
-
-  </ion-card>
-
-  <button block (click)="auth.logout()">Logout</button>
 
 </ion-content>

@@ -93,7 +93,7 @@ export class ChatieApp {
   }
 
   openPage(page: any) {
-    this.log.verbose('ChatieApp', 'openPage(%s)', page)
+    this.log.verbose('ChatieApp', 'openPage(%s)', page.title)
 
     // close the menu when clicking a link from the menu
     this.menu.close()

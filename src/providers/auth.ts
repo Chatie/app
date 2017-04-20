@@ -39,7 +39,7 @@ export type User = {
 const STORAGE_KEY = {
   ACCESS_TOKEN:   'access_token',
   ID_TOKEN:       'id_token',
-  PROFILE:        'profile',
+  USER_PROFILE:        'profile',
 
   /**
    * OIDC-conformant refresh tokens: https://auth0.com/docs/api-auth/tutorials/adoption/refresh-tokens
@@ -58,13 +58,13 @@ const AUTH0 = {
 
 @Injectable()
 export class Auth {
-  user: Object | null
+  userProfile: Object | null
 
   jwtHelper = new JwtHelper()
   storage   = new Storage()
 
   refreshSubscription: Subscription
-  accessToken:  string
+  accessToken:  string | null
   idToken:      string | null
 
   // Configure Auth0
@@ -74,7 +74,7 @@ export class Auth {
   })
 
   /**
-   * languageDirectionary: https://auth0.com/docs/libraries/lock/v10/customization#languagedictionary-object-
+   * Lock Configurable Options: https://auth0.com/docs/libraries/lock/v10/customization
    */
   auth0Lock = new Auth0Lock(
     AUTH0.CLIENT_ID,
@@ -83,16 +83,20 @@ export class Auth {
       languageDictionary: {
         title: 'Chatie',
       },
+      /**
+       * Lock: Authentication Parameters
+       *  - https://auth0.com/docs/libraries/lock/v10/sending-authentication-parameters#supported-parameters
+       */
       auth: {
         params: {
           // scope: 'openid profile user_metadata app_metadata email offline_access ', // offline_access for refreshToken(?)
-          scope: 'openid name email picture', // offline_access for refreshToken(?)
+          scope: 'openid email offline_access', // offline_access for refreshToken(?)
         },
-        redirect: false,
+        redirect: false,  // must use popup for ionic2
         responseType: 'id_token token', // token for `accessToken`
       },
       allowSignUp: false,
-      allowedConnections: ['github'],
+      // allowedConnections: ['github'],
       initialScreen: 'login',
       // usernameStyle: 'email',
       socialButtonStyle: 'big',
@@ -122,9 +126,9 @@ export class Auth {
 
     try {
       this.idToken  = await this.storage.get(STORAGE_KEY.ID_TOKEN)
-      this.user     = await this.storage.get(STORAGE_KEY.PROFILE)
+      this.userProfile     = await this.storage.get(STORAGE_KEY.USER_PROFILE)
 
-      this.log.silly('Auth', 'init() Storage.get(profile)=%s', JSON.stringify(this.user))
+      this.log.silly('Auth', 'init() Storage.get(profile)=%s', JSON.stringify(this.userProfile))
 
       // this.user = JSON.parse(profile)
       // this.user = profile
@@ -171,28 +175,36 @@ getProfile(idToken: string): Observable<any>{
     return new Promise<boolean>((resolve, reject) => {
       // Add callback for lock `authenticated` event
       this.auth0Lock.on('authenticated', (authResult) => {
-        this.log.verbose('Auth', 'login() on(authenticated)')
+        this.log.verbose('Auth', 'login() on(authenticated, %s)',
+                                  Object.keys(authResult).join(','),
+                        )
 
         this.accessToken  = authResult.accessToken
         this.idToken      = authResult.idToken
 
-        this.auth0Lock.getUserInfo(this.accessToken, (error, profile) => {
-          this.log.verbose('Auth', 'login() Auth0Lock.getUserInfo() profile:%s', JSON.stringify(profile))
+        if (!this.idToken) {
+          const e = new Error('no idToken')
+          this.log.error('Auth', 'login() on(authenticated) error:%s', e.message)
+          return reject(e)
+        }
+
+        this.auth0Lock.getProfile(this.idToken, (error, profile) => {
+          this.log.verbose('Auth', 'login() Auth0Lock.getProfile() profile:%s', JSON.stringify(profile))
 
           if (error) {
             // Handle error
-            this.log.warn('Auth', 'login() Auth0Lock.getUserInfo() error:%s', error)
+            this.log.warn('Auth', 'login() Auth0Lock.getProfile() error:%s', error)
             return reject(error)
           }
 
-          this.user = profile
+          this.userProfile = profile
 
           this.storage.ready().then(() => {
             this.storage.set(STORAGE_KEY.ACCESS_TOKEN,  authResult.accessToken)
             this.storage.set(STORAGE_KEY.ID_TOKEN,      authResult.idToken)
             this.storage.set(STORAGE_KEY.REFRESH_TOKEN, authResult.refreshToken)
 
-            this.storage.set(STORAGE_KEY.PROFILE,       profile)
+            this.storage.set(STORAGE_KEY.USER_PROFILE,  profile)
           })
 
           this.scheduleRefresh()
@@ -229,12 +241,11 @@ getProfile(idToken: string): Observable<any>{
     this.storage.remove(STORAGE_KEY.ID_TOKEN)
     this.storage.remove(STORAGE_KEY.REFRESH_TOKEN)
 
-    this.storage.remove(STORAGE_KEY.PROFILE)
+    this.storage.remove(STORAGE_KEY.USER_PROFILE)
 
-    this.idToken = null
-
-    // this.ngZone.run(() => this.user = null);
-    this.user = null
+    this.accessToken  = null
+    this.idToken      = null
+    this.userProfile  = null
 
     // Unschedule the token refresh
     this.unscheduleRefresh()
