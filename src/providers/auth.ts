@@ -21,17 +21,30 @@ import {
 }                   from 'rxjs'
 import              'rxjs/add/operator/map'
 
+/**
+ * User Profile: https://auth0.com/docs/user-profile
+ * Structure of the User Profile: https://auth0.com/docs/user-profile/user-profile-structure
+ * Control the contents of an ID token: https://auth0.com/docs/tokens/id-token#control-the-contents-of-an-id-token
+ * OpenID Connect Standard Claims: https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims
+ */
 export type User = {
-  id:       string,
-  name:     string,
+  account:  string,
   email:    string,
-  profile:  object,
+  name:     string,
+  picture?: string,
+
+  profile?: object,
 }
 
 const STORAGE_KEY = {
   ACCESS_TOKEN:   'access_token',
   ID_TOKEN:       'id_token',
   PROFILE:        'profile',
+
+  /**
+   * OIDC-conformant refresh tokens: https://auth0.com/docs/api-auth/tutorials/adoption/refresh-tokens
+   * Silent Authentication: https://auth0.com/docs/api-auth/tutorials/silent-authentication
+   */
   REFRESH_TOKEN:  'refresh_token',
 }
 
@@ -60,21 +73,36 @@ export class Auth {
     domain:   AUTH0.DOMAIN,
   })
 
+  /**
+   * languageDirectionary: https://auth0.com/docs/libraries/lock/v10/customization#languagedictionary-object-
+   */
   auth0Lock = new Auth0Lock(
     AUTH0.CLIENT_ID,
     AUTH0.DOMAIN,
     {
-      allowSignUp: false,
-      initialScreen: 'login',
-      usernameStyle: 'email',
-      socialButtonStyle: 'big',
-      autofocus: true,
-      auth: {
-        redirect: false,
+      languageDictionary: {
+        title: 'Chatie',
       },
+      auth: {
+        params: {
+          // scope: 'openid profile user_metadata app_metadata email offline_access ', // offline_access for refreshToken(?)
+          scope: 'openid name email picture', // offline_access for refreshToken(?)
+        },
+        redirect: false,
+        responseType: 'id_token token', // token for `accessToken`
+      },
+      allowSignUp: false,
+      allowedConnections: ['github'],
+      initialScreen: 'login',
+      // usernameStyle: 'email',
+      socialButtonStyle: 'big',
+      mustAcceptTerms:   true,
+      rememberLastLogin: true,
+      autofocus: true,
+      autoclose: false,
       theme: {
         logo: 'https://avatars2.githubusercontent.com/u/25162437?v=3&s=200',
-        primaryColor: '#ec4889',
+        primaryColor: '#32db64',
       },
     },
   )
@@ -94,44 +122,16 @@ export class Auth {
 
     try {
       this.idToken  = await this.storage.get(STORAGE_KEY.ID_TOKEN)
-      const profile = await this.storage.get(STORAGE_KEY.PROFILE)
+      this.user     = await this.storage.get(STORAGE_KEY.PROFILE)
+
+      this.log.silly('Auth', 'init() Storage.get(profile)=%s', JSON.stringify(this.user))
+
       // this.user = JSON.parse(profile)
-      this.user = profile
+      // this.user = profile
     } catch (e) {
-      console.log(e)
+      this.log.error('Auth', 'init() exception: %s', e.message)
     }
 
-    this.auth0Lock.on('authenticated', authResult => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.storage.set(STORAGE_KEY.ACCESS_TOKEN,  authResult.accessToken)
-        this.storage.set(STORAGE_KEY.ID_TOKEN,      authResult.idToken)
-        this.storage.set(STORAGE_KEY.REFRESH_TOKEN, authResult.refreshToken)
-
-        this.accessToken  = authResult.accessToken
-        this.idToken      = authResult.idToken
-
-        // Fetch profile information
-        this.auth0Lock.getUserInfo(this.accessToken, (error, profile) => {
-          if (error) {
-            // Handle error
-            alert(error)
-            return
-          }
-
-          profile.user_metadata = profile.user_metadata || {}
-          // this.storage.set('profile', JSON.stringify(profile))
-          this.storage.set('profile', profile)
-          this.user = profile
-        })
-
-        this.auth0Lock.hide()
-
-        this.ngZone.run(() => this.user = authResult.profile)
-        // // Schedule a token refresh
-        this.scheduleRefresh();
-      }
-
-    })
   }
 
     /*
@@ -160,6 +160,11 @@ getProfile(idToken: string): Observable<any>{
     }
     */
 
+  /**
+   *
+   *
+   * @returns {Promise<boolean>}
+   */
   public async login(): Promise<boolean> {
     this.log.verbose('Auth', 'login()')
 
@@ -168,29 +173,36 @@ getProfile(idToken: string): Observable<any>{
       this.auth0Lock.on('authenticated', (authResult) => {
         this.log.verbose('Auth', 'login() on(authenticated)')
 
-        this.auth0Lock.getUserInfo(authResult.accessToken, async (error, profile) => {
+        this.accessToken  = authResult.accessToken
+        this.idToken      = authResult.idToken
+
+        this.auth0Lock.getUserInfo(this.accessToken, (error, profile) => {
+          this.log.verbose('Auth', 'login() Auth0Lock.getUserInfo() profile:%s', JSON.stringify(profile))
+
           if (error) {
             // Handle error
+            this.log.warn('Auth', 'login() Auth0Lock.getUserInfo() error:%s', error)
             return reject(error)
           }
 
-          await this.storage.ready()
+          this.user = profile
 
-          this.storage.set(STORAGE_KEY.ACCESS_TOKEN,  authResult.accessToken)
-          this.storage.set(STORAGE_KEY.ID_TOKEN,      authResult.idToken)
-          this.storage.set(STORAGE_KEY.REFRESH_TOKEN, authResult.refreshToken)
+          this.storage.ready().then(() => {
+            this.storage.set(STORAGE_KEY.ACCESS_TOKEN,  authResult.accessToken)
+            this.storage.set(STORAGE_KEY.ID_TOKEN,      authResult.idToken)
+            this.storage.set(STORAGE_KEY.REFRESH_TOKEN, authResult.refreshToken)
 
-          // this.storage.set(STORAGE_KEY.PROFILE,       JSON.stringify(profile))
-          this.storage.set(STORAGE_KEY.PROFILE,       profile)
+            this.storage.set(STORAGE_KEY.PROFILE,       profile)
+          })
 
-          this.accessToken  = authResult.accessToken
-          this.idToken      = authResult.idToken
-          this.user         = profile
+          this.scheduleRefresh()
 
           /**
            * Resolve
            */
+          this.auth0Lock.hide()
           return resolve(true)
+
         })
       })
 
@@ -209,20 +221,8 @@ getProfile(idToken: string): Observable<any>{
     })
   }
 
-  public authenticated(): boolean {
-    this.log.verbose('Auth', 'authenticated()')
-
-    // Check if there's an unexpired JWT
-    // It searches for an item in localStorage with key == 'id_token'
-    // return tokenNotExpired()
-    if (!this.idToken) {
-      return false
-    }
-    return tokenNotExpired(STORAGE_KEY.ID_TOKEN, this.idToken)
-  }
-
   public logout(): void {
-    this.log.error('Auth', 'logout()')
+    this.log.verbose('Auth', 'logout()')
 
     // Remove token from localStorage
     this.storage.remove(STORAGE_KEY.ACCESS_TOKEN)
@@ -232,9 +232,22 @@ getProfile(idToken: string): Observable<any>{
     this.storage.remove(STORAGE_KEY.PROFILE)
 
     this.idToken = null
-    this.ngZone.run(() => this.user = null);
+
+    // this.ngZone.run(() => this.user = null);
+    this.user = null
+
     // Unschedule the token refresh
     this.unscheduleRefresh()
+  }
+
+  public authenticated(): boolean {
+    // Check if there's an unexpired JWT
+    // It searches for an item in localStorage with key == 'id_token'
+    // return tokenNotExpired()
+    const valid = !!this.idToken && tokenNotExpired(STORAGE_KEY.ID_TOKEN, this.idToken)
+    this.log.verbose('Auth', 'authenticated(): %s', valid)
+
+    return valid
   }
 
   public scheduleRefresh() {
@@ -305,6 +318,8 @@ getProfile(idToken: string): Observable<any>{
   }
 
   public unscheduleRefresh() {
+    this.log.verbose('Auth', 'unscheduleRefresh()')
+
     // Unsubscribe fromt the refresh
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe()
@@ -312,9 +327,14 @@ getProfile(idToken: string): Observable<any>{
   }
 
   public async getNewJwt() {
+    this.log.verbose('Auth', 'getNewJwt()')
+
     // Get a new JWT from Auth0 using the refresh token saved
     // in local storage
     try {
+      /**
+       * Token Lifetime: https://auth0.com/docs/tokens/id-token#token-lifetime
+       */
       this.auth0WebAuth.renewAuth({
         // ???
         // https://github.com/auth0/auth0.js/blob/master/example/index.html
@@ -325,7 +345,7 @@ getProfile(idToken: string): Observable<any>{
         // scope: 'read:something write:otherthing',
 
         // Hosted Login Page: https://auth0.com/docs/hosted-pages/login
-        redirectUri: 'https://zixia.auth0.com/login?client=g6P417oEmHON1BuPdsV9foNgP4h98dmh',
+        // redirectUri: 'https://zixia.auth0.com/login?client=g6P417oEmHON1BuPdsV9foNgP4h98dmh',
         usePostMessage: true,
       }, (err, authResult) => {
         if (err) {

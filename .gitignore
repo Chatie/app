@@ -68,7 +68,7 @@ yarn.lock
 t.*
 www.zip
 .io-config.json
-config.xml.bak
+*.bak
 *.keystore
 project.zip
 Chatie*.apk

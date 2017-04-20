@@ -55,7 +55,7 @@ export class LoginPage {
 
     try {
       const authResult = await this.auth.login()
-      this.log.silly('LoginPage', 'loginEmail() successful! %s', JSON.stringify(authResult))
+      this.log.silly('LoginPage', 'login() successful! %s', JSON.stringify(authResult))
       this.gotoDashboardPage()
     } catch (e) {
       this.log.warn('LoginPage', 'login() exception: %s', e && e.message || e)
