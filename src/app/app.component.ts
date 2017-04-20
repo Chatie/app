@@ -11,7 +11,6 @@ import {
   ViewChild,
 }                   from '@angular/core'
 
-import { Auth }     from '@ionic/cloud-angular'
 import {
   Platform,
   MenuController,
@@ -23,6 +22,8 @@ import {
 }                   from 'ionic-native'
 
 import { Brolog }   from 'brolog'
+
+import { Auth }             from '../providers/auth'
 
 import { DashboardPage }    from '../pages/dashboard/'
 
@@ -81,7 +82,7 @@ export class ChatieApp {
     /**
      * https://www.raymondcamden.com/2016/11/04/an-example-of-the-ionic-auth-service-with-ionic-2
      */
-    if (this.auth.isAuthenticated()) {
+    if (this.auth.authenticated()) {
       this.rootPage = DashboardPage
       this.auth.startupTokenRefresh()
     } else {

@@ -1,6 +1,5 @@
 import { Component }  from '@angular/core'
 import {
-  Auth,
   Push,
 }                     from '@ionic/cloud-angular'
 import {
@@ -12,6 +11,7 @@ import {
 
 import { Brolog }     from 'brolog'
 
+import { Auth }       from '../../providers/auth'
 import { LoginPage }  from '../login/'
 
 @Component({
@@ -36,7 +36,7 @@ export class LogoutPage {
   ionViewDidLoad() {
     this.log.verbose('LogoutPage', 'ionViewDidLoad()')
 
-    if (!this.auth.isAuthenticated()) {
+    if (!this.auth.authenticated()) {
       this.logout()
     }
 
