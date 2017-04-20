@@ -39,7 +39,7 @@ export type User = {
 const STORAGE_KEY = {
   ACCESS_TOKEN:   'access_token',
   ID_TOKEN:       'id_token',
-  USER_PROFILE:        'profile',
+  USER_PROFILE:   'user_profile',
 
   /**
    * OIDC-conformant refresh tokens: https://auth0.com/docs/api-auth/tutorials/adoption/refresh-tokens
@@ -80,35 +80,41 @@ export class Auth {
     AUTH0.CLIENT_ID,
     AUTH0.DOMAIN,
     {
-      languageDictionary: {
-        title: 'Chatie',
-      },
-      /**
-       * Lock: Authentication Parameters
-       *  - https://auth0.com/docs/libraries/lock/v10/sending-authentication-parameters#supported-parameters
-       */
+      // oidcConformant: true,
       auth: {
-        params: {
-          // scope: 'openid profile user_metadata app_metadata email offline_access ', // offline_access for refreshToken(?)
-          scope: 'openid email offline_access', // offline_access for refreshToken(?)
-        },
         redirect: false,  // must use popup for ionic2
-        responseType: 'id_token token', // token for `accessToken`
-      },
-      allowSignUp: false,
-      // allowedConnections: ['github'],
-      initialScreen: 'login',
-      // usernameStyle: 'email',
-      socialButtonStyle: 'big',
-      mustAcceptTerms:   true,
-      rememberLastLogin: true,
-      autofocus: true,
-      autoclose: false,
-      theme: {
-        logo: 'https://avatars2.githubusercontent.com/u/25162437?v=3&s=200',
-        primaryColor: '#32db64',
       },
     },
+    // {
+    //   languageDictionary: {
+    //     title: 'Chatie',
+    //   },
+    //   /**
+    //    * Lock: Authentication Parameters
+    //    *  - https://auth0.com/docs/libraries/lock/v10/sending-authentication-parameters#supported-parameters
+    //    */
+    //   auth: {
+    //     params: {
+    //       // scope: 'openid profile user_metadata app_metadata email offline_access ', // offline_access for refreshToken(?)
+    //       scope: 'openid email offline_access', // offline_access for refreshToken(?)
+    //     },
+    //     redirect: false,  // must use popup for ionic2
+    //     responseType: 'id_token token', // token for `accessToken`
+    //   },
+    //   allowSignUp: true,
+    //   // allowedConnections: ['github'],
+    //   // initialScreen: 'login',
+    //   // usernameStyle: 'email',
+    //   // socialButtonStyle: 'small',
+    //   mustAcceptTerms:   true,
+    //   rememberLastLogin: true,
+    //   autofocus: true,
+    //   autoclose: false,
+    //   theme: {
+    //     logo: 'https://avatars2.githubusercontent.com/u/25162437?v=3&s=200',
+    //     primaryColor: '#32db64',
+    //   },
+    // },
   )
 
   constructor(
@@ -125,10 +131,13 @@ export class Auth {
     this.log.verbose('Auth', 'init()')
 
     try {
-      this.idToken  = await this.storage.get(STORAGE_KEY.ID_TOKEN)
-      this.userProfile     = await this.storage.get(STORAGE_KEY.USER_PROFILE)
+      this.idToken      = await this.storage.get(STORAGE_KEY.ID_TOKEN)
+      this.userProfile  = await this.storage.get(STORAGE_KEY.USER_PROFILE)
 
-      this.log.silly('Auth', 'init() Storage.get(profile)=%s', JSON.stringify(this.userProfile))
+      this.log.silly('Auth', 'init() Storage.get() idToken=%s, profile={%s}',
+                              this.idToken,
+                              Object.keys(this.userProfile || {}).join(','),
+                    )
 
       // this.user = JSON.parse(profile)
       // this.user = profile
@@ -175,7 +184,7 @@ getProfile(idToken: string): Observable<any>{
     return new Promise<boolean>((resolve, reject) => {
       // Add callback for lock `authenticated` event
       this.auth0Lock.on('authenticated', (authResult) => {
-        this.log.verbose('Auth', 'login() on(authenticated, %s)',
+        this.log.verbose('Auth', 'login() on(authenticated, authResult={%s})',
                                   Object.keys(authResult).join(','),
                         )
 
@@ -189,7 +198,9 @@ getProfile(idToken: string): Observable<any>{
         }
 
         this.auth0Lock.getProfile(this.idToken, (error, profile) => {
-          this.log.verbose('Auth', 'login() Auth0Lock.getProfile() profile:%s', JSON.stringify(profile))
+          this.log.verbose('Auth', 'login() Auth0Lock.getProfile() profile:{%s}',
+                                    Object.keys(profile || {}).join(','),
+                          )
 
           if (error) {
             // Handle error
@@ -219,7 +230,7 @@ getProfile(idToken: string): Observable<any>{
       })
 
       this.auth0Lock.on('unrecoverable_error', error => {
-        this.log.verbose('Auth', 'login() on(unrecoverable_error)')
+        this.log.verbose('Auth', 'login() on(unrecoverable_error) error:%s', error)
         return resolve(false)
       })
 

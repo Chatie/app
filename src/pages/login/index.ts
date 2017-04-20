@@ -54,9 +54,12 @@ export class LoginPage {
     this.log.verbose('LoginPage', 'login()')
 
     try {
-      const authResult = await this.auth.login()
-      this.log.silly('LoginPage', 'login() successful! %s', JSON.stringify(authResult))
-      this.gotoDashboardPage()
+      const valid = await this.auth.login()
+      this.log.silly('LoginPage', 'login() Auth.login() valid:%s', valid)
+
+      if (valid) {
+        this.gotoDashboardPage()
+      }
     } catch (e) {
       this.log.warn('LoginPage', 'login() exception: %s', e && e.message || e)
 
