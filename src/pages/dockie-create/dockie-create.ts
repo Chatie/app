@@ -45,7 +45,7 @@ export class DockieCreatePage {
     this.log.verbose('DockieCreatePage', 'save()')
     this.loading = true
 
-    const Dockostie: Dockie = {
+    const newDockie: Dockie = {
       token:      this.token,
       name:       this.name,
       note:       this.note,
@@ -54,9 +54,9 @@ export class DockieCreatePage {
       create_at: Date.now(),
     }
 
-    this.log.silly('DockieCreatePage', 'create() Dockostie: %s', JSON.stringify(Dockostie))
+    this.log.silly('DockieCreatePage', 'create() newDockie: %s', JSON.stringify(newDockie))
 
-    this.dockieStore.insert(Dockostie).subscribe(_ => {
+    this.dockieStore.insert(newDockie).subscribe(_ => {
       this.navCtrl.pop()
     })
   }

@@ -135,11 +135,11 @@ export class DockieDetailsPage {
        * [SOLVED] Ionic2 navController pop with params
        * https://forum.ionicframework.com/t/solved-ionic2-navcontroller-pop-with-params/58104
        */
-      done: (Dockostie: Dockie) => {
+      done: (savedDockie: Dockie) => {
         this.log.verbose('DockieDetailsPage', 'edit() done() %s',
-                                              JSON.stringify(Dockostie),
+                                              JSON.stringify(savedDockie),
                         )
-        this.dockie = Dockostie
+        this.dockie = savedDockie
         this.cdRef.markForCheck()
       },
     })
