@@ -9,7 +9,6 @@
 log.txt
 *.sublime-project
 *.sublime-workspace
-.vscode/
 npm-debug.log*
 
 .idea/
@@ -69,7 +68,7 @@ yarn.lock
 t.*
 www.zip
 .io-config.json
-config.xml.bak
+*.bak
 *.keystore
 project.zip
 Chatie*.apk

@@ -6,20 +6,20 @@ import { Brolog }         from 'brolog'
 import uuid               from 'uuid'
 
 import {
-  Hostie,
-  HostieStatus,
-  HostieStore,
+  Dockie,
+  DockieStatus,
+  DockieStore,
 }                         from '@chatie/db'
 
 @Component({
-  selector: 'page-hostie-create',
-  templateUrl: 'hostie-create.html',
+  selector: 'page-dockie-create',
+  templateUrl: 'dockie-create.html',
 })
-export class HostieCreatePage {
-  private hostieStore: HostieStore
+export class DockieCreatePage {
+  private dockieStore: DockieStore
 
   private token = uuid() as string
-  private name = 'Hostie #' + this.token.substr(-2, 2)
+  private name = 'Dockie #' + this.token.substr(-2, 2)
   private note: string
 
   private loading = false
@@ -29,34 +29,34 @@ export class HostieCreatePage {
     public database:  Database,
     public log:       Brolog,
   ) {
-    this.log.verbose('HostieCreatePage', 'constructor()')
+    this.log.verbose('DockieCreatePage', 'constructor()')
 
-    this.hostieStore = HostieStore.instance({
+    this.dockieStore = DockieStore.instance({
       database,
       log,
     })
   }
 
   ionViewDidLoad() {
-    this.log.verbose('HostieCreatePage', 'ionViewDidLoad()')
+    this.log.verbose('DockieCreatePage', 'ionViewDidLoad()')
   }
 
   save() {
-    this.log.verbose('HostieCreatePage', 'save()')
+    this.log.verbose('DockieCreatePage', 'save()')
     this.loading = true
 
-    const newHostie: Hostie = {
+    const newDockie: Dockie = {
       token:      this.token,
       name:       this.name,
       note:       this.note,
-      updateTime: Date.now(),
-      status:     HostieStatus.OFFLINE,
-      createTime: Date.now(),
+      update_at: Date.now(),
+      status:     DockieStatus.OFFLINE,
+      create_at: Date.now(),
     }
 
-    this.log.silly('HostieCreatePage', 'create() newHostie: %s', JSON.stringify(newHostie))
+    this.log.silly('DockieCreatePage', 'create() newDockie: %s', JSON.stringify(newDockie))
 
-    this.hostieStore.insert(newHostie).subscribe(_ => {
+    this.dockieStore.insert(newDockie).subscribe(_ => {
       this.navCtrl.pop()
     })
   }

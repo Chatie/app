@@ -22,12 +22,12 @@ import {
 import { Brolog }         from 'brolog'
 
 import {
-  Hostie,
-  HostieStatus,
-  HostieStore,
+  Dockie,
+  DockieStatus,
+  DockieStore,
 }                         from '@chatie/db'
 
-import { HostieListPage } from '../hostie-list/'
+import { DockieListPage } from '../dockie-list/'
 import { BotieListPage }  from '../botie-list/'
 
 @Component({
@@ -37,10 +37,10 @@ import { BotieListPage }  from '../botie-list/'
 export class DashboardPage implements OnInit, OnDestroy {
   private subscription: Subscription
 
-  private hostieStore: HostieStore
+  private dockieStore: DockieStore
 
-  hostieList: Hostie[]  = []
-  hostieActiveNum       = 0
+  dockieList: Dockie[]  = []
+  dockieActiveNum       = 0
 
   botieList       = [1, 2, 3]
   botieActiveNum  = 1
@@ -51,7 +51,7 @@ export class DashboardPage implements OnInit, OnDestroy {
     public navCtrl:  NavController,
   ) {
     this.log.verbose('DashboardPage', 'constructor()')
-    this.hostieStore = HostieStore.instance({
+    this.dockieStore = DockieStore.instance({
       database: database,
       log,
     })
@@ -59,9 +59,9 @@ export class DashboardPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.log.verbose('DashboardPage', 'ngOnInit()')
-    this.subscription = this.hostieStore.hosties.subscribe(list => {
-      this.hostieList       = list
-      this.hostieActiveNum  = list.filter( l => l.status === HostieStatus.ONLINE )
+    this.subscription = this.dockieStore.dockies.subscribe(list => {
+      this.dockieList       = list
+      this.dockieActiveNum  = list.filter( l => l.status === DockieStatus.ONLINE )
                                   .length
     })
   }
@@ -71,8 +71,8 @@ export class DashboardPage implements OnInit, OnDestroy {
     this.subscription.unsubscribe()
   }
 
-  gotoHostieListPage() {
-    this.navCtrl.push(HostieListPage)
+  gotoDockieListPage() {
+    this.navCtrl.push(DockieListPage)
   }
 
   gotoBotieListPage() {

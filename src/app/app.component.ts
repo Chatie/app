@@ -29,7 +29,7 @@ import { DashboardPage }    from '../pages/dashboard/'
 
 import { FeedbackPage }     from '../pages/feedback/'
 // import { GiftieListPage }   from '../pages/giftie-list/'
-import { HostieListPage }   from '../pages/hostie-list/'
+import { DockieListPage }   from '../pages/dockie-list/'
 import { LoginPage }        from '../pages/login/'
 import { SettingPage }      from '../pages/setting/'
 // import { WelcomePage }    from '../pages/welcome/'
@@ -43,8 +43,8 @@ export class ChatieApp {
   // make HelloIonicPage the root (or first) page
   // rootPage: any = WelcomePage
   // rootPage: any = DashboardPage
-  rootPage: any = HostieListPage
-  // rootPage: any = HostieCreatePage
+  rootPage: any = DockieListPage
+  // rootPage: any = DockieCreatePage
 
   pages: Array<{
     title: string,
@@ -65,7 +65,7 @@ export class ChatieApp {
       { title: 'Dashboard'  , icon: 'speedometer' , component: DashboardPage },
       // { title: 'Gifties'    , icon: 'flash'       , component: GiftieListPage },
       // { title: 'Boties'     , icon: 'logo-android', component: BotieListPage },
-      { title: 'Hosties'    , icon: 'home'        , component: HostieListPage },
+      { title: 'Dockies'    , icon: 'home'        , component: DockieListPage },
       { title: 'Setting'    , icon: 'cog'         , component: SettingPage },
       { title: 'Feedback'   , icon: 'people'      , component: FeedbackPage },
     ]
@@ -93,7 +93,7 @@ export class ChatieApp {
   }
 
   openPage(page: any) {
-    this.log.verbose('ChatieApp', 'openPage(%s)', page)
+    this.log.verbose('ChatieApp', 'openPage(%s)', page.title)
 
     // close the menu when clicking a link from the menu
     this.menu.close()

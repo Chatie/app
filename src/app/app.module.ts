@@ -62,10 +62,10 @@ import { DashboardPage }      from '../pages/dashboard/'
 import { FeedbackPage }       from '../pages/feedback/'
 import { GiftieListPage }     from '../pages/giftie-list/'
 import { HelpPage }           from '../pages/help/'
-import { HostieDetailsPage }  from '../pages/hostie-details/'
-import { HostieEditPage }     from '../pages/hostie-edit/'
-import { HostieListPage }     from '../pages/hostie-list/'
-import { HostieCreatePage }   from '../pages/hostie-create/'
+import { DockieDetailsPage }  from '../pages/dockie-details/'
+import { DockieEditPage }     from '../pages/dockie-edit/'
+import { DockieListPage }     from '../pages/dockie-list/'
+import { DockieCreatePage }   from '../pages/dockie-create/'
 import { LoginPage }          from '../pages/login/'
 import { LogoutPage }         from '../pages/logout/'
 import { SettingPage }        from '../pages/setting/'
@@ -83,10 +83,10 @@ import { WelcomePage }        from '../pages/welcome/'
     FeedbackPage,
     GiftieListPage,
     HelpPage,
-    HostieCreatePage,
-    HostieDetailsPage,
-    HostieEditPage,
-    HostieListPage,
+    DockieCreatePage,
+    DockieDetailsPage,
+    DockieEditPage,
+    DockieListPage,
     LoginPage,
     LogoutPage,
     SettingPage,
@@ -108,10 +108,10 @@ import { WelcomePage }        from '../pages/welcome/'
     FeedbackPage,
     GiftieListPage,
     HelpPage,
-    HostieCreatePage,
-    HostieDetailsPage,
-    HostieEditPage,
-    HostieListPage,
+    DockieCreatePage,
+    DockieDetailsPage,
+    DockieEditPage,
+    DockieListPage,
     LoginPage,
     LogoutPage,
     SettingPage,
