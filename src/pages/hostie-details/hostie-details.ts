@@ -21,13 +21,13 @@ import {
 import { Brolog }           from 'brolog'
 
 import {
-  Hostie,
-  HostieStatus,
-  HostieStore,
-  HostieRuntime,
+  Dockie,
+  DockieStatus,
+  DockieStore,
+  DockieRuntime,
 }                           from '@chatie/db'
 
-import { HostieEditPage }   from '../hostie-edit/'
+import { DockieEditPage }   from '../hostie-edit/'
 
 @Component({
   selector:     'page-hostie-details',
@@ -39,9 +39,9 @@ import { HostieEditPage }   from '../hostie-edit/'
    */
   changeDetection:  ChangeDetectionStrategy.OnPush,
 })
-export class HostieDetailsPage {
-  hostie:       Hostie
-  hostieStore:  HostieStore
+export class DockieDetailsPage {
+  hostie:       Dockie
+  hostieStore:  DockieStore
 
   eventList: any[] = [
     {
@@ -88,7 +88,7 @@ export class HostieDetailsPage {
   online(): boolean {
     this.log.verbose('HostieDetailsPage', 'online()')
     // return this.hostie.status === HostieStatus.ONLINE
-    return this.hostie.status === HostieStatus.ONLINE
+    return this.hostie.status === DockieStatus.ONLINE
   }
 
   uptime(): number {
@@ -101,11 +101,11 @@ export class HostieDetailsPage {
    */
   icon(): string {
     switch (this.hostie.runtime) {
-      case HostieRuntime.UNKNOWN: return 'help'
-      case HostieRuntime.DOCKER:  return 'cube'
-      case HostieRuntime.LINUX:   return 'logo-tux'
-      case HostieRuntime.WINDOWS: return 'logo-windows'
-      case HostieRuntime.APPLE:   return 'logo-apple'
+      case DockieRuntime.UNKNOWN: return 'help'
+      case DockieRuntime.DOCKER:  return 'cube'
+      case DockieRuntime.LINUX:   return 'logo-tux'
+      case DockieRuntime.WINDOWS: return 'logo-windows'
+      case DockieRuntime.APPLE:   return 'logo-apple'
       default:                    return 'help'
     }
   }
@@ -130,13 +130,13 @@ export class HostieDetailsPage {
   edit() {
     this.log.verbose('HostieDetailsPage', 'edit() hostie #%s', this.hostie.id)
 
-    this.navCtrl.push(HostieEditPage, {
+    this.navCtrl.push(DockieEditPage, {
       hostie: this.hostie,
       /**
        * [SOLVED] Ionic2 navController pop with params
        * https://forum.ionicframework.com/t/solved-ionic2-navcontroller-pop-with-params/58104
        */
-      done: (newHostie: Hostie) => {
+      done: (newHostie: Dockie) => {
         this.log.verbose('HostieDetailsPage', 'edit() done() %s',
                                               JSON.stringify(newHostie),
                         )

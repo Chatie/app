@@ -94,8 +94,8 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 
 ## Todo
 
-* [x] Hostie Event Page
-* [ ] Hostie QR Code Push
+* [x] Dockie Event Page
+* [ ] Dockie QR Code Push
 * [ ] Store Publish
 * [ ] Other
   - [ ] Feedback enable Wilddog & Scrollglue

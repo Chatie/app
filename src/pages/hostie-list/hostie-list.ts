@@ -34,13 +34,13 @@ import {
 import { Brolog }           from 'brolog'
 
 import {
-  Hostie,
-  HostieStatus,
-  HostieStore,
+  Dockie,
+  DockieStatus,
+  DockieStore,
 }                 from '@chatie/db'
 
-import { HostieDetailsPage }  from '../hostie-details/'
-import { HostieCreatePage }   from '../hostie-create/'
+import { DockieDetailsPage }  from '../hostie-details/'
+import { DockieCreatePage }   from '../hostie-create/'
 
 @Component({
   selector: 'hostie-list',
@@ -48,11 +48,11 @@ import { HostieCreatePage }   from '../hostie-create/'
   changeDetection:  ChangeDetectionStrategy.OnPush,
 })
 
-export class HostieListPage implements OnInit, OnDestroy {
+export class DockieListPage implements OnInit, OnDestroy {
   // hostieList: Hostie[]
   hostieListSubscription: Subscription
 
-  private hostieStore: HostieStore
+  private hostieStore: DockieStore
 
   reordering = false
 
@@ -63,7 +63,7 @@ export class HostieListPage implements OnInit, OnDestroy {
     public navParams: NavParams,
   ) {
     this.log.verbose('HostieListPage', 'constructor()')
-    this.hostieStore = HostieStore.instance({
+    this.hostieStore = DockieStore.instance({
       database: database,
       log,
     })
@@ -84,9 +84,9 @@ export class HostieListPage implements OnInit, OnDestroy {
     // this.hostieListSubscription.unsubscribe()
   }
 
-  gotoHostieDetail(hostie: Hostie, event: any) {
+  gotoHostieDetail(hostie: Dockie, event: any) {
     this.log.verbose('HostieListPage', 'select(%s, %s)', hostie.id, event)
-    this.navCtrl.push(HostieDetailsPage, {
+    this.navCtrl.push(DockieDetailsPage, {
       hostie,
     })
   }
@@ -100,16 +100,16 @@ export class HostieListPage implements OnInit, OnDestroy {
     // TODO save to backend
   }
 
-  hostieIcon(hostie: Hostie) {
+  hostieIcon(hostie: Dockie) {
     this.log.verbose('HostieListPage', 'hostieIcon()')
 
-    if (hostie.status === HostieStatus.ONLINE) {
+    if (hostie.status === DockieStatus.ONLINE) {
       return 'ios-home'
     }
     return 'ios-home-outline'
   }
 
-  trash(hostie: Hostie) {
+  trash(hostie: Dockie) {
     this.log.verbose('HostieListPage', 'trash(%s)', hostie.id)
     if (!hostie.id) {
       throw new Error('no hostie id')
@@ -118,6 +118,6 @@ export class HostieListPage implements OnInit, OnDestroy {
   }
 
   add() {
-    this.navCtrl.push(HostieCreatePage)
+    this.navCtrl.push(DockieCreatePage)
   }
 }

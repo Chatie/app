@@ -12,18 +12,18 @@ import {
 import { Brolog }     from 'brolog'
 
 import {
-  Hostie,
-  HostieStore,
+  Dockie,
+  DockieStore,
 }                     from '@chatie/db'
 
 @Component({
   selector:     'page-hostie-edit',
   templateUrl:  'hostie-edit.html',
 })
-export class HostieEditPage {
-  hostie:       Hostie
-  done:         (newHostie: Hostie) => Promise<void>
-  hostieStore:  HostieStore
+export class DockieEditPage {
+  hostie:       Dockie
+  done:         (newHostie: Dockie) => Promise<void>
+  hostieStore:  DockieStore
 
   loading:      Loading | null
 
@@ -40,7 +40,7 @@ export class HostieEditPage {
     this.done     = navParams.get('done')
     this.log.silly('HostieEditPage', 'constructor() hostie id:%s', this.hostie.id)
 
-    this.hostieStore = HostieStore.instance()
+    this.hostieStore = DockieStore.instance()
 
   }
 

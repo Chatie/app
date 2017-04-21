@@ -6,17 +6,17 @@ import { Brolog }         from 'brolog'
 import uuid               from 'uuid'
 
 import {
-  Hostie,
-  HostieStatus,
-  HostieStore,
+  Dockie,
+  DockieStatus,
+  DockieStore,
 }                         from '@chatie/db'
 
 @Component({
   selector: 'page-hostie-create',
   templateUrl: 'hostie-create.html',
 })
-export class HostieCreatePage {
-  private hostieStore: HostieStore
+export class DockieCreatePage {
+  private hostieStore: DockieStore
 
   private token = uuid() as string
   private name = 'Hostie #' + this.token.substr(-2, 2)
@@ -31,7 +31,7 @@ export class HostieCreatePage {
   ) {
     this.log.verbose('HostieCreatePage', 'constructor()')
 
-    this.hostieStore = HostieStore.instance({
+    this.hostieStore = DockieStore.instance({
       database,
       log,
     })
@@ -45,12 +45,12 @@ export class HostieCreatePage {
     this.log.verbose('HostieCreatePage', 'save()')
     this.loading = true
 
-    const newHostie: Hostie = {
+    const newHostie: Dockie = {
       token:      this.token,
       name:       this.name,
       note:       this.note,
       update_at: Date.now(),
-      status:     HostieStatus.OFFLINE,
+      status:     DockieStatus.OFFLINE,
       create_at: Date.now(),
     }
 
