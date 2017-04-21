@@ -81,40 +81,36 @@ export class Auth {
     AUTH0.DOMAIN,
     {
       // oidcConformant: true,
+      languageDictionary: {
+        title: 'Chatie',
+      },
+      /**
+       * Lock: Authentication Parameters
+       *  - https://auth0.com/docs/libraries/lock/v10/sending-authentication-parameters#supported-parameters
+       */
       auth: {
+        params: {
+          // scope: 'openid profile user_metadata app_metadata email offline_access ', // offline_access for refreshToken(?)
+          scope: 'openid email offline_access', // offline_access for refreshToken(?)
+        },
         redirect: false,  // must use popup for ionic2
+        responseType: 'id_token token', // token for `accessToken`
+      },
+      allowSignUp:          false,
+      allowForgotPassword:  false,
+      allowedConnections: ['github'],
+      initialScreen: 'login',
+      // usernameStyle: 'email',
+      socialButtonStyle: 'big',
+      mustAcceptTerms:   true,
+      rememberLastLogin: true,
+      autofocus: true,
+      autoclose: false,
+      theme: {
+        logo: 'https://avatars2.githubusercontent.com/u/25162437?v=3&s=200',
+        primaryColor: '#32db64',
       },
     },
-    // {
-    //   languageDictionary: {
-    //     title: 'Chatie',
-    //   },
-    //   /**
-    //    * Lock: Authentication Parameters
-    //    *  - https://auth0.com/docs/libraries/lock/v10/sending-authentication-parameters#supported-parameters
-    //    */
-    //   auth: {
-    //     params: {
-    //       // scope: 'openid profile user_metadata app_metadata email offline_access ', // offline_access for refreshToken(?)
-    //       scope: 'openid email offline_access', // offline_access for refreshToken(?)
-    //     },
-    //     redirect: false,  // must use popup for ionic2
-    //     responseType: 'id_token token', // token for `accessToken`
-    //   },
-    //   allowSignUp: true,
-    //   // allowedConnections: ['github'],
-    //   // initialScreen: 'login',
-    //   // usernameStyle: 'email',
-    //   // socialButtonStyle: 'small',
-    //   mustAcceptTerms:   true,
-    //   rememberLastLogin: true,
-    //   autofocus: true,
-    //   autoclose: false,
-    //   theme: {
-    //     logo: 'https://avatars2.githubusercontent.com/u/25162437?v=3&s=200',
-    //     primaryColor: '#32db64',
-    //   },
-    // },
   )
 
   constructor(
