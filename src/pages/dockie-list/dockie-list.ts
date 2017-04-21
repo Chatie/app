@@ -52,21 +52,16 @@ export class DockieListPage implements OnInit, OnDestroy {
   // dockieList: Dockie[]
   dockieListSubscription: Subscription
 
-  private dockieStore: DockieStore
-
   reordering = false
 
   constructor(
-    public database:  Database,
-    public log:       Brolog,
-    public navCtrl:   NavController,
-    public navParams: NavParams,
+    public database:    Database,
+    public dockieStore: DockieStore,
+    public log:         Brolog,
+    public navCtrl:     NavController,
+    public navParams:   NavParams,
   ) {
     this.log.verbose('DockieListPage', 'constructor()')
-    this.dockieStore = DockieStore.instance({
-      database: database,
-      log,
-    })
   }
 
   ngOnInit() {

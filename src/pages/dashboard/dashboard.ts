@@ -13,9 +13,6 @@ import {
 }                         from '@angular/core'
 import { NavController }  from 'ionic-angular'
 import {
-  Database,
-}                         from '@ionic/cloud-angular'
-import {
   Subscription,
 }                         from 'rxjs'
 
@@ -27,6 +24,8 @@ import {
   DockieStore,
 }                         from '@chatie/db'
 
+import { Auth }           from '../../providers/auth'
+
 import { DockieListPage } from '../dockie-list/'
 import { BotieListPage }  from '../botie-list/'
 
@@ -37,8 +36,6 @@ import { BotieListPage }  from '../botie-list/'
 export class DashboardPage implements OnInit, OnDestroy {
   private subscription: Subscription
 
-  private dockieStore: DockieStore
-
   dockieList: Dockie[]  = []
   dockieActiveNum       = 0
 
@@ -46,15 +43,17 @@ export class DashboardPage implements OnInit, OnDestroy {
   botieActiveNum  = 1
 
   constructor(
-    public log:      Brolog,
-    public database: Database,
-    public navCtrl:  NavController,
+    public auth:          Auth,
+    public dockieStore:   DockieStore,
+    public log:           Brolog,
+    public navCtrl:       NavController,
   ) {
     this.log.verbose('DashboardPage', 'constructor()')
-    this.dockieStore = DockieStore.instance({
-      database: database,
-      log,
-    })
+
+    const user = auth.user
+    if (!user) {
+      throw new Error('no user login')
+    }
   }
 
   ngOnInit() {
