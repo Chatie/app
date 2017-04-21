@@ -98,7 +98,8 @@ export class Auth {
       // this.user = JSON.parse(profile)
       this.user = profile
     } catch (e) {
-      console.log(e)
+      this.log.error('Auth', 'init() exception: %s', e.message)
+      return
     }
 
     this.auth0Lock.on('authenticated', authResult => {
@@ -222,7 +223,7 @@ getProfile(idToken: string): Observable<any>{
   }
 
   public logout(): void {
-    this.log.error('Auth', 'logout()')
+    this.log.verbose('Auth', 'logout()')
 
     // Remove token from localStorage
     this.storage.remove(STORAGE_KEY.ACCESS_TOKEN)
