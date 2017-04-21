@@ -71,7 +71,7 @@ export class DashboardPage implements OnInit, OnDestroy {
     this.subscription.unsubscribe()
   }
 
-  gotoHostieListPage() {
+  gotoDockieListPage() {
     this.navCtrl.push(DockieListPage)
   }
 

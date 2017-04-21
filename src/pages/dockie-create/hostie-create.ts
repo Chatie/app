@@ -12,14 +12,14 @@ import {
 }                         from '@chatie/db'
 
 @Component({
-  selector: 'page-hostie-create',
-  templateUrl: 'hostie-create.html',
+  selector: 'page-dockie-create',
+  templateUrl: 'dockie-create.html',
 })
 export class DockieCreatePage {
-  private hostieStore: DockieStore
+  private dockieStore: DockieStore
 
   private token = uuid() as string
-  private name = 'Hostie #' + this.token.substr(-2, 2)
+  private name = 'Dockie #' + this.token.substr(-2, 2)
   private note: string
 
   private loading = false
@@ -29,23 +29,23 @@ export class DockieCreatePage {
     public database:  Database,
     public log:       Brolog,
   ) {
-    this.log.verbose('HostieCreatePage', 'constructor()')
+    this.log.verbose('DockieCreatePage', 'constructor()')
 
-    this.hostieStore = DockieStore.instance({
+    this.dockieStore = DockieStore.instance({
       database,
       log,
     })
   }
 
   ionViewDidLoad() {
-    this.log.verbose('HostieCreatePage', 'ionViewDidLoad()')
+    this.log.verbose('DockieCreatePage', 'ionViewDidLoad()')
   }
 
   save() {
-    this.log.verbose('HostieCreatePage', 'save()')
+    this.log.verbose('DockieCreatePage', 'save()')
     this.loading = true
 
-    const newHostie: Dockie = {
+    const Dockostie: Dockie = {
       token:      this.token,
       name:       this.name,
       note:       this.note,
@@ -54,9 +54,9 @@ export class DockieCreatePage {
       create_at: Date.now(),
     }
 
-    this.log.silly('HostieCreatePage', 'create() newHostie: %s', JSON.stringify(newHostie))
+    this.log.silly('DockieCreatePage', 'create() Dockostie: %s', JSON.stringify(Dockostie))
 
-    this.hostieStore.insert(newHostie).subscribe(_ => {
+    this.dockieStore.insert(Dockostie).subscribe(_ => {
       this.navCtrl.pop()
     })
   }

@@ -4,13 +4,13 @@
       <ion-icon name="menu"></ion-icon>
     </button>
 
-    <ion-title>Hostie List</ion-title>
+    <ion-title>Dockie List</ion-title>
 
     <ion-buttons end>
       <button
         ion-button
         (click)="add()"
-        [disabled]="(hostieStore.hosties | async).length"
+        [disabled]="(dockieStore.dockies | async).length"
       >
         <ion-icon name="add"></ion-icon>
       </button>
@@ -26,21 +26,21 @@
     (ionItemReorder)="reorder($event)"
   >
     <ion-item-sliding
-      *ngFor="let hostie of hostieStore.hosties | async"
+      *ngFor="let dockie of dockieStore.dockies | async"
     >
 
       <button ion-item
-        (click)="gotoHostieDetail(hostie, $event)"
+        (click)="gotoDockieDetail(dockie, $event)"
       >
 
         <ion-icon item-left
-          [name]="hostieIcon(hostie)"
+          [name]="dockieIcon(dockie)"
         ></ion-icon>
 
-        {{ hostie.name || 'Unnamed Hostie' }}
+        {{ dockie.name || 'Unnamed Dockie' }}
 
         <ion-note item-right>
-          {{hostie.note}}
+          {{dockie.note}}
         </ion-note>
 
       </button>
@@ -48,7 +48,7 @@
       <ion-item-options>
         <button ion-button
           color="danger"
-          (click)="trash(hostie)"
+          (click)="trash(dockie)"
         >
           <ion-icon name="trash"></ion-icon>
           Trash
@@ -60,9 +60,9 @@
   </ion-list>
 
   <ion-note padding>
-    Notice: we only support 1 Hostie in Alpha stage for testing.
+    Notice: we only support 1 Dockie in Alpha stage for testing.
     <!-- pre>
-      {{ hostieStore.hosties | async | json }}
+      {{ dockieStore.dockies | async | json }}
     </pre -->
   </ion-note>
 

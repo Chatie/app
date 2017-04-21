@@ -1,10 +1,10 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Hostie Edit</ion-title>
+    <ion-title>Dockie Edit</ion-title>
 
     <ion-buttons end>
-      <button 
+      <button
         ion-button
         (click)="save()"
       >
@@ -25,7 +25,7 @@
       <ion-label>Name</ion-label>
       <ion-input type="text"
         name="name"
-        [(ngModel)]="hostie.name"
+        [(ngModel)]="dockie.name"
       ></ion-input>
     </ion-item>
 
@@ -33,14 +33,14 @@
       <ion-label>Note</ion-label>
       <ion-input type="text"
         name="note"
-        [(ngModel)]="hostie.note"
+        [(ngModel)]="dockie.note"
       ></ion-input>
     </ion-item>
 
   </ion-list>
 
   <ion-note padding>
-    TOKEN: {{ hostie.token }}
+    TOKEN: {{ dockie.token }}
   </ion-note>
 
 </ion-content>

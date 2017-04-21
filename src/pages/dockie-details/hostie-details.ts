@@ -30,8 +30,8 @@ import {
 import { DockieEditPage }   from '../dockie-edit/'
 
 @Component({
-  selector:     'page-hostie-details',
-  templateUrl:  'hostie-details.html',
+  selector:     'page-dockie-details',
+  templateUrl:  'dockie-details.html',
   /**
    * http://stackoverflow.com/questions/34375624/angular-2-one-time-binding
    * https://angular.io/docs/ts/latest/api/core/index/ChangeDetectionStrategy-enum.html#!#OnPush-anchor
@@ -40,8 +40,8 @@ import { DockieEditPage }   from '../dockie-edit/'
   changeDetection:  ChangeDetectionStrategy.OnPush,
 })
 export class DockieDetailsPage {
-  hostie:       Dockie
-  hostieStore:  DockieStore
+  dockie:       Dockie
+  dockieStore:  DockieStore
 
   eventList: any[] = [
     {
@@ -78,29 +78,28 @@ export class DockieDetailsPage {
     public navCtrl:    NavController,
     public navParams:  NavParams,
   ) {
-    this.log.verbose('HostieDetailsPage', 'constructor()')
+    this.log.verbose('DockieDetailsPage', 'constructor()')
 
     // If we navigated to this page, we will have an item available as a nav param
-    this.hostie = navParams.get('hostie')
-    this.log.silly('HostieDetailsPage', 'constructor() hostie id:%s', this.hostie.id)
+    this.dockie = navParams.get('dockie')
+    this.log.silly('DockieDetailsPage', 'constructor() dockie id:%s', this.dockie.id)
   }
 
   online(): boolean {
-    this.log.verbose('HostieDetailsPage', 'online()')
-    // return this.hostie.status === HostieStatus.ONLINE
-    return this.hostie.status === DockieStatus.ONLINE
+    this.log.verbose('DockieDetailsPage', 'online()')
+    return this.dockie.status === DockieStatus.ONLINE
   }
 
   uptime(): number {
-    this.log.verbose('HostieDetailsPage', 'uptime()')
-    return Date.now() - this.hostie.create_at
+    this.log.verbose('DockieDetailsPage', 'uptime()')
+    return Date.now() - this.dockie.create_at
   }
 
   /**
    * http://ionicframework.com/docs/ionicons/
    */
   icon(): string {
-    switch (this.hostie.runtime) {
+    switch (this.dockie.runtime) {
       case DockieRuntime.UNKNOWN: return 'help'
       case DockieRuntime.DOCKER:  return 'cube'
       case DockieRuntime.LINUX:   return 'logo-tux'
@@ -119,7 +118,7 @@ export class DockieDetailsPage {
           label: 'Token',
           name: 'TOKEN',
           placeholder: 'Token',
-          value: this.hostie.token,
+          value: this.dockie.token,
           disabled: true,
         },
       ],
@@ -128,19 +127,19 @@ export class DockieDetailsPage {
   }
 
   edit() {
-    this.log.verbose('HostieDetailsPage', 'edit() hostie #%s', this.hostie.id)
+    this.log.verbose('DockieDetailsPage', 'edit() dockie #%s', this.dockie.id)
 
     this.navCtrl.push(DockieEditPage, {
-      hostie: this.hostie,
+      dockie: this.dockie,
       /**
        * [SOLVED] Ionic2 navController pop with params
        * https://forum.ionicframework.com/t/solved-ionic2-navcontroller-pop-with-params/58104
        */
-      done: (newHostie: Dockie) => {
-        this.log.verbose('HostieDetailsPage', 'edit() done() %s',
-                                              JSON.stringify(newHostie),
+      done: (Dockostie: Dockie) => {
+        this.log.verbose('DockieDetailsPage', 'edit() done() %s',
+                                              JSON.stringify(Dockostie),
                         )
-        this.hostie = newHostie
+        this.dockie = Dockostie
         this.cdRef.markForCheck()
       },
     })

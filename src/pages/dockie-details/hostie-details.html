@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Hostie Details</ion-title>
+    <ion-title>Dockie Details</ion-title>
 
     <ion-buttons end>
       <button ion-button icon-only (click)="edit()">
@@ -15,18 +15,18 @@
 
   <h4>
     <ion-icon [name]="online()? 'ios-home' : 'ios-home-outline'"></ion-icon>
-    {{ hostie.name }}
+    {{ dockie.name }}
   </h4>
 
   <ion-note>
-    {{ hostie.note }}
+    {{ dockie.note }}
   </ion-note>
 
   <ion-list>
     <div *ngIf="online()">
-      <p>Hostie environment:</p>
+      <p>Dockie environment:</p>
       <ion-item>
-        Wechaty v{{ hostie.version }}
+        Wechaty v{{ dockie.version }}
         <ion-icon [name]="icon()"></ion-icon>
       </ion-item>
     </div>
@@ -38,7 +38,7 @@
       (click)="copy()"
     >
       <ion-icon name="key" item-left></ion-icon>
-      {{ hostie.token }}
+      {{ dockie.token }}
       <ion-icon name="copy" item-right></ion-icon>
     </ion-item>
 
@@ -80,7 +80,7 @@
       </ion-item>
 
       <ion-thumbnail>
-        <img 
+        <img
           src="https://raw.githubusercontent.com/chatie/wechaty/master/image/BotQrcode.png"
         />
       </ion-thumbnail>

@@ -1,1 +1,1 @@
-export * from './hostie-edit'
+export * from './dockie-edit'

@@ -44,7 +44,7 @@ export class ChatieApp {
   // rootPage: any = WelcomePage
   // rootPage: any = DashboardPage
   rootPage: any = DockieListPage
-  // rootPage: any = HostieCreatePage
+  // rootPage: any = DockieCreatePage
 
   pages: Array<{
     title: string,
@@ -65,7 +65,7 @@ export class ChatieApp {
       { title: 'Dashboard'  , icon: 'speedometer' , component: DashboardPage },
       // { title: 'Gifties'    , icon: 'flash'       , component: GiftieListPage },
       // { title: 'Boties'     , icon: 'logo-android', component: BotieListPage },
-      { title: 'Hosties'    , icon: 'home'        , component: DockieListPage },
+      { title: 'Dockies'    , icon: 'home'        , component: DockieListPage },
       { title: 'Setting'    , icon: 'cog'         , component: SettingPage },
       { title: 'Feedback'   , icon: 'people'      , component: FeedbackPage },
     ]
