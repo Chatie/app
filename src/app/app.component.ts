@@ -29,7 +29,7 @@ import { DashboardPage }    from '../pages/dashboard/'
 
 import { FeedbackPage }     from '../pages/feedback/'
 // import { GiftieListPage }   from '../pages/giftie-list/'
-import { DockieListPage }   from '../pages/hostie-list/'
+import { DockieListPage }   from '../pages/dockie-list/'
 import { LoginPage }        from '../pages/login/'
 import { SettingPage }      from '../pages/setting/'
 // import { WelcomePage }    from '../pages/welcome/'

@@ -27,7 +27,7 @@ import {
   DockieStore,
 }                         from '@chatie/db'
 
-import { DockieListPage } from '../hostie-list/'
+import { DockieListPage } from '../dockie-list/'
 import { BotieListPage }  from '../botie-list/'
 
 @Component({

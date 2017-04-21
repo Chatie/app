@@ -39,8 +39,8 @@ import {
   DockieStore,
 }                 from '@chatie/db'
 
-import { DockieDetailsPage }  from '../hostie-details/'
-import { DockieCreatePage }   from '../hostie-create/'
+import { DockieDetailsPage }  from '../dockie-details/'
+import { DockieCreatePage }   from '../dockie-create/'
 
 @Component({
   selector: 'hostie-list',
