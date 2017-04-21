@@ -63,9 +63,9 @@ export class ChatieApp {
     // set our app's pages
     this.pages = [
       { title: 'Dashboard'  , icon: 'speedometer' , component: DashboardPage },
-      // { title: 'Gifties'    , icon: 'flash'       , component: GiftieListPage },
+      // { title: 'Gifties'    , icon: 'school'      , component: GiftieListPage },
       // { title: 'Boties'     , icon: 'logo-android', component: BotieListPage },
-      { title: 'Dockies'    , icon: 'home'        , component: DockieListPage },
+      { title: 'Dockies'    , icon: 'square'        , component: DockieListPage },
       { title: 'Setting'    , icon: 'cog'         , component: SettingPage },
       { title: 'Feedback'   , icon: 'people'      , component: FeedbackPage },
     ]
