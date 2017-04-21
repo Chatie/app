@@ -49,9 +49,9 @@ export class HostieCreatePage {
       token:      this.token,
       name:       this.name,
       note:       this.note,
-      updateTime: Date.now(),
+      update_at: Date.now(),
       status:     HostieStatus.OFFLINE,
-      createTime: Date.now(),
+      create_at: Date.now(),
     }
 
     this.log.silly('HostieCreatePage', 'create() newHostie: %s', JSON.stringify(newHostie))

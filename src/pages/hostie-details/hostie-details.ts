@@ -93,7 +93,7 @@ export class HostieDetailsPage {
 
   uptime(): number {
     this.log.verbose('HostieDetailsPage', 'uptime()')
-    return Date.now() - this.hostie.createTime
+    return Date.now() - this.hostie.create_at
   }
 
   /**
