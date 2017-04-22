@@ -13,6 +13,7 @@ import {
 import {
   CloudSettings,
   CloudModule,
+  Database,
 }                         from '@ionic/cloud-angular'
 
 import {
@@ -26,6 +27,8 @@ import { AUTH_PROVIDERS } from 'angular2-jwt'
 import {
   Brolog,
 }                         from 'brolog'
+
+import { DockieStore }    from '@chatie/db'
 
 import { Auth }           from '../providers/auth'
 import { ChatieApp }      from './app.component'
@@ -72,6 +75,26 @@ import { SettingPage }        from '../pages/setting/'
 import { StatusPage }         from '../pages/status/'
 import { UnlockPage }         from '../pages/unlock/'
 import { WelcomePage }        from '../pages/welcome/'
+
+/**
+ *
+ * Angular DEPENDENCY INJECTION - Factory Provider
+ * https://angular.io/docs/ts/latest/guide/dependency-injection.html#!#factory-provider
+ */
+function dockieStoreFactory(
+  auth:     Auth,
+  log:      Brolog,
+  database: Database,
+) {
+  const dockieStore = DockieStore.instance({
+    database,
+    log,
+  })
+  auth.userObservable.subscribe(user => {
+    dockieStore.auth(user)
+  })
+  return dockieStore
+}
 
 @NgModule({
   declarations: [
@@ -120,10 +143,14 @@ import { WelcomePage }        from '../pages/welcome/'
     WelcomePage,
   ],
   providers: [
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: Brolog, useClass: Brolog('silly')},
+    { provide: DockieStore,
+      useFactory: dockieStoreFactory,
+      deps: [Auth, Brolog, Database], // be careful about the seq, must as same as the function define.
+    },
     AUTH_PROVIDERS,
     Auth,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
   ],
 })
 

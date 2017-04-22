@@ -18,6 +18,7 @@ export class BotieListPage {
     public navParams: NavParams,
   ) {
     this.log.verbose('BotieListPage', 'constructor()')
+
   }
 
   ionViewDidLoad() {

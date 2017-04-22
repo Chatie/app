@@ -15,7 +15,7 @@ import Auth0Lock    from 'auth0-lock'
 
 import { Brolog }   from 'brolog'
 import {
-  // BehaviorSubject,
+  BehaviorSubject,
   Observable,
   Subscription,
 }                   from 'rxjs'
@@ -28,12 +28,12 @@ import              'rxjs/add/operator/map'
  * OpenID Connect Standard Claims: https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims
  */
 export type User = {
-  account:  string,
   email:    string,
   name:     string,
-  picture?: string,
+  nickname: string,
+  picture:  string,
 
-  profile?: object,
+  [key: string]: any,
 }
 
 const STORAGE_KEY = {
@@ -58,7 +58,22 @@ const AUTH0 = {
 
 @Injectable()
 export class Auth {
-  userProfile: Object | null
+  /**
+   * Persisting user authentication with BehaviorSubject in Angular
+   *  - https://netbasal.com/angular-2-persist-your-login-status-with-behaviorsubject-45da9ec43243
+   */
+  private userSubject = new BehaviorSubject<User|null>(null)
+  public get user() {
+    /**
+     * BehaviorSubject.asObservable.toPromise() will not return the last value without next a new one! :(
+     *  - https://github.com/ReactiveX/RxJS/issues/1478
+     *  - https://github.com/Reactive-Extensions/RxJS/issues/1088
+     */
+    return this.userSubject.getValue()
+  }
+  public get userObservable() {
+    return this.userSubject.asObservable()
+  }
 
   jwtHelper = new JwtHelper()
   storage   = new Storage()
@@ -128,17 +143,23 @@ export class Auth {
 
     try {
       this.idToken      = await this.storage.get(STORAGE_KEY.ID_TOKEN)
-      this.userProfile  = await this.storage.get(STORAGE_KEY.USER_PROFILE)
+
+      const user: User  = await this.storage.get(STORAGE_KEY.USER_PROFILE)
+      if (user) {
+        this.log.silly('Auth', 'init() got user from storage succ, email:%s', user.email)
+        this.userSubject.next(user)
+      }
 
       this.log.silly('Auth', 'init() Storage.get() idToken=%s, profile={%s}',
                               this.idToken,
-                              Object.keys(this.userProfile || {}).join(','),
+                              Object.keys(this.user || {}).join(','),
                     )
 
       // this.user = JSON.parse(profile)
       // this.user = profile
     } catch (e) {
       this.log.error('Auth', 'init() exception: %s', e.message)
+      return
     }
 
   }
@@ -204,7 +225,7 @@ getProfile(idToken: string): Observable<any>{
             return reject(error)
           }
 
-          this.userProfile = profile
+          this.userSubject.next(profile as User)
 
           this.storage.ready().then(() => {
             this.storage.set(STORAGE_KEY.ACCESS_TOKEN,  authResult.accessToken)
@@ -252,7 +273,8 @@ getProfile(idToken: string): Observable<any>{
 
     this.accessToken  = null
     this.idToken      = null
-    this.userProfile  = null
+
+    this.userSubject.next(null)
 
     // Unschedule the token refresh
     this.unscheduleRefresh()
