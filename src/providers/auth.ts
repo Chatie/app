@@ -8,8 +8,9 @@ import {
   JwtHelper,
 }                   from 'angular2-jwt'
 import {
-  WebAuth,
   Auth0UserProfile,
+  // Management,
+  WebAuth,
 }                   from 'auth0-js'
 import Auth0Lock    from 'auth0-lock'
 
@@ -146,7 +147,7 @@ export class Auth {
       auth: {
         params: {
           // scope: 'openid profile user_metadata app_metadata email offline_access ', // offline_access for refreshToken(?)
-          scope: 'openid email offline_access', // offline_access for refreshToken(?)
+          scope: 'openid email profile offline_access', // offline_access for refreshToken(?)
         },
         redirect: false,  // must use popup for ionic2
         responseType: 'id_token token', // token for `accessToken`
@@ -215,6 +216,61 @@ export class Auth {
 
     return auth0Lock
   }
+
+  async getProfile(): Promise<Auth0UserProfile> {
+    this.log.verbose('Auth', 'getProfile()')
+
+    return new Promise<Auth0UserProfile>((resolve, reject) => {
+      if (!this.idToken || !this.accessToken) {
+        const e = new Error('no id/access token')
+        this.log.error('Auth', 'getProfile() %s', e.message)
+        return reject(e)
+      }
+
+      // const userId: string = this.jwtHelper.decodeToken(this.idToken).sub
+      // this.getManagement().getUser(userId, (error, profile) => {
+      // auth0Lock.getProfile(this.idToken, (error, profile) => {
+      // auth0Lock.getUserInfo(this.accessToken, (error, profile) => {
+      this.getWebAuth().client.userInfo(this.accessToken, (error, profile) => {
+        this.log.verbose('Auth', 'getProfile() WebAuth.client.userInfo()')
+
+        if (error) {
+          const e = new Error(error.description)
+          this.log.error('Auth', 'getProfile() WebAuth.client.userInfo() %s', e.message)
+          return reject(e)
+        }
+
+        this.log.silly('Auth', 'getProfile() WebAuth.client.userInfo() got {email=%s,...}', profile.email)
+        return resolve(profile)
+
+      })
+    })
+  }
+
+  getWebAuth() {
+    this.log.verbose('Auth', 'getWebAuth()')
+
+    return new WebAuth({
+      clientID: AUTH0.CLIENT_ID,
+      domain:   AUTH0.DOMAIN,
+    })
+  }
+
+  /*
+  getManagement() {
+    this.log.verbose('Auth', 'getManagement')
+
+    if (!this.accessToken) {
+      throw new Error('no access token')
+    }
+
+    return new Management({
+      domain: AUTH0.DOMAIN,
+      token:  this.accessToken,
+    })
+  }
+  */
+
     /*
     https://github.com/auth0/lock/issues/541
 
@@ -298,7 +354,7 @@ getProfile(idToken: string): Observable<any>{
       }, timeout)
       this.log.silly('Auth', 'scheduleExpired() setTimeout(,%s) = %s hours',
                               timeout,
-                              timeout / 1000 / 3600,
+                              Math.round(timeout / 3600) / 1000,
                     )
     } catch (e) {
       this.log.error('Auth', 'scheduleExpire() exception: %s', e.message)
@@ -397,40 +453,6 @@ getProfile(idToken: string): Observable<any>{
     }
   }
 
-  async getProfile(): Promise<Auth0UserProfile> {
-    this.log.verbose('Auth', 'getProfile()')
-
-    return new Promise<Auth0UserProfile>((resolve, reject) => {
-      if (!this.accessToken) {
-        const e = new Error('no access token')
-        this.log.error('Auth', 'getProfile() %s', e.message)
-        return reject(e)
-      }
-
-      this.getWebAuth().client.userInfo(this.accessToken, (error, profile) => {
-        this.log.verbose('Auth', 'getProfile() WebAuth.client.userInfo()')
-
-        if (error) {
-          const e = new Error(error.description)
-          this.log.error('Auth', 'getProfile() WebAuth.client.userInfo() %s', e.message)
-          return reject(e)
-        }
-
-        this.log.silly('Auth', 'getProfile() WebAuth.client.userInfo() got {email=%s,...}', profile.email)
-        return resolve(profile)
-
-      })
-    })
-  }
-
-  getWebAuth() {
-    this.log.verbose('Auth', 'getWebAuth()')
-
-    return new WebAuth({
-      clientID: AUTH0.CLIENT_ID,
-      domain:   AUTH0.DOMAIN,
-    })
-  }
 
   public async getNewJwt() {
     this.log.verbose('Auth', 'getNewJwt()')
