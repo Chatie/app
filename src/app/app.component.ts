@@ -42,8 +42,8 @@ export class ChatieApp {
 
   // make HelloIonicPage the root (or first) page
   // rootPage: any = WelcomePage
-  // rootPage: any = DashboardPage
-  rootPage: Type<Component> = DockieListPage
+  // rootPage: Type<Component> = DashboardPage
+  rootPage: Type<Component> = LoginPage
   // rootPage: any = DockieCreatePage
 
   pages: Array<{

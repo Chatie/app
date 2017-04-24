@@ -102,19 +102,26 @@ export class Auth {
     this.init()
   }
 
-  private async init(): Promise<void> {
+  async init() {
     this.log.verbose('Auth', 'init()')
 
     try {
-      this.status.subscribe(status => {
-        this._valid = status
-      })
-      this.load()
+      await this.load()
 
       if (this.idToken && this.profile) {
         this.log.silly('Auth', 'init() from storage for user({email:%s})', this.profile.email)
         this._status.next(true)
+      } else {
+        this.log.silly('Auth', 'init() from storage got: idToken.length=%s profile=%s',
+                                this.idToken && this.idToken.length,
+                                this.profile,
+                      )
       }
+
+      this.status.subscribe(status => {
+        this.log.silly('Auth', 'init() status.subscribe() set _valid=%s', status)
+        this._valid = status
+      })
 
     } catch (e) {
       this.log.error('Auth', 'init() exception: %s', e.message)
@@ -126,7 +133,9 @@ export class Auth {
   /**
    * Lock Configurable Options: https://auth0.com/docs/libraries/lock/v10/customization
    */
-  getAuth0Lock() {
+  private getAuth0Lock(): Auth0LockStatic {
+    this.log.verbose('Auth', 'getAuth0Lock()')
+
     const options: Auth0LockConstructorOptions = {
       // oidcConformant: true,
       languageDictionary: {
@@ -173,7 +182,7 @@ export class Auth {
     })
 
     // Add callback for lock `authenticated` event
-    auth0Lock.on('authenticated', (authResult) => {
+    auth0Lock.on('authenticated', async (authResult) => {
       this.log.verbose('Auth', 'login() on(authenticated, authResult={%s})',
                                 Object.keys(authResult).join(','),
                       )
@@ -186,21 +195,22 @@ export class Auth {
         return
       }
 
-      auth0Lock.getProfile(this.idToken, (error, profile) => {
-        if (error) {
-          // Handle error
-          this.log.warn('Auth', 'login() Auth0Lock.getProfile() error:%s', error)
-          return
-        }
-        this.log.verbose('Auth', 'login() Auth0Lock.getProfile() profile:{email:%s,...}',
-                                  profile.email,
-                        )
+      this.profile = await this.getProfile()
+      // auth0Lock.getProfile(this.idToken, (error, profile) => {
+      //   if (error) {
+      //     // Handle error
+      //     this.log.warn('Auth', 'login() Auth0Lock.getProfile() error:%s', error)
+      //     return
+      //   }
+      //   this.log.verbose('Auth', 'login() Auth0Lock.getProfile() profile:{email:%s,...}',
+      //                             profile.email,
+      //                   )
+      // }) // Auth0Lock.getProfile
 
-        this.save()
-        this.scheduleRefresh()
-        auth0Lock.hide()
-        this._status.next(true)
-      }) // Auth0Lock.getProfile
+      await this.save()
+      this.scheduleRefresh()
+      auth0Lock.hide()
+      this._status.next(true)
     })
 
     return auth0Lock
@@ -387,6 +397,41 @@ getProfile(idToken: string): Observable<any>{
     }
   }
 
+  async getProfile(): Promise<Auth0UserProfile> {
+    this.log.verbose('Auth', 'getProfile()')
+
+    return new Promise<Auth0UserProfile>((resolve, reject) => {
+      if (!this.accessToken) {
+        const e = new Error('no access token')
+        this.log.error('Auth', 'getProfile() %s', e.message)
+        return reject(e)
+      }
+
+      this.getWebAuth().client.userInfo(this.accessToken, (error, profile) => {
+        this.log.verbose('Auth', 'getProfile() WebAuth.client.userInfo()')
+
+        if (error) {
+          const e = new Error(error.description)
+          this.log.error('Auth', 'getProfile() WebAuth.client.userInfo() %s', e.message)
+          return reject(e)
+        }
+
+        this.log.silly('Auth', 'getProfile() WebAuth.client.userInfo() got {email=%s,...}', profile.email)
+        return resolve(profile)
+
+      })
+    })
+  }
+
+  getWebAuth() {
+    this.log.verbose('Auth', 'getWebAuth()')
+
+    return new WebAuth({
+      clientID: AUTH0.CLIENT_ID,
+      domain:   AUTH0.DOMAIN,
+    })
+  }
+
   public async getNewJwt() {
     this.log.verbose('Auth', 'getNewJwt()')
 
@@ -397,10 +442,7 @@ getProfile(idToken: string): Observable<any>{
       /**
        * Token Lifetime: https://auth0.com/docs/tokens/id-token#token-lifetime
        */
-      new WebAuth({
-        clientID: AUTH0.CLIENT_ID,
-        domain:   AUTH0.DOMAIN,
-      }).renewAuth({
+      this.getWebAuth().renewAuth({
         // ???
         // https://github.com/auth0/auth0.js/blob/master/example/index.html
         // https://auth0.com/docs/libraries/auth0js/v8#using-renewauth-to-acquire-new-tokens
@@ -464,13 +506,14 @@ getProfile(idToken: string): Observable<any>{
     this.log.verbose('Auth', 'load()')
 
     await this.storage.ready()
+    this.log.silly('Auth', 'load() Storage.ready() done')
 
     this.accessToken  = await this.storage.get(STORAGE_KEY.ACCESS_TOKEN)
     this.idToken      = await this.storage.get(STORAGE_KEY.ID_TOKEN)
     this.refreshToken = await this.storage.get(STORAGE_KEY.REFRESH_TOKEN)
     this.profile      = await this.storage.get(STORAGE_KEY.USER_PROFILE)
 
-    this.log.silly('Auth', 'load() Storage.get() profile={email:%s,...}',
+    this.log.silly('Auth', 'load() Storage.get() all done. profile={email:%s,...}',
                             this.profile && this.profile.email,
                   )
 

@@ -40,15 +40,12 @@ export class DockieCreatePage {
     this.log.verbose('DockieCreatePage', 'save()')
     this.loading = true
 
-    this.log.verbose('DockieCreatePage', 'save() 1')
-    console.log(this.auth.profile)
-    const user = this.auth.profile
-    if (!user || !user.email) {
+    const profile = this.auth.profile
+    if (!profile || !profile.email) {
       throw new Error('no auth user/email')
     }
-    this.log.verbose('DockieCreatePage', 'save() 2')
     const newDockie: Dockie = {
-      email:      user.email,
+      email:      profile.email,
       token:      this.token,
       name:       this.name,
       note:       this.note,
@@ -57,7 +54,7 @@ export class DockieCreatePage {
       create_at: Date.now(),
     }
 
-    this.log.silly('DockieCreatePage', 'create() newDockie: %s', JSON.stringify(newDockie))
+    this.log.silly('DockieCreatePage', 'save() newDockie: %s', JSON.stringify(newDockie))
 
     this.dockieStore.insert(newDockie).subscribe(_ => {
       this.navCtrl.pop()

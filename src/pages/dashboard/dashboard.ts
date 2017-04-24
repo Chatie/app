@@ -51,11 +51,13 @@ export class DashboardPage implements OnInit, OnDestroy {
     this.log.verbose('DashboardPage', 'constructor()')
   }
 
+  // https://devdactic.com/ionic-auth-guards/
   ionViewCanEnter() {
-    // https://devdactic.com/ionic-auth-guards/
+    this.log.verbose('DashboardPage', 'ionViewCanEnter()')
     return this.auth.valid
   }
 
+  // https://webcake.co/page-lifecycle-hooks-in-ionic-2/
   ngOnInit() {
     this.log.verbose('DashboardPage', 'ngOnInit()')
     this.subscription = this.dockieStore.dockies.subscribe(list => {
@@ -71,10 +73,12 @@ export class DashboardPage implements OnInit, OnDestroy {
   }
 
   gotoDockieListPage() {
+    this.log.verbose('DashboardPage', 'gotoDockieListPage()')
     this.navCtrl.push(DockieListPage)
   }
 
   gotoBotieListPage() {
+    this.log.verbose('DashboardPage', 'gotoBotieListPage()')
     this.navCtrl.push(BotieListPage)
   }
 

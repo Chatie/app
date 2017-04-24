@@ -1,4 +1,8 @@
-import { Component }      from '@angular/core'
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+}                         from '@angular/core'
 import {
   Push,
   User,
@@ -24,7 +28,7 @@ import { DashboardPage }  from '../../pages/dashboard/'
   selector:     'page-login',
   templateUrl:  'login.html',
 })
-export class LoginPage {
+export class LoginPage implements OnInit, OnDestroy {
   private status:   Subscription
   private loading:  Loading | null              = null
 
@@ -41,19 +45,20 @@ export class LoginPage {
     public user:        User,
   ) {
     this.log.verbose('LoginPage', 'constructor()')
-    // this.userService.user.subscribe(userInfo => {
-    //   this.userInfo = userInfo
-    // })
+  }
+
+  ngOnInit() {
+    this.log.verbose('LoginPage', 'ngOnInit()')
 
     this.status = this.auth.status.subscribe(valid => {
-      this.log.verbose('LoginPage', 'constructor() Auth.status.subscribe(%s)', valid)
+      this.log.verbose('LoginPage', 'constructor() Auth.status.subscribe() got:%s', valid)
       if (valid) {
         this.onLogin()
       }
     })
+    this.log.silly('LoginPage', 'constructor() Auth.status.subscribe()-ed')
 
   }
-
   onLogin(): void {
     this.log.verbose('LoginPage', 'onLogin()')
     this.setupPush()
@@ -61,15 +66,16 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    this.log.verbose('LoginPage', 'ionViewDidLoad()')
+    this.log.verbose('LoginPage', 'ngOnInit()')
 
     if (this.auth.valid) {
       this.gotoDashboardPage()
     }
   }
 
-  ionViewWillUnload() {
-    this.log.verbose('LoginPage', 'ionViewWillUnload()')
+  // https://webcake.co/page-lifecycle-hooks-in-ionic-2/
+  ngOnDestroy() {
+    this.log.verbose('LoginPage', 'ngOnDestroy()')
 
     if (this.status) {
       this.status.unsubscribe()
