@@ -453,7 +453,6 @@ getProfile(idToken: string): Observable<any>{
     }
   }
 
-
   public async getNewJwt() {
     this.log.verbose('Auth', 'getNewJwt()')
 
