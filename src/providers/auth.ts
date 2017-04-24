@@ -61,11 +61,13 @@ export class Auth {
    */
   private _status = new BehaviorSubject<boolean>(false)
   public get status() {
+    this.log.verbose('Auth', 'get status()')
     return this._status.asObservable() // .share()
   }
 
   private _valid: boolean = false
   public get valid() { // guard for readyonly
+    this.log.silly('Auth', 'get valid() = %s', this._valid)
     return this._valid
   }
 
@@ -76,9 +78,11 @@ export class Auth {
   private refreshToken: string | null = null
   private _idToken:     string | null = null
   private get idToken() {
+    this.log.verbose('Auth', 'get idToken() = %s', this._idToken && this._idToken.length)
     return this._idToken
   }
   private set idToken(newIdToken) {
+    this.log.verbose('Auth', 'set idToken(%s)', newIdToken && newIdToken.length)
     this._idToken = newIdToken
     if (newIdToken) {
       this.scheduleExpire(newIdToken)
@@ -264,7 +268,7 @@ getProfile(idToken: string): Observable<any>{
 
     if (this.expireTimer) {
       clearTimeout(this.expireTimer)
-      this.log.silly('Auth', 'sheduleExpired() clearTimeout()')
+      this.log.silly('Auth', 'scheduleExpired() clearTimeout()')
       this.expireTimer = null
     }
 
@@ -282,7 +286,7 @@ getProfile(idToken: string): Observable<any>{
       this.expireTimer = setTimeout(() => {
         this._status.next(false)
       }, timeout)
-      this.log.silly('Auth', 'sheduleExpired() setTimeout(,%s) = %s hours',
+      this.log.silly('Auth', 'scheduleExpired() setTimeout(,%s) = %s hours',
                               timeout,
                               timeout / 1000 / 3600,
                     )
@@ -378,7 +382,7 @@ getProfile(idToken: string): Observable<any>{
 
     if (this.expireTimer) {
       clearTimeout(this.expireTimer)
-      this.log.silly('Auth', 'unsheduleExpired() clearTimeout()')
+      this.log.silly('Auth', 'unscheduleExpired() clearTimeout()')
       this.expireTimer = null
     }
   }
