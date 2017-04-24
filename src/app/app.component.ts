@@ -8,6 +8,7 @@
  */
 import {
   Component,
+  Type,
   ViewChild,
 }                   from '@angular/core'
 
@@ -42,13 +43,13 @@ export class ChatieApp {
   // make HelloIonicPage the root (or first) page
   // rootPage: any = WelcomePage
   // rootPage: any = DashboardPage
-  rootPage: any = DockieListPage
+  rootPage: Type<Component> = DockieListPage
   // rootPage: any = DockieCreatePage
 
   pages: Array<{
     title: string,
     icon: string,
-    component: any,
+    component: Type<Component>,
   }>
 
   constructor(
@@ -82,8 +83,11 @@ export class ChatieApp {
     /**
      * https://www.raymondcamden.com/2016/11/04/an-example-of-the-ionic-auth-service-with-ionic-2
      */
-    if (this.auth.authenticated()) {
+    if (this.auth.valid) {
       this.rootPage = DashboardPage
+
+      // XXX: do we need to call startupTokenRefresh() at here?
+      // consider to move it to Auth Provider. 201704
       this.auth.startupTokenRefresh()
     } else {
       this.rootPage = LoginPage
