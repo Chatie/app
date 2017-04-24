@@ -26,8 +26,8 @@ import {
 
 import { Auth }           from '../../providers/auth'
 
-import { DockieListPage } from '../dockie-list/'
 import { BotieListPage }  from '../botie-list/'
+import { DockieListPage } from '../dockie-list/'
 
 @Component({
   selector:     'page-dashboard',
@@ -49,11 +49,11 @@ export class DashboardPage implements OnInit, OnDestroy {
     public navCtrl:       NavController,
   ) {
     this.log.verbose('DashboardPage', 'constructor()')
+  }
 
-    const user = auth.user
-    if (!user) {
-      throw new Error('no user login')
-    }
+  ionViewCanEnter() {
+    // https://devdactic.com/ionic-auth-guards/
+    return this.auth.valid
   }
 
   ngOnInit() {

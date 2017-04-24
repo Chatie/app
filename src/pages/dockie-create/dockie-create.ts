@@ -41,10 +41,10 @@ export class DockieCreatePage {
     this.loading = true
 
     this.log.verbose('DockieCreatePage', 'save() 1')
-    console.log(this.auth.user)
-    const user = this.auth.user
-    if (!user) {
-      throw new Error('no auth user')
+    console.log(this.auth.profile)
+    const user = this.auth.profile
+    if (!user || !user.email) {
+      throw new Error('no auth user/email')
     }
     this.log.verbose('DockieCreatePage', 'save() 2')
     const newDockie: Dockie = {

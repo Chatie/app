@@ -25,7 +25,6 @@ const STORAGE_KEY = {
   ACCESS_TOKEN:   'access_token',
   ID_TOKEN:       'id_token',
   USER_PROFILE:   'user_profile',
-
   /**
    * OIDC-conformant refresh tokens: https://auth0.com/docs/api-auth/tutorials/adoption/refresh-tokens
    * Silent Authentication: https://auth0.com/docs/api-auth/tutorials/silent-authentication
@@ -43,7 +42,7 @@ const AUTH0 = {
 
 @Injectable()
 export class Auth {
-  expireTimer: NodeJS.Timer | null = null
+  private expireTimer: NodeJS.Timer | null = null
 
   /**
    * User Profile: https://auth0.com/docs/user-profile
@@ -51,7 +50,7 @@ export class Auth {
    * Control the contents of an ID token: https://auth0.com/docs/tokens/id-token#control-the-contents-of-an-id-token
    * OpenID Connect Standard Claims: https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims
    */
-  profile: Auth0UserProfile | null
+  public profile: Auth0UserProfile | null
 
   /**
    * Persisting user authentication with BehaviorSubject in Angular
@@ -65,23 +64,30 @@ export class Auth {
     return this._status.asObservable() // .share()
   }
 
-  public valid: boolean = false
+  private _valid: boolean = false
+  public get valid() { // guard for readyonly
+    return this._valid
+  }
 
-  jwtHelper = new JwtHelper()
-  storage   = new Storage()
+  private jwtHelper = new JwtHelper()
+  private storage   = new Storage()
 
-  accessToken:  string | null = null
-  refreshToken: string | null = null
-  _idToken:     string | null = null
+  private accessToken:  string | null = null
+  private refreshToken: string | null = null
+  private _idToken:     string | null = null
   private get idToken() {
     return this._idToken
   }
   private set idToken(newIdToken) {
     this._idToken = newIdToken
-    this.scheduleExpire(newIdToken)
+    if (newIdToken) {
+      this.scheduleExpire(newIdToken)
+    } else {
+      this.unscheduleExpire()
+    }
   }
 
-  refreshSubscription: Subscription
+  private refreshSubscription: Subscription
 
   constructor(
     public authHttp:  AuthHttp,
@@ -97,12 +103,12 @@ export class Auth {
 
     try {
       this.status.subscribe(status => {
-        this.valid = status
+        this._valid = status
       })
       this.load()
 
       if (this.idToken && this.profile) {
-        this.log.silly('Auth', 'init() got user from storage succ, email:%s', this.profile.email)
+        this.log.silly('Auth', 'init() from storage for user({email:%s})', this.profile.email)
         this._status.next(true)
       }
 
@@ -148,11 +154,52 @@ export class Auth {
       },
     }
 
-    return new Auth0Lock(
+    const auth0Lock = new Auth0Lock(
       AUTH0.CLIENT_ID,
       AUTH0.DOMAIN,
       options,
     )
+
+    auth0Lock.on('unrecoverable_error', error => {
+      this.log.verbose('Auth', 'login() on(unrecoverable_error) error:%s', error)
+    })
+
+    auth0Lock.on('authorization_error', error => {
+      this.log.verbose('Auth', 'login() on(authorization_error)')
+    })
+
+    // Add callback for lock `authenticated` event
+    auth0Lock.on('authenticated', (authResult) => {
+      this.log.verbose('Auth', 'login() on(authenticated, authResult={%s})',
+                                Object.keys(authResult).join(','),
+                      )
+
+      this.accessToken  = authResult.accessToken
+      this.idToken      = authResult.idToken
+
+      if (!this.idToken) {
+        this.log.error('Auth', 'login() Auth0Lock.on(authenticated) no idToken')
+        return
+      }
+
+      auth0Lock.getProfile(this.idToken, (error, profile) => {
+        if (error) {
+          // Handle error
+          this.log.warn('Auth', 'login() Auth0Lock.getProfile() error:%s', error)
+          return
+        }
+        this.log.verbose('Auth', 'login() Auth0Lock.getProfile() profile:{email:%s,...}',
+                                  profile.email,
+                        )
+
+        this.save()
+        this.scheduleRefresh()
+        auth0Lock.hide()
+        this._status.next(true)
+      }) // Auth0Lock.getProfile
+    })
+
+    return auth0Lock
   }
     /*
     https://github.com/auth0/lock/issues/541
@@ -182,79 +229,24 @@ getProfile(idToken: string): Observable<any>{
 
   /**
    *
-   *
-   * @returns {Promise<boolean>}
    */
-  public async login(): Promise<boolean> {
+  public login(): void {
     this.log.verbose('Auth', 'login()')
 
     const auth0Lock = this.getAuth0Lock()
 
-    return new Promise<boolean>((resolve, reject) => {
-      // Add callback for lock `authenticated` event
-      auth0Lock.on('authenticated', (authResult) => {
-        this.log.verbose('Auth', 'login() on(authenticated, authResult={%s})',
-                                  Object.keys(authResult).join(','),
-                        )
-
-        this.accessToken  = authResult.accessToken
-        this.idToken      = authResult.idToken
-
-        if (!this.idToken) {
-          const e = new Error('no idToken')
-          this.log.error('Auth', 'login() on(authenticated) error:%s', e.message)
-          return reject(e)
-        }
-
-        auth0Lock.getProfile(this.idToken, (error, profile) => {
-          this.log.verbose('Auth', 'login() Auth0Lock.getProfile() profile:{email:%s,...}',
-                                    profile.email,
-                          )
-
-          if (error) {
-            // Handle error
-            this.log.warn('Auth', 'login() Auth0Lock.getProfile() error:%s', error)
-            return reject(error)
-          }
-
-          this.save()
-
-          this.scheduleRefresh()
-
-          auth0Lock.hide()
-          this._status.next(true)
-          /**
-           * Resolve
-           */
-          return resolve(true)
-
-        })
-      })
-
-      auth0Lock.on('unrecoverable_error', error => {
-        this.log.verbose('Auth', 'login() on(unrecoverable_error) error:%s', error)
-        return resolve(false)
-      })
-
-      auth0Lock.on('authorization_error', error => {
-        this.log.verbose('Auth', 'login() on(authorization_error)')
-        return resolve(false)
-      })
-
-      // Call the show method to display the widget.
-      auth0Lock.show()
-    })
+    // Call the show method to display the widget.
+    auth0Lock.show()
   }
 
   public logout(): void {
     this.log.verbose('Auth', 'logout()')
 
-    this.remove()
-
-    this._status.next(false)
-
     // Unschedule the token refresh
     this.unscheduleRefresh()
+    this.unscheduleExpire()
+    this.remove()
+    this._status.next(false)
   }
 
   // public authenticated(): boolean {
@@ -310,13 +302,14 @@ getProfile(idToken: string): Observable<any>{
       return
     }
     let source = Observable.of(this.idToken).flatMap(token => {
-      this.log.verbose('Auth', 'scheduleRefresh() for token:%s', token)
-
       if (!token) {
         const e = new Error('scheduleRefresh() failed to get token')
         this.log.error('Auth', e.message)
         throw e
       }
+
+      const decodedToken = this.jwtHelper.decodeToken(token)
+      this.log.verbose('Auth', 'scheduleRefresh() for token {email:%s,...}', decodedToken.email)
 
       // The delay to generate in this case is the difference
       // between the expiry time and the issued at time
@@ -339,8 +332,7 @@ getProfile(idToken: string): Observable<any>{
     this.log.verbose('Auth', 'startupTokenRefresh()')
 
     // http://stackoverflow.com/a/34190965/1123955
-    const authed = await this.status.first().toPromise()
-    if (authed) {
+    if (this.valid) {
       // If the user is authenticated, use the token stream
       // provided by angular2-jwt and flatMap the token
       let source = this.authHttp.tokenStream.flatMap(
@@ -351,6 +343,10 @@ getProfile(idToken: string): Observable<any>{
           let jwtExp: number = this.jwtHelper.decodeToken(token).exp
           let exp: Date = new Date(0)
           exp.setUTCSeconds(jwtExp)
+
+          // XXX the delay should be shorter
+          // becasue we should emit refresh before scheduleExpire()
+          // maybe 1 hour?
           let delay: number = exp.valueOf() - now
 
           // Use the delay in a timer to
@@ -374,6 +370,16 @@ getProfile(idToken: string): Observable<any>{
     // Unsubscribe fromt the refresh
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe()
+    }
+  }
+
+  public unscheduleExpire(): void {
+    this.log.verbose('Auth', 'unscheduleExpire()')
+
+    if (this.expireTimer) {
+      clearTimeout(this.expireTimer)
+      this.log.silly('Auth', 'unsheduleExpired() clearTimeout()')
+      this.expireTimer = null
     }
   }
 

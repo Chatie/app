@@ -10,6 +10,10 @@ import {
   NavController,
 }                         from 'ionic-angular'
 
+import {
+  Subscription,
+}                         from 'rxjs'
+
 import { Auth }           from '../../providers/auth'
 
 import { Brolog }         from 'brolog'
@@ -21,7 +25,8 @@ import { DashboardPage }  from '../../pages/dashboard/'
   templateUrl:  'login.html',
 })
 export class LoginPage {
-  private loading: Loading | null
+  private status:   Subscription
+  private loading:  Loading | null              = null
 
   public email:     string
   public password:  string
@@ -39,44 +44,60 @@ export class LoginPage {
     // this.userService.user.subscribe(userInfo => {
     //   this.userInfo = userInfo
     // })
+
+    this.status = this.auth.status.subscribe(valid => {
+      this.log.verbose('LoginPage', 'constructor() Auth.status.subscribe(%s)', valid)
+      if (valid) {
+        this.onLogin()
+      }
+    })
+
+  }
+
+  onLogin(): void {
+    this.log.verbose('LoginPage', 'onLogin()')
+    this.setupPush()
+    this.gotoDashboardPage()
   }
 
   ionViewDidLoad() {
     this.log.verbose('LoginPage', 'ionViewDidLoad()')
 
-    if (this.auth.authenticated()) {
+    if (this.auth.valid) {
       this.gotoDashboardPage()
     }
+  }
 
+  ionViewWillUnload() {
+    this.log.verbose('LoginPage', 'ionViewWillUnload()')
+
+    if (this.status) {
+      this.status.unsubscribe()
+    }
   }
 
   async login(): Promise<void> {
     this.log.verbose('LoginPage', 'login()')
 
-    try {
-      const valid = await this.auth.login()
-      this.log.silly('LoginPage', 'login() Auth.login() valid:%s', valid)
+    this.auth.login()
 
-      if (valid) {
-        this.gotoDashboardPage()
-      }
-    } catch (e) {
-      this.log.warn('LoginPage', 'login() exception: %s', e && e.message || e)
+    // } catch (e) {
+    //   this.log.warn('LoginPage', 'login() exception: %s', e && e.message || e)
 
-      this.alertCtrl.create({
-        title:    'Login Error',
-        subTitle: 'Exception: ' + e.message,
-        buttons:  ['OK'],
-      }).present()
-    }
+    //   this.alertCtrl.create({
+    //     title:    'Login Error',
+    //     subTitle: 'Exception: ' + e.message,
+    //     buttons:  ['OK'],
+    //   }).present()
+    // }
 
   }
 
-  logout(): void {
-    this.log.verbose('LoginPage', 'logout()')
-    this.auth.logout()
-    this.navCtrl.setRoot(LoginPage)
-  }
+  // logout(): void {
+  //   this.log.verbose('LoginPage', 'logout()')
+  //   this.auth.logout()
+  //   this.navCtrl.setRoot(LoginPage)
+  // }
 
   showLoader(): void {
     this.log.verbose('LoginPage', 'showLoader()')

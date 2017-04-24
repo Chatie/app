@@ -7,8 +7,8 @@
  * License Apache-2.0
  */
 import {
-  NgModule,
   ErrorHandler,
+  NgModule,
 }                         from '@angular/core'
 import {
   CloudSettings,
@@ -90,7 +90,7 @@ function dockieStoreFactory(
     database,
     log,
   })
-  auth.userObservable.subscribe(user => {
+  auth.status.subscribe(user => {
     dockieStore.auth(user)
   })
   return dockieStore
