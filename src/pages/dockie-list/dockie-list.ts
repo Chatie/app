@@ -29,7 +29,7 @@ import {
 import {
   // Observable,
   Subscription,
-}                           from 'rxjs'
+}                           from 'rxjs/Subscription'
 
 import { Brolog }           from 'brolog'
 

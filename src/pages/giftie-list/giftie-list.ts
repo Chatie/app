@@ -8,7 +8,7 @@ import { Brolog }       from 'brolog'
 
 import { UnlockPage }   from '../unlock'
 
-type Giftie = {
+interface Giftie {
   icon:         string,
   title:        string,
   description:  string,

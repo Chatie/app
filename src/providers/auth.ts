@@ -19,7 +19,7 @@ import {
   BehaviorSubject,
   Observable,
   Subscription,
-}                   from 'rxjs'
+}                   from 'rxjs/Rx'
 import              'rxjs/add/operator/map'
 
 const STORAGE_KEY = {
@@ -379,7 +379,7 @@ getProfile(idToken: string): Observable<any>{
       this.log.error('Auth', 'scheduleRefresh() error: no this.idToken')
       return
     }
-    let source = Observable.of(this.idToken).flatMap(token => {
+    const source = Observable.of(this.idToken).flatMap(token => {
       if (!token) {
         const e = new Error('scheduleRefresh() failed to get token')
         this.log.error('Auth', e.message)
@@ -391,12 +391,12 @@ getProfile(idToken: string): Observable<any>{
 
       // The delay to generate in this case is the difference
       // between the expiry time and the issued at time
-      let jwtIat = this.jwtHelper.decodeToken(token).iat
-      let jwtExp = this.jwtHelper.decodeToken(token).exp
-      let iat = new Date(0)
-      let exp = new Date(0)
+      const jwtIat = this.jwtHelper.decodeToken(token).iat
+      const jwtExp = this.jwtHelper.decodeToken(token).exp
+      const iat = new Date(0)
+      const exp = new Date(0)
 
-      let delay = (exp.setUTCSeconds(jwtExp) - iat.setUTCSeconds(jwtIat));
+      const delay = (exp.setUTCSeconds(jwtExp) - iat.setUTCSeconds(jwtIat));
 
       return Observable.interval(delay)
     })
@@ -413,19 +413,19 @@ getProfile(idToken: string): Observable<any>{
     if (this.valid) {
       // If the user is authenticated, use the token stream
       // provided by angular2-jwt and flatMap the token
-      let source = this.authHttp.tokenStream.flatMap(
+      const source = this.authHttp.tokenStream.flatMap(
         token => {
           // Get the expiry time to generate
           // a delay in milliseconds
-          let now: number = new Date().valueOf()
-          let jwtExp: number = this.jwtHelper.decodeToken(token).exp
-          let exp: Date = new Date(0)
+          const now: number = new Date().valueOf()
+          const jwtExp: number = this.jwtHelper.decodeToken(token).exp
+          const exp: Date = new Date(0)
           exp.setUTCSeconds(jwtExp)
 
           // XXX the delay should be shorter
           // becasue we should emit refresh before scheduleExpire()
           // maybe 1 hour?
-          let delay: number = exp.valueOf() - now
+          const delay: number = exp.valueOf() - now
 
           // Use the delay in a timer to
           // run the refresh at the proper time

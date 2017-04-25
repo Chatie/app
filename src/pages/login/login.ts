@@ -16,7 +16,7 @@ import {
 
 import {
   Subscription,
-}                         from 'rxjs'
+}                         from 'rxjs/Subscription'
 
 import { Auth }           from '../../providers/auth'
 

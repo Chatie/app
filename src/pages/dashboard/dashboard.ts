@@ -14,7 +14,7 @@ import {
 import { NavController }  from 'ionic-angular'
 import {
   Subscription,
-}                         from 'rxjs'
+}                         from 'rxjs/Subscription'
 
 import { Brolog }         from 'brolog'
 
