@@ -15,7 +15,7 @@ import { LogoutPage } from '../logout/'
   templateUrl:  'setting.html',
 })
 export class SettingPage {
-  public notificate: boolean = true
+  public notificate = true
 
   constructor(
     public log:       Brolog,

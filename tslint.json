@@ -37,7 +37,7 @@
   "prefer-const": true,
   "typeof-compare": true,
   "unified-signatures": true,
-
+  "no-inferrable-types": [true, "ignore-params"],
     "member-access": false,
     "member-ordering": [false],
     "no-any": false,
@@ -51,7 +51,6 @@
     "no-duplicate-variable": true,
     "no-empty": true,
     "no-eval": true,
-    "no-inferrable-types": [false],
     "no-internal-module": true,
     "no-require-imports": false,
     "no-shadowed-variable": true,

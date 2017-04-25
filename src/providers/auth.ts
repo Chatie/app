@@ -66,7 +66,7 @@ export class Auth {
     return this._status.asObservable() // .share()
   }
 
-  private _valid: boolean = false
+  private _valid = false
   public get valid() { // guard for readyonly
     this.log.silly('Auth', 'get valid() = %s', this._valid)
     return this._valid
