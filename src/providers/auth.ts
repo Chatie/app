@@ -79,7 +79,7 @@ export class Auth {
   private refreshToken: string | null = null
   private _idToken:     string | null = null
   private get idToken() {
-    this.log.verbose('Auth', 'get idToken() = %s', this._idToken && this._idToken.length)
+    this.log.silly('Auth', 'get idToken() = %s', this._idToken && this._idToken.length)
     return this._idToken
   }
   private set idToken(newIdToken) {
@@ -107,22 +107,24 @@ export class Auth {
     this.log.verbose('Auth', 'init()')
 
     try {
-      await this.load()
-
-      if (this.idToken && this.profile) {
-        this.log.silly('Auth', 'init() from storage for user({email:%s})', this.profile.email)
-        this._status.next(true)
-      } else {
-        this.log.silly('Auth', 'init() from storage got: idToken.length=%s profile=%s',
-                                this.idToken && this.idToken.length,
-                                this.profile,
-                      )
-      }
-
       this.status.subscribe(status => {
         this.log.silly('Auth', 'init() status.subscribe() set _valid=%s', status)
         this._valid = status
       })
+      this.log.silly('Auth', 'init() status.subscribe()-ed')
+
+      await this.load()
+
+      if (this.idToken && this.profile) {
+        this.log.silly('Auth', 'init() idToken & profile ready {email:%s}', this.profile.email)
+        this.log.verbose('Auth', 'init() _status.next(true)')
+        this._status.next(true)
+      } else {
+        this.log.silly('Auth', 'init() idToken(length:%s) & profile(%s) not ready',
+                                this.idToken && this.idToken.length,
+                                this.profile,
+                      )
+      }
 
     } catch (e) {
       this.log.error('Auth', 'init() exception: %s', e.message)
@@ -175,7 +177,8 @@ export class Auth {
     )
 
     auth0Lock.on('unrecoverable_error', error => {
-      this.log.verbose('Auth', 'login() on(unrecoverable_error) error:%s', error)
+      this.log.warn('Auth', 'login() on(unrecoverable_error) error:%s', error)
+      auth0Lock.hide()
     })
 
     auth0Lock.on('authorization_error', error => {
@@ -211,6 +214,7 @@ export class Auth {
       await this.save()
       this.scheduleRefresh()
       auth0Lock.hide()
+      this.log.verbose('Auth', 'getAuth0Lock() Auth0Lock.on(authenticated) _status.next(true)')
       this._status.next(true)
     })
 
@@ -316,6 +320,8 @@ getProfile(idToken: string): Observable<any>{
     this.unscheduleRefresh()
     this.unscheduleExpire()
     this.remove()
+
+    this.log.verbose('Auth', 'logout() _status.next(false)')
     this._status.next(false)
   }
 
@@ -330,16 +336,17 @@ getProfile(idToken: string): Observable<any>{
   // }
 
   private scheduleExpire(idToken: string|null): void {
-    this.log.verbose('Auth', 'scheduleExpired()')
+    this.log.verbose('Auth', 'scheduleExpire()')
 
     if (this.expireTimer) {
       clearTimeout(this.expireTimer)
-      this.log.silly('Auth', 'scheduleExpired() clearTimeout()')
+      this.log.silly('Auth', 'scheduleExpire() clearTimeout()')
       this.expireTimer = null
     }
 
     if (!idToken) {
-      this.log.verbose('Auth', 'scheduleExpired() no idToken')
+      this.log.verbose('Auth', 'scheduleExpire() no idToken')
+      this.log.verbose('Auth', 'scheduleExpire() _status.next(false)')
       this._status.next(false)
       return
     }
@@ -350,9 +357,10 @@ getProfile(idToken: string): Observable<any>{
       const timeout = expire.getTime() - now.getTime()
 
       this.expireTimer = setTimeout(() => {
+        this.log.verbose('Auth', 'scheduleExpire() _status.next(false)')
         this._status.next(false)
       }, timeout)
-      this.log.silly('Auth', 'scheduleExpired() setTimeout(,%s) = %s hours',
+      this.log.silly('Auth', 'scheduleExpire() setTimeout(,%s) = %s hours',
                               timeout,
                               Math.round(timeout / 3600) / 1000,
                     )
@@ -448,7 +456,7 @@ getProfile(idToken: string): Observable<any>{
 
     if (this.expireTimer) {
       clearTimeout(this.expireTimer)
-      this.log.silly('Auth', 'unscheduleExpired() clearTimeout()')
+      this.log.silly('Auth', 'unscheduleExpire() clearTimeout()')
       this.expireTimer = null
     }
   }
