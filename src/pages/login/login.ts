@@ -136,9 +136,14 @@ export class LoginPage implements OnInit, OnDestroy {
   async setupPush() {
     this.log.verbose('LoginPage', 'setupPush()')
 
-    const pushToken = await this.push.register()
-    await this.push.saveToken(pushToken)
-    this.log.silly('LoginPage', 'setupPush() push token saved: %s', pushToken)
+    try {
+      const pushToken = await this.push.register()
+      await this.push.saveToken(pushToken)
+      this.log.silly('LoginPage', 'setupPush() push token saved: %s', pushToken)
+    } catch (e) {
+      this.log.error('LoginPage', 'setupPush() exception:%s', e.message)
+      return
+    }
 
     this.push.rx.notification().subscribe((msg) => {
       this.log.silly('LoginPage', 'setupPush() notification received: %s - %s',

@@ -90,8 +90,12 @@ function dockieStoreFactory(
     database,
     log,
   })
-  auth.status.subscribe(user => {
-    dockieStore.auth(user)
+  auth.status.subscribe(valid => {
+    if (valid) {
+      dockieStore.auth(auth.profile && auth.profile.email)
+    } else {
+      dockieStore.auth(null)
+    }
   })
   return dockieStore
 }
