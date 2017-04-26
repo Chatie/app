@@ -1,8 +1,5 @@
 import { Component }  from '@angular/core'
 import {
-  Push,
-}                     from '@ionic/cloud-angular'
-import {
   Loading,
   LoadingController,
   NavController,
@@ -27,7 +24,6 @@ export class LogoutPage {
     public log:         Brolog,
     public navCtrl:     NavController,
     public navParams:   NavParams,
-    public push:        Push,
   ) {
     this.log.verbose('LogoutPage', 'constructor()')
 
@@ -65,7 +61,6 @@ export class LogoutPage {
     this.log.verbose('LogoutPage', 'logout()')
 
     this.showLoader()
-    await this.push.unregister()
     this.auth.logout()
     this.navCtrl.setRoot(LoginPage)
     this.hideLoader()

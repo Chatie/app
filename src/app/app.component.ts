@@ -13,6 +13,11 @@ import {
 }                   from '@angular/core'
 
 import {
+  IPushMessage,
+  Push,
+}                   from '@ionic/cloud-angular'
+
+import {
   Platform,
   MenuController,
   Nav,
@@ -22,6 +27,9 @@ import {
   Splashscreen,
 }                   from 'ionic-native'
 
+import {
+  Subscription,
+}                   from 'rxjs/Subscription'
 import { Brolog }   from 'brolog'
 
 import { Auth }             from '../providers/auth'
@@ -40,6 +48,8 @@ import { SettingPage }      from '../pages/setting/'
 export class ChatieApp {
   @ViewChild(Nav) nav: Nav
 
+  private pushSubscription: Subscription | null = null
+
   // make HelloIonicPage the root (or first) page
   // rootPage: any = WelcomePage
   // rootPage: Type<Component> = DashboardPage
@@ -56,6 +66,7 @@ export class ChatieApp {
     public auth:      Auth,
     public log:       Brolog,
     public platform:  Platform,
+    public push:      Push,
     public menu:      MenuController,
   ) {
     this.initializeApp()
@@ -76,6 +87,10 @@ export class ChatieApp {
     await this.platform.ready()
     // Okay, so the platform is ready and our plugins are available.
     // Here you can do any higher level native things you might need.
+
+    this.auth.status.subscribe(valid => {
+      this.setupPush(valid)
+    })
 
     StatusBar.styleDefault()
     Splashscreen.hide()
@@ -103,5 +118,42 @@ export class ChatieApp {
     this.menu.close()
     // navigate to the new page if it is not the current page
     this.nav.setRoot(page.component)
+  }
+
+  /**
+   * Setup Push Service
+   */
+  async setupPush(push = true): Promise<void> {
+    this.log.verbose('ChatieApp', 'setupPush(%s)', push)
+
+    if (push) {
+      const pushToken = await this.push.register()
+      await this.push.saveToken(pushToken)
+      this.log.silly('ChatieApp', 'setupPush() push token saved: %s', pushToken)
+
+      this.pushSubscription = this.push.rx.notification().subscribe(msg => {
+        this.onPush(msg)
+      })
+    } else {
+      if (this.pushSubscription) {
+        this.pushSubscription.unsubscribe()
+        this.pushSubscription = null
+      }
+      await this.push.unregister()
+    }
+
+    // do something with the push data
+    // then call finish to let the OS know we are done
+    // push.finish(function() {
+    //     console.log("processing of push data is finished");
+    // }, function() {
+    //     console.log("something went wrong with push.finish for ID = " + data.additionalData.notId)
+    // }, data.additionalData.notId);
+
+  }
+
+  onPush(msg: IPushMessage): void {
+    this.log.verbose('ChatieApp', 'onPush({title:%s,...})', msg.title)
+    alert(msg.title + ': ' + msg.text)
   }
 }
