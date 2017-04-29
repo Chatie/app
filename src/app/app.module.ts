@@ -1,9 +1,9 @@
 /**
- * Wechaty APP for Android & Ios
+ * Chatie APP for Android & Ios & Web
  * Your ChatBot Pocket Manager
  *
- * https://github.com/wechaty/wechaty-ionic
- * Zhuohuan LI <zixia@zixia.net>
+ * https://github.com/chatie/app
+ * Huan LI <zixia@zixia.net>
  * License Apache-2.0
  */
 import {

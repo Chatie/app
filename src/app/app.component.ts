@@ -69,6 +69,8 @@ export class ChatieApp {
     public push:      Push,
     public menu:      MenuController,
   ) {
+    this.log.verbose('ChatieApp', 'constructor()')
+
     this.initializeApp()
 
     // set our app's pages
@@ -84,7 +86,12 @@ export class ChatieApp {
   }
 
   async initializeApp() {
-    await this.platform.ready()
+    this.log.verbose('ChatieApp', 'initializeApp()')
+
+    const readySource = await this.platform.ready()
+
+    this.log.silly('ChatieApp', 'initializeApp() platform.ready() return %s', readySource)
+
     // Okay, so the platform is ready and our plugins are available.
     // Here you can do any higher level native things you might need.
 
@@ -109,6 +116,8 @@ export class ChatieApp {
     }
 
     // Schedule a token refresh on app start up
+
+    return readySource
   }
 
   openPage(page: any) {
