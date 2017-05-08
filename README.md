@@ -43,6 +43,10 @@ How to use Observable.
 * [How to build Angular 2 apps using Observable Data Services - Pitfalls to avoid](http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/)
 * [3 Common Rxjs Pitfalls that you might find while building Angular 2 Applications](http://blog.angular-university.io/angular-2-rxjs-common-pitfalls/)
 * [RxJS: Don’t Unsubscribe](https://medium.com/@benlesh/rxjs-dont-unsubscribe-6753ed4fda87)
+* [Creating Observable From Scratch](https://egghead.io/lessons/rxjs-creating-observable-from-scratch)
+* [How to build Angular 2 apps using Observable Data Services - Pitfalls to avoid](http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/)
+* [3 Common Rxjs Pitfalls that you might find while building Angular 2 Applications](http://blog.angular-university.io/angular-2-rxjs-common-pitfalls/)
+
 
 ## Features
 
@@ -69,12 +73,6 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 ### 2. PouchDB
 
 * [Offline Syncing in Ionic 2 with PouchDB & CouchDB](https://www.joshmorony.com/offline-syncing-in-ionic-2-with-pouchdb-couchdb/)
-
-## RxJS/Observable
-
-* [Creating Observable From Scratch](https://egghead.io/lessons/rxjs-creating-observable-from-scratch)
-* [How to build Angular 2 apps using Observable Data Services - Pitfalls to avoid](http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/)
-* [3 Common Rxjs Pitfalls that you might find while building Angular 2 Applications](http://blog.angular-university.io/angular-2-rxjs-common-pitfalls/)
 
 ## Testing
 
