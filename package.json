@@ -29,6 +29,7 @@
     "@angular/platform-browser": "2.4.8",
     "@angular/platform-browser-dynamic": "2.4.8",
     "@angular/platform-server": "2.4.8",
+    "@chatie/angular": "^0.1.31",
     "@chatie/db": "0.0.11",
     "@ionic/cloud-angular": "^0.11.0",
     "@ionic/storage": "1.1.9",

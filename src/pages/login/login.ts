@@ -123,8 +123,10 @@ export class LoginPage implements OnInit, OnDestroy {
 
   gotoDashboardPage(): void {
     this.log.verbose('LoginPage', 'gotoDashboardPage()')
-
-    this.navCtrl.setRoot(DashboardPage)
+    // tslint:disable-next-line:no-unused-expression
+    typeof DashboardPage
+    // XXX
+    // this.navCtrl.setRoot(DashboardPage)
   }
 
 }

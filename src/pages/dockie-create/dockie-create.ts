@@ -40,7 +40,7 @@ export class DockieCreatePage {
     this.log.verbose('DockieCreatePage', 'save()')
     this.loading = true
 
-    const profile = this.auth.profile
+    const profile = this.auth.snapshot.profile
     if (!profile || !profile.email) {
       throw new Error('no auth user/email')
     }

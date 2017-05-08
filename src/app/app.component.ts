@@ -135,20 +135,24 @@ export class ChatieApp {
   async setupPush(push = true): Promise<void> {
     this.log.verbose('ChatieApp', 'setupPush(%s)', push)
 
-    if (push) {
-      const pushToken = await this.push.register()
-      await this.push.saveToken(pushToken)
-      this.log.silly('ChatieApp', 'setupPush() push token saved: %s', pushToken)
+    try {
+      if (push) {
+        const pushToken = await this.push.register()
+        await this.push.saveToken(pushToken)
+        this.log.silly('ChatieApp', 'setupPush() push token saved: %s', pushToken)
 
-      this.pushSubscription = this.push.rx.notification().subscribe(msg => {
-        this.onPush(msg)
-      })
-    } else {
-      if (this.pushSubscription) {
-        this.pushSubscription.unsubscribe()
-        this.pushSubscription = null
+        this.pushSubscription = this.push.rx.notification().subscribe(msg => {
+          this.onPush(msg)
+        })
+      } else {
+        if (this.pushSubscription) {
+          this.pushSubscription.unsubscribe()
+          this.pushSubscription = null
+        }
+        await this.push.unregister()
       }
-      await this.push.unregister()
+    } catch (e) {
+      this.log.warn('AppComponent', 'setupPush() exception:%s', e.message)
     }
 
     // do something with the push data

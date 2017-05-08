@@ -90,9 +90,9 @@ function dockieStoreFactory(
     database,
     log,
   })
-  auth.status.subscribe(user => {
-    dockieStore.auth(user)
-  })
+  auth.profile.filter(p => !!p)
+              .subscribe(p => p && dockieStore.auth(p.email))
+
   return dockieStore
 }
 

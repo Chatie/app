@@ -41,9 +41,15 @@ const AUTH0 = {
   DOMAIN:     'zixia.auth0.com',
 }
 
+interface AuthSnapshot {
+  profile: Auth0UserProfile | null
+}
+
 @Injectable()
 export class Auth {
-  private expireTimer: NodeJS.Timer | null = null
+  public snapshot: AuthSnapshot
+
+  private expireTimer: NodeJS.Timer | null
 
   /**
    * User Profile: https://auth0.com/docs/user-profile
@@ -51,7 +57,7 @@ export class Auth {
    * Control the contents of an ID token: https://auth0.com/docs/tokens/id-token#control-the-contents-of-an-id-token
    * OpenID Connect Standard Claims: https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims
    */
-  public profile: Auth0UserProfile | null
+  public profile: BehaviorSubject<Auth0UserProfile | null>
 
   /**
    * Persisting user authentication with BehaviorSubject in Angular
@@ -106,16 +112,22 @@ export class Auth {
   async init() {
     this.log.verbose('Auth', 'init()')
 
+    this.snapshot = {} as any
+
     try {
+
+      this.profile = new BehaviorSubject<Auth0UserProfile | null>(null)
+      this.profile.subscribe(p => this.snapshot.profile = p)
+
       await this.load()
 
-      if (this.idToken && this.profile) {
-        this.log.silly('Auth', 'init() from storage for user({email:%s})', this.profile.email)
+      if (this.idToken && this.snapshot.profile) {
+        this.log.silly('Auth', 'init() from storage for user({email:%s})', this.snapshot.profile.email)
         this._status.next(true)
       } else {
         this.log.silly('Auth', 'init() from storage got: idToken.length=%s profile=%s',
                                 this.idToken && this.idToken.length,
-                                this.profile,
+                                this.snapshot.profile,
                       )
       }
 
@@ -196,7 +208,9 @@ export class Auth {
         return
       }
 
-      this.profile = await this.getProfile()
+      const profile = await this.getProfile()
+      this.profile.next(profile)
+
       // auth0Lock.getProfile(this.idToken, (error, profile) => {
       //   if (error) {
       //     // Handle error
@@ -501,7 +515,7 @@ getProfile(idToken: string): Observable<any>{
     this.storage.set(STORAGE_KEY.ID_TOKEN,      this.idToken)
     this.storage.set(STORAGE_KEY.REFRESH_TOKEN, this.refreshToken)
 
-    this.storage.set(STORAGE_KEY.USER_PROFILE,  this.profile)
+    this.storage.set(STORAGE_KEY.USER_PROFILE,  this.snapshot.profile)
   }
 
   async remove(): Promise<void> {
@@ -520,7 +534,7 @@ getProfile(idToken: string): Observable<any>{
     this.idToken      = null
     this.refreshToken = null
 
-    this.profile = null
+    this.profile.next(null)
   }
 
   async load(): Promise<void> {
@@ -532,10 +546,12 @@ getProfile(idToken: string): Observable<any>{
     this.accessToken  = await this.storage.get(STORAGE_KEY.ACCESS_TOKEN)
     this.idToken      = await this.storage.get(STORAGE_KEY.ID_TOKEN)
     this.refreshToken = await this.storage.get(STORAGE_KEY.REFRESH_TOKEN)
-    this.profile      = await this.storage.get(STORAGE_KEY.USER_PROFILE)
+
+    const profile = await this.storage.get(STORAGE_KEY.USER_PROFILE)
+    this.profile.next(profile)
 
     this.log.silly('Auth', 'load() Storage.get() all done. profile={email:%s,...}',
-                            this.profile && this.profile.email,
+                            profile.email,
                   )
 
   }
