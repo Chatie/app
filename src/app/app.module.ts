@@ -24,9 +24,7 @@ import {
 
 import { AUTH_PROVIDERS } from 'angular2-jwt'
 
-import {
-  Brolog,
-}                         from 'brolog'
+import { Brolog }         from 'brolog'
 
 import { DockieStore }    from '@chatie/db'
 
@@ -143,14 +141,21 @@ function dockieStoreFactory(
     WelcomePage,
   ],
   providers: [
-    {provide: Brolog, useClass: Brolog('silly')},
-    { provide: DockieStore,
+    AUTH_PROVIDERS,
+    Auth,
+    {
+      provide: Brolog,
+      useFactory() { return Brolog.instance('silly') },
+    },
+    {
+      provide: DockieStore,
       useFactory: dockieStoreFactory,
       deps: [Auth, Brolog, Database], // be careful about the seq, must as same as the function define.
     },
-    AUTH_PROVIDERS,
-    Auth,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {
+      provide: ErrorHandler,
+      useClass: IonicErrorHandler,
+    },
   ],
 })
 
