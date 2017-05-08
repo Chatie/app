@@ -72,6 +72,8 @@ export class Auth {
     return this._valid
   }
 
+  public snapshot = {[profile: Auth0UserProfile | null | undefined]}
+
   private jwtHelper = new JwtHelper()
   private storage   = new Storage()
 
@@ -176,16 +178,22 @@ export class Auth {
       options,
     )
 
+    // Rxjs.Observable.merge
+    // Rxjs.Observable.fromEvent(auth0Lock, 'unrecoverable_error')
+    // Rxjs.Observable.fromEvent(auth0Lock, 'authorization_error')
     auth0Lock.on('unrecoverable_error', error => {
       this.log.warn('Auth', 'login() on(unrecoverable_error) error:%s', error)
+      this._status.error(error)
       auth0Lock.hide()
     })
 
     auth0Lock.on('authorization_error', error => {
       this.log.verbose('Auth', 'login() on(authorization_error)')
+      this._status.error(error)
     })
 
     // Add callback for lock `authenticated` event
+    // TODO: replace on with Observable.fromEvent().switchMap(getProfile)
     auth0Lock.on('authenticated', async (authResult) => {
       this.log.verbose('Auth', 'login() on(authenticated, authResult={%s})',
                                 Object.keys(authResult).join(','),

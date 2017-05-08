@@ -40,8 +40,25 @@ $ sudo gem install cocoapods
 
 How to use Observable.
 
+* [Observables for ECMAScript](https://github.com/tc39/proposal-observable)
+* [Migrating from RxJS 4 to 5](https://github.com/ReactiveX/rxjs/blob/master/MIGRATION.md)
+
+#### Build from Scratch
+
+* [Creating Observable From Scratch(Video)](https://egghead.io/lessons/rxjs-creating-observable-from-scratch)
+* [Learning Observable By Building Observable](https://medium.com/@benlesh/learning-observable-by-building-observable-d5da57405d87)
+
+#### Others
+
+* [Functional Programming in Javascript](http://reactivex.io/learnrx/)
 * [How to build Angular 2 apps using Observable Data Services - Pitfalls to avoid](http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/)
 * [3 Common Rxjs Pitfalls that you might find while building Angular 2 Applications](http://blog.angular-university.io/angular-2-rxjs-common-pitfalls/)
+* [10 Need-to-Know RxJS Functions with Examples](https://www.sitepoint.com/rxjs-functions-with-examples/)
+* [Asynchronous Programming at Netflix - @Scale 2014 - Web](https://www.youtube.com/watch?v=gawmdhCNy-A)
+* [RxJS, the smartest dumbest tool ever](https://www.christianalfoni.com/articles/2016_03_31_RxJs-the-smartest-dumbest-tool-ever)
+* [COLD VS HOT OBSERVABLES](https://blog.thoughtram.io/angular/2016/06/16/cold-vs-hot-observables.html#caveat-http-with-observables)
+* [The Difference Between Throttling and Debouncing](https://css-tricks.com/the-difference-between-throttling-and-debouncing/)
+
 
 ## Features
 
