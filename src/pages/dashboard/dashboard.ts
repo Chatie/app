@@ -54,7 +54,7 @@ export class DashboardPage implements OnInit, OnDestroy {
   // https://devdactic.com/ionic-auth-guards/
   ionViewCanEnter() {
     this.log.verbose('DashboardPage', 'ionViewCanEnter()')
-    return this.auth.valid
+    return this.auth.snapshot.valid
   }
 
   // https://webcake.co/page-lifecycle-hooks-in-ionic-2/

@@ -9,7 +9,6 @@ import {
 }                   from 'angular2-jwt'
 import {
   Auth0UserProfile,
-  // Management,
   WebAuth,
 }                   from 'auth0-js'
 import Auth0Lock    from 'auth0-lock'
@@ -42,7 +41,8 @@ const AUTH0 = {
 }
 
 interface AuthSnapshot {
-  profile: Auth0UserProfile | null
+  valid:    boolean,
+  profile:  Auth0UserProfile,
 }
 
 @Injectable()
@@ -57,7 +57,11 @@ export class Auth {
    * Control the contents of an ID token: https://auth0.com/docs/tokens/id-token#control-the-contents-of-an-id-token
    * OpenID Connect Standard Claims: https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims
    */
-  public profile: BehaviorSubject<Auth0UserProfile | null>
+  private _profile: BehaviorSubject<Auth0UserProfile>
+  public get profile() {
+    this.log.verbose('Auth', 'get profile()')
+    return this._profile.asObservable()
+  }
 
   /**
    * Persisting user authentication with BehaviorSubject in Angular
@@ -66,16 +70,10 @@ export class Auth {
    *  - https://github.com/ReactiveX/RxJS/issues/1478
    *  - https://github.com/Reactive-Extensions/RxJS/issues/1088
    */
-  private _status = new BehaviorSubject<boolean>(false)
-  public get status() {
-    this.log.verbose('Auth', 'get status()')
-    return this._status.asObservable() // .share()
-  }
-
-  private _valid = false
-  public get valid() { // guard for readyonly
-    this.log.silly('Auth', 'get valid() = %s', this._valid)
-    return this._valid
+  private _valid: BehaviorSubject<boolean>
+  public get valid() {
+    this.log.verbose('Auth', 'get valid()')
+    return this._valid.asObservable() // .share()
   }
 
   private jwtHelper = new JwtHelper()
@@ -112,18 +110,21 @@ export class Auth {
   async init() {
     this.log.verbose('Auth', 'init()')
 
-    this.snapshot = {} as any
+    this.snapshot = {} as AuthSnapshot
 
     try {
 
-      this.profile = new BehaviorSubject<Auth0UserProfile | null>(null)
-      this.profile.subscribe(p => this.snapshot.profile = p)
+      this._profile = new BehaviorSubject<Auth0UserProfile>({} as Auth0UserProfile)
+      this._profile.subscribe(p => this.snapshot.profile = p)
+
+      this._valid = new BehaviorSubject<boolean>(false)
+      this._valid.subscribe(v => this.snapshot.valid = v)
 
       await this.load()
 
       if (this.idToken && this.snapshot.profile) {
         this.log.silly('Auth', 'init() from storage for user({email:%s})', this.snapshot.profile.email)
-        this._status.next(true)
+        this._valid.next(true)
       } else {
         this.log.silly('Auth', 'init() idToken(length:%s) & profile(%s) not ready',
                                 this.idToken && this.idToken.length,
@@ -186,13 +187,13 @@ export class Auth {
     // Rxjs.Observable.fromEvent(auth0Lock, 'authorization_error')
     auth0Lock.on('unrecoverable_error', error => {
       this.log.warn('Auth', 'login() on(unrecoverable_error) error:%s', error)
-      this._status.error(error)
+      this._valid.error(error)
       auth0Lock.hide()
     })
 
     auth0Lock.on('authorization_error', error => {
       this.log.verbose('Auth', 'login() on(authorization_error)')
-      this._status.error(error)
+      this._valid.error(error)
     })
 
     // Add callback for lock `authenticated` event
@@ -211,7 +212,7 @@ export class Auth {
       }
 
       const profile = await this.getProfile()
-      this.profile.next(profile)
+      this._profile.next(profile)
 
       // auth0Lock.getProfile(this.idToken, (error, profile) => {
       //   if (error) {
@@ -227,8 +228,8 @@ export class Auth {
       await this.save()
       this.scheduleRefresh()
       auth0Lock.hide()
-      this.log.verbose('Auth', 'getAuth0Lock() Auth0Lock.on(authenticated) _status.next(true)')
-      this._status.next(true)
+      this.log.verbose('Auth', 'getAuth0Lock() Auth0Lock.on(authenticated) _valid.next(true)')
+      this._valid.next(true)
     })
 
     return auth0Lock
@@ -334,8 +335,8 @@ getProfile(idToken: string): Observable<any>{
     this.unscheduleExpire()
     this.remove()
 
-    this.log.verbose('Auth', 'logout() _status.next(false)')
-    this._status.next(false)
+    this.log.verbose('Auth', 'logout() _valid.next(false)')
+    this._valid.next(false)
   }
 
   // public authenticated(): boolean {
@@ -359,8 +360,8 @@ getProfile(idToken: string): Observable<any>{
 
     if (!idToken) {
       this.log.verbose('Auth', 'scheduleExpire() no idToken')
-      this.log.verbose('Auth', 'scheduleExpire() _status.next(false)')
-      this._status.next(false)
+      this.log.verbose('Auth', 'scheduleExpire() _valid.next(false)')
+      this._valid.next(false)
       return
     }
 
@@ -370,8 +371,8 @@ getProfile(idToken: string): Observable<any>{
       const timeout = expire.getTime() - now.getTime()
 
       this.expireTimer = setTimeout(() => {
-        this.log.verbose('Auth', 'scheduleExpire() _status.next(false)')
-        this._status.next(false)
+        this.log.verbose('Auth', 'scheduleExpire() _valid.next(false)')
+        this._valid.next(false)
       }, timeout)
       this.log.silly('Auth', 'scheduleExpire() setTimeout(,%s) = %s hours',
                               timeout,
@@ -541,7 +542,7 @@ getProfile(idToken: string): Observable<any>{
     this.idToken      = null
     this.refreshToken = null
 
-    this.profile.next(null)
+    this._profile.next({} as Auth0UserProfile)
   }
 
   async load(): Promise<void> {
@@ -555,7 +556,7 @@ getProfile(idToken: string): Observable<any>{
     this.refreshToken = await this.storage.get(STORAGE_KEY.REFRESH_TOKEN)
 
     const profile = await this.storage.get(STORAGE_KEY.USER_PROFILE)
-    this.profile.next(profile)
+    this._profile.next(profile)
 
     this.log.silly('Auth', 'load() Storage.get() all done. profile={email:%s,...}',
                             profile.email,

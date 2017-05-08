@@ -48,7 +48,7 @@ export class LoginPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.log.verbose('LoginPage', 'ngOnInit()')
 
-    this.status = this.auth.status.subscribe(valid => {
+    this.status = this.auth.valid.subscribe(valid => {
       this.log.verbose('LoginPage', 'constructor() Auth.status.subscribe() got:%s', valid)
       if (valid) {
         this.onLogin()
@@ -121,12 +121,18 @@ export class LoginPage implements OnInit, OnDestroy {
     this.loading = null
   }
 
-  gotoDashboardPage(): void {
+  async gotoDashboardPage(): Promise<void> {
     this.log.verbose('LoginPage', 'gotoDashboardPage()')
-    // tslint:disable-next-line:no-unused-expression
-    typeof DashboardPage
-    // XXX
-    // this.navCtrl.setRoot(DashboardPage)
+    try {
+      await this.navCtrl.setRoot(DashboardPage)
+    } catch (e) {
+      this.log.verbose('LoginPage', 'gotoDashboardPage() exception:%s', e.message)
+      this.alertCtrl.create({
+        title: 'No entry!',
+        subTitle: 'You shall not pass',
+        buttons: ['Okay'],
+      }).present()
+    }
   }
 
 }
