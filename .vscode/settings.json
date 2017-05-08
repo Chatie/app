@@ -7,7 +7,8 @@
   , "files.exclude": {
       "node_modules/": true
     , "www/": true
-    , "platforms/{ios,android,browser}/": true
+    , "platforms/": true
+    , "hooks/": true
     , "res/": true
     , "resources/": true
     , "plugins": true

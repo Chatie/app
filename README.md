@@ -58,7 +58,7 @@ How to use Observable.
 * [RxJS, the smartest dumbest tool ever](https://www.christianalfoni.com/articles/2016_03_31_RxJs-the-smartest-dumbest-tool-ever)
 * [COLD VS HOT OBSERVABLES](https://blog.thoughtram.io/angular/2016/06/16/cold-vs-hot-observables.html#caveat-http-with-observables)
 * [The Difference Between Throttling and Debouncing](https://css-tricks.com/the-difference-between-throttling-and-debouncing/)
-
+* [RxJS: Don’t Unsubscribe](https://medium.com/@benlesh/rxjs-dont-unsubscribe-6753ed4fda87)
 
 ## Features
 
@@ -85,12 +85,6 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 ### 2. PouchDB
 
 * [Offline Syncing in Ionic 2 with PouchDB & CouchDB](https://www.joshmorony.com/offline-syncing-in-ionic-2-with-pouchdb-couchdb/)
-
-## RxJS/Observable
-
-* [Creating Observable From Scratch](https://egghead.io/lessons/rxjs-creating-observable-from-scratch)
-* [How to build Angular 2 apps using Observable Data Services - Pitfalls to avoid](http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/)
-* [3 Common Rxjs Pitfalls that you might find while building Angular 2 Applications](http://blog.angular-university.io/angular-2-rxjs-common-pitfalls/)
 
 ## Testing
 

@@ -4,7 +4,6 @@ import {
   OnDestroy,
 }                         from '@angular/core'
 import {
-  Push,
   User,
 }                         from '@ionic/cloud-angular'
 import {
@@ -41,7 +40,6 @@ export class LoginPage implements OnInit, OnDestroy {
     public log:         Brolog,
     public loadingCtrl: LoadingController,
     public navCtrl:     NavController,
-    public push:        Push,
     public user:        User,
   ) {
     this.log.verbose('LoginPage', 'constructor()')
@@ -61,7 +59,6 @@ export class LoginPage implements OnInit, OnDestroy {
   }
   onLogin(): void {
     this.log.verbose('LoginPage', 'onLogin()')
-    this.setupPush()
     this.gotoDashboardPage()
   }
 
@@ -126,39 +123,10 @@ export class LoginPage implements OnInit, OnDestroy {
 
   gotoDashboardPage(): void {
     this.log.verbose('LoginPage', 'gotoDashboardPage()')
-
-    this.navCtrl.setRoot(DashboardPage)
+    // tslint:disable-next-line:no-unused-expression
+    typeof DashboardPage
+    // XXX
+    // this.navCtrl.setRoot(DashboardPage)
   }
 
-  /**
-   * Setup Push Service
-   */
-  async setupPush() {
-    this.log.verbose('LoginPage', 'setupPush()')
-
-    try {
-      const pushToken = await this.push.register()
-      await this.push.saveToken(pushToken)
-      this.log.silly('LoginPage', 'setupPush() push token saved: %s', pushToken)
-    } catch (e) {
-      this.log.error('LoginPage', 'setupPush() exception:%s', e.message)
-      return
-    }
-
-    this.push.rx.notification().subscribe((msg) => {
-      this.log.silly('LoginPage', 'setupPush() notification received: %s - %s',
-                                  msg.title, msg.text,
-                    )
-      alert(msg.title + ': ' + msg.text)
-    })
-
-    // do something with the push data
-    // then call finish to let the OS know we are done
-    // push.finish(function() {
-    //     console.log("processing of push data is finished");
-    // }, function() {
-    //     console.log("something went wrong with push.finish for ID = " + data.additionalData.notId)
-    // }, data.additionalData.notId);
-
-  }
 }
