@@ -89,4 +89,15 @@ export class BotieDetailsPage {
     wechaty.shutdown('by web bot component')
   }
 
+  eventToIcon(event: string): string {
+    switch (event) {
+      case 'scan':    return 'qr-scanner'
+      case 'login':   return 'log-in'
+      case 'logout':  return 'log-out'
+      case 'message': return 'chatboxes'
+      case 'error':   return 'alert'
+      default:        return 'help'
+    }
+  }
+
 }

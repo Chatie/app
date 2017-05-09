@@ -32,7 +32,7 @@ export class LogoutPage {
   ionViewDidLoad() {
     this.log.verbose('LogoutPage', 'ionViewDidLoad()')
 
-    if (!this.auth.valid) {
+    if (!this.auth.snapshot.valid) {
       this.logout()
     }
 

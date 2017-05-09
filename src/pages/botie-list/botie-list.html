@@ -1,12 +1,60 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Botie List</ion-title>
-  </ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
 
+    <ion-title>Botie List</ion-title>
+
+  </ion-navbar>
 </ion-header>
 
+<ion-content>
 
-<ion-content padding>
+  <ion-list
+    [reorder]="reordering"
+    (ionItemReorder)="reorder($event)"
+  >
+    <ion-item-sliding
+      *ngFor="let dockie of dockieStore.dockies | async"
+    >
+
+      <button ion-item
+        (click)="gotoBotieDetail(dockie, $event)"
+      >
+
+        <ion-icon item-left
+          name="android"
+        ></ion-icon>
+
+        {{ dockie.name || 'Unnamed Dockie' }}
+
+        <ion-note item-right>
+          {{dockie.note}}
+        </ion-note>
+
+      </button>
+
+      <ion-item-options>
+        <button ion-button
+          color="danger"
+          (click)="trash(dockie)"
+        >
+          <ion-icon name="trash"></ion-icon>
+          Trash
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
+
+  </ion-list>
+
+  <ion-note padding>
+    Notice: we only support 1 Botie in Alpha stage for testing.
+    <!-- pre>
+      {{ dockieStore.dockies | async | json }}
+    </pre -->
+  </ion-note>
 
 </ion-content>
+

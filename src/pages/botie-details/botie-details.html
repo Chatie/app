@@ -9,48 +9,93 @@
 
 <ion-content padding>
 
+
   <wechaty
     #wechaty
     [token]="token"
 
-    (message)="onMessage($event)"
-    (heartbeat)="onHeartbeat($event)"
-    (scan)="onScan($event)"
-    (login)="onLogin($event)"
-    (logout)="onLogout($event)"
+    (heartbeat) = "onHeartbeat($event)"
+    (login)     = "onLogin($event)"
+    (logout)    = "onLogout($event)"
+    (message)   = "onMessage($event)"
+    (scan)      = "onScan($event)"
   >
-    <h1>Wechaty Bot Id: {{ id }}</h1>
+  </wechaty>
 
-    <p>token: {{ token }}, heartbeat {{ hbCounter }}</p>
 
-    <div [ngSwitch]="!!user">
+  <h1>Wechaty Bot Id: {{ id }}</h1>
 
-      <div *ngSwitchCase="true">
-        Congratulations! Wechaty is on duty.
-        <p>Logined with user {{ user.name }}</p>
-      </div>
+  <p>token: {{ token }}, heartbeat {{ hbCounter }}</p>
 
-      <div *ngSwitchDefault>
-        <div *ngIf="scan?.url">
-          <img [src]="scan.url"/>
-        </div>
-        <!-- ELSE -->
-        <div *ngIf="!(scan?.url)">
-          Wechaty Initializing...
-        </div>
-      </div>
+  <div [ngSwitch]="!!user">
 
+    <div *ngSwitchCase="true">
+      Congratulations! Wechaty is on duty.
+      <p>Logined with user {{ user.name }}</p>
     </div>
 
-    <ol>
-      <li *ngFor="let message of messages">
-        {{ message }}
-      </li>
-    </ol>
+    <div *ngSwitchDefault>
+      <div *ngIf="scan?.url">
+        <img [src]="scan.url"/>
+      </div>
+      <!-- ELSE -->
+      <div *ngIf="!(scan?.url)">
+        Wechaty Initializing...
+      </div>
+    </div>
 
-    <button (click)="reset(wechaty)">Reset</button>
-    <button (click)="shutdown(wechaty)">Shutdown</button>
+  </div>
 
-  </wechaty>
+  <ol>
+    <li *ngFor="let message of messages">
+      {{ message }}
+    </li>
+  </ol>
+
+  <button (click)="reset(wechaty)">Reset</button>
+  <button (click)="shutdown(wechaty)">Shutdown</button>
+
+
+  <ion-list>
+
+    <ion-list-header>Status</ion-list-header>
+
+    <ion-item>
+      <ion-icon name="heart"></ion-icon>
+      Heartbeat
+      <ion-note item-right>at 10:49:03</ion-note>
+    </ion-item>
+
+    <ion-item
+      *ngFor="let event of eventList"
+    >
+      <ion-icon [name]="eventToIcon(event.type)"></ion-icon>
+      {{ event.type }}
+      <ion-note item-right>at {{ event.time }}</ion-note>
+    </ion-item>
+
+  </ion-list>
+
+
+  <p>Last 5 Event Log</p>
+
+  <ion-list>
+    <ion-item>
+      <ion-icon name="ionic"></ion-icon>
+      Item
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="qr-scaner"></ion-icon>
+      Scan
+    </ion-item>
+
+    <ion-thumbnail>
+      <img
+        src="https://raw.githubusercontent.com/chatie/wechaty/master/image/BotQrcode.png"
+      />
+    </ion-thumbnail>
+
+  </ion-list>
 
 </ion-content>

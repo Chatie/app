@@ -143,7 +143,7 @@ export function getAuthHttp(http: Http) {
     ChatieApp,
     // Pages
     AboutPage,
-    BotieListPage,
+    BotieDetailsPage,
     BotieListPage,
     DashboardPage,
     FeedbackPage,
