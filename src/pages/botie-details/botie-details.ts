@@ -68,7 +68,7 @@ export class BotieDetailsPage {
     this.eventList.push({
       type: 'message',
       time: moment().format('LTS'),
-      data: msg
+      data: msg,
     })
   }
   onHeartbeat(e: any) {
@@ -82,7 +82,7 @@ export class BotieDetailsPage {
     this.eventList.push({
       type: 'scan',
       time: moment().format('LTS'),
-      data: scan.url
+      data: scan.url,
     })
   }
   onLogin(user: UserInfo) {
@@ -92,7 +92,7 @@ export class BotieDetailsPage {
     this.eventList.push({
       type: 'login',
       time: moment().format('LTS'),
-      data: user.name
+      data: user.name,
     })
   }
   onLogout(e: UserInfo) {
