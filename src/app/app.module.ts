@@ -24,6 +24,8 @@ import {
 
 import { AUTH_PROVIDERS } from 'angular2-jwt'
 
+import { WechatyModule }  from '@chatie/angular'
+
 import { Brolog }         from 'brolog'
 
 import { DockieStore }    from '@chatie/db'
@@ -31,21 +33,21 @@ import { DockieStore }    from '@chatie/db'
 import { Auth }           from '../providers/auth'
 import { ChatieApp }      from './app.component'
 
-const ionicConfig = require('../../ionic.config.json')
+const { app_id } = require('../../ionic.config.json')
 
 const cloudSettings: CloudSettings = {
-  'core': {
-    'app_id': ionicConfig['app_id'],
+  core: {
+    app_id,  // : ionicConfig['app_id'],
   },
-  'push': {
-    'sender_id': '673602949542',
-    'pluginConfig': {
-      'ios': {
-        'badge': true,
-        'sound': true,
+  push: {
+    sender_id: '673602949542',
+    pluginConfig: {
+      ios: {
+        badge: true,
+        sound: true,
       },
-      'android': {
-        'iconColor': '#343434',
+      android: {
+        iconColor: '#343434',
       },
     },
   },
@@ -59,6 +61,7 @@ const cloudSettings: CloudSettings = {
  */
 import { AboutPage }          from '../pages/about/'
 import { BotieListPage }      from '../pages/botie-list/'
+import { BotieDetailsPage }   from '../pages/botie-details/'
 import { DashboardPage }      from '../pages/dashboard/'
 import { FeedbackPage }       from '../pages/feedback/'
 import { GiftieListPage }     from '../pages/giftie-list/'
@@ -100,6 +103,7 @@ function dockieStoreFactory(
     // Pages
     AboutPage,
     BotieListPage,
+    BotieDetailsPage,
     DashboardPage,
     FeedbackPage,
     GiftieListPage,
@@ -116,14 +120,16 @@ function dockieStoreFactory(
     WelcomePage,
 ],
   imports: [
-    IonicModule.forRoot(ChatieApp),
     CloudModule.forRoot(cloudSettings),
+    IonicModule.forRoot(ChatieApp),
+    WechatyModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     ChatieApp,
     // Pages
     AboutPage,
+    BotieListPage,
     BotieListPage,
     DashboardPage,
     FeedbackPage,
@@ -144,17 +150,17 @@ function dockieStoreFactory(
     AUTH_PROVIDERS,
     Auth,
     {
-      provide: Brolog,
-      useFactory() { return Brolog.instance('silly') },
+      provide:      Brolog,
+      useFactory()  { return Brolog.instance('silly') },
     },
     {
-      provide: DockieStore,
-      useFactory: dockieStoreFactory,
-      deps: [Auth, Brolog, Database], // be careful about the seq, must as same as the function define.
+      provide:      DockieStore,
+      useFactory:   dockieStoreFactory,
+      deps:         [Auth, Brolog, Database], // be careful about the seq, must as same as the function define.
     },
     {
-      provide: ErrorHandler,
-      useClass: IonicErrorHandler,
+      provide:      ErrorHandler,
+      useClass:     IonicErrorHandler,
     },
   ],
 })

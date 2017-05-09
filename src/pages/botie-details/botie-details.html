@@ -1,0 +1,56 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Botie Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <wechaty
+    #wechaty
+    [token]="token"
+
+    (message)="onMessage($event)"
+    (heartbeat)="onHeartbeat($event)"
+    (scan)="onScan($event)"
+    (login)="onLogin($event)"
+    (logout)="onLogout($event)"
+  >
+    <h1>Wechaty Bot Id: {{ id }}</h1>
+
+    <p>token: {{ token }}, heartbeat {{ hbCounter }}</p>
+
+    <div [ngSwitch]="!!user">
+
+      <div *ngSwitchCase="true">
+        Congratulations! Wechaty is on duty.
+        <p>Logined with user {{ user.name }}</p>
+      </div>
+
+      <div *ngSwitchDefault>
+        <div *ngIf="scan?.url">
+          <img [src]="scan.url"/>
+        </div>
+        <!-- ELSE -->
+        <div *ngIf="!(scan?.url)">
+          Wechaty Initializing...
+        </div>
+      </div>
+
+    </div>
+
+    <ol>
+      <li *ngFor="let message of messages">
+        {{ message }}
+      </li>
+    </ol>
+
+    <button (click)="reset(wechaty)">Reset</button>
+    <button (click)="shutdown(wechaty)">Shutdown</button>
+
+  </wechaty>
+
+</ion-content>

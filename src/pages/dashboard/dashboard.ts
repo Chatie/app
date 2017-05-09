@@ -82,4 +82,9 @@ export class DashboardPage implements OnInit, OnDestroy {
     this.navCtrl.push(BotieListPage)
   }
 
+  // gotoBotieDetailsPage() {
+  //   this.log.verbose('DashboardPage', 'gotoBotieDetailsPage()')
+  //   this.navCtrl.push(BotieDetailsPage)
+  // }
+
 }

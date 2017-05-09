@@ -10,12 +10,12 @@
 <ion-content padding>
 
   <ion-card>
-    <ion-item *ngIf="auth.profile">
+    <ion-item *ngIf="auth.valid | async">
       <ion-avatar item-left>
-        <img src="{{ auth.profile.picture }}">
+        <img src="{{ auth.snapshot.profile.picture }}">
       </ion-avatar>
-      <h2>{{ auth.profile.nickname }}</h2>
-      <p>{{ auth.profile.email }}</p>
+      <h2>{{ auth.snapshot.profile.nickname }}</h2>
+      <p>{{ auth.snapshot.profile.email }}</p>
     </ion-item>
   </ion-card>
 
@@ -28,7 +28,7 @@
   </button>
 
   <pre>
-    {{ auth.profile | json }}
+    {{ auth.snapshot.profile | json }}
   </pre>
 
 </ion-content>
