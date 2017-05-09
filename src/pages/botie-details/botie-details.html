@@ -40,9 +40,10 @@
       </div>
 
       <div *ngSwitchDefault>
-        <ion-thumbnail *ngIf="scan?.url">
-          <img [src]="scan.url"/>
-        </ion-thumbnail>
+        <img
+          *ngIf="scan?.url"
+          [src]="scan.url"
+        >
         <!-- ELSE -->
         <div *ngIf="!(scan?.url)">
           Wechaty Initializing...
@@ -62,7 +63,9 @@
       *ngFor="let event of eventList"
     >
       <ion-icon [name]="eventToIcon(event.type)"></ion-icon>
-      {{ event.type }}
+      <span style="text-transform: capitalize;">
+        {{ event.type }}
+      </span>
       <ion-note item-right>at {{ event.time }}</ion-note>
     </ion-item>
 

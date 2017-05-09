@@ -4,7 +4,7 @@ import {
   NavParams,
 }                       from 'ionic-angular'
 
-import { Subscription } from 'rxjs/Subscription'
+import * as moment      from 'moment'
 
 import { Brolog }       from 'brolog'
 
@@ -26,45 +26,15 @@ interface WechatyEvent {
 })
 export class BotieDetailsPage {
 
-  id: number
-  token: string | null
-  messages: string[] = []
-  scan: ScanInfo | null = null
-  user: UserInfo | null = null
-  counter = 0
+  token: string
+  messageList: string[]
+  scan: ScanInfo | null
+  user: UserInfo | null
+  counter: number
 
   timestamp: string
 
-  routeSub: Subscription
-  authSub: Subscription
-
-  eventList: WechatyEvent[] = [
-    {
-        type: 'scan',
-        time: '10:01',
-        data: 'fasdfas',
-    },
-    {
-        type: 'login',
-        time: '10:01',
-        data: 'fasdfas',
-    },
-    {
-        type: 'message',
-        time: '10:01',
-        data: 'fasdfas',
-    },
-    {
-        type: 'logout',
-        time: '10:01',
-        data: 'fasdfas',
-    },
-    {
-        type: 'error',
-        time: '10:01',
-        data: 'fasdfas',
-    },
-  ]
+  eventList: WechatyEvent[]
 
   constructor(
     public log:       Brolog,
@@ -81,58 +51,70 @@ export class BotieDetailsPage {
   }
 
   ngOnInit() {
-    this.log.verbose('Botie', 'ngOnInit()')
+    this.log.verbose('BotieDetailsPage', 'ngOnInit()')
+
+    this.eventList    = []
+    this.messageList  = []
+    this.counter      = 0
   }
 
   ngOnDestroy() {
-    this.log.verbose('Botie', 'ngOnDestroy()')
-    if (this.routeSub) {
-      this.routeSub.unsubscribe()
-    }
+    this.log.verbose('BotieDetailsPage', 'ngOnDestroy()')
   }
 
-  onMessage(e: any) {
-    this.log.verbose('Botie', 'onMessage(%s)', e)
-    this.messages.push(e)
+  onMessage(msg: any) {
+    this.log.verbose('BotieDetailsPage', 'onMessage(%s)', msg)
+    this.messageList.push(msg)
+    this.eventList.push({
+      type: 'message',
+      time: moment().format('LTS'),
+      data: msg
+    })
   }
   onHeartbeat(e: any) {
-    this.log.silly('Botie', 'onHeartbeat(%s)', e)
+    this.log.silly('BotieDetailsPage', 'onHeartbeat(%s)', e)
     this.counter++
-    this.timestamp = new Date().toString()
-    // this.messages.push(e)
+    this.timestamp = moment().format('LTS')
   }
   onScan(scan: ScanInfo) {
-    this.log.verbose('Botie', 'onScan(%d: %s)', scan.code, scan.url)
+    this.log.verbose('BotieDetailsPage', 'onScan(%d: %s)', scan.code, scan.url)
     this.scan = scan
     this.eventList.push({
       type: 'scan',
-      time: new Date().toString(),
+      time: moment().format('LTS'),
       data: scan.url
     })
   }
   onLogin(user: UserInfo) {
-    this.log.verbose('Botie', 'onLogin(%s)', user.name)
+    this.log.verbose('BotieDetailsPage', 'onLogin(%s)', user.name)
     this.user = user
     this.scan = null
     this.eventList.push({
       type: 'login',
-      time: new Date().toString(),
+      time: moment().format('LTS'),
       data: user.name
     })
   }
   onLogout(e: UserInfo) {
-    this.log.verbose('Botie', 'onLogout(%s)', e.name)
+    this.log.verbose('BotieDetailsPage', 'onLogout(%s)', e.name)
     this.user = null
     this.eventList.push({
       type: 'logout',
-      time: new Date().toString(),
+      time: moment().format('LTS'),
       data: e.name,
     })
-
+  }
+  onError(e: any) {
+    this.log.verbose('BotieDetailsPage', 'onError(%s)', e)
+    this.eventList.push({
+      type: 'error',
+      time: moment().format('LTS'),
+      data: e,
+    })
   }
 
   shutdown(wechaty: WechatyComponent) {
-    this.log.verbose('Botie', 'shutdown()')
+    this.log.verbose('BotieDetailsPage', 'shutdown()')
     this.scan = this.user = null
     wechaty.shutdown('by web bot component')
   }
