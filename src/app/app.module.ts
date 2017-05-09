@@ -15,6 +15,7 @@ import {
   CloudModule,
   Database,
 }                         from '@ionic/cloud-angular'
+import { Storage }        from '@ionic/storage'
 
 import {
   IonicApp,
@@ -22,7 +23,11 @@ import {
   IonicErrorHandler,
 }                         from 'ionic-angular'
 
-import { AUTH_PROVIDERS } from 'angular2-jwt'
+import { Http }           from '@angular/http'
+import {
+  AuthConfig,
+  AuthHttp,
+}                         from 'angular2-jwt'
 
 import { WechatyModule }  from '@chatie/angular'
 
@@ -97,6 +102,15 @@ function dockieStoreFactory(
   return dockieStore
 }
 
+// https://github.com/auth0-samples/auth0-ionic2-samples/blob/master/01-Login/src/app/app.module.ts
+const storage = new Storage()
+export function getAuthHttp(http: Http) {
+  return new AuthHttp(new AuthConfig({
+    globalHeaders: [{'Accept': 'application/json'}],
+    tokenGetter: (() => storage.get('id_token')),
+  }), http);
+}
+
 @NgModule({
   declarations: [
     ChatieApp,
@@ -147,8 +161,13 @@ function dockieStoreFactory(
     WelcomePage,
   ],
   providers: [
-    AUTH_PROVIDERS,
+    AuthHttp,
     Auth,
+    {
+      provide:      AuthHttp,
+      useFactory:   getAuthHttp,
+      deps:         [Http],
+    },
     {
       provide:      Brolog,
       useFactory()  { return Brolog.instance('silly') },
@@ -162,7 +181,7 @@ function dockieStoreFactory(
       provide:      ErrorHandler,
       useClass:     IonicErrorHandler,
     },
-  ],
+    ],
 })
 
 export class AppModule {}

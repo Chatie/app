@@ -105,7 +105,7 @@ export class ChatieApp {
     /**
      * https://www.raymondcamden.com/2016/11/04/an-example-of-the-ionic-auth-service-with-ionic-2
      */
-    if (this.auth.valid) {
+    if (this.auth.snapshot.valid) {
       this.rootPage = DashboardPage
 
       // XXX: do we need to call startupTokenRefresh() at here?

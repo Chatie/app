@@ -6,10 +6,12 @@
  * Zhuohuan LI <zixia@zixia.net>
  * License Apache-2.0
  */
-import { Component } from '@angular/core'
-import { NavController } from 'ionic-angular'
+import { Component }      from '@angular/core'
+import { NavController }  from 'ionic-angular'
 
-import { DashboardPage } from '../dashboard/'
+import { Brolog }         from 'brolog'
+import { DashboardPage }  from '../dashboard/'
+import { LoginPage }      from '../login/'
 
 @Component({
   selector: 'page-welcome',
@@ -18,13 +20,26 @@ import { DashboardPage } from '../dashboard/'
 
 export class WelcomePage {
 
-  constructor(public navCtrl: NavController) {}
-
-  ionViewDidLoad() {
-    console.log('Hello WelcomePage Page')
+  constructor(
+    public log:     Brolog,
+    public navCtrl: NavController,
+  ) {
+    this.log.verbose('WelcomePage', 'constructor()')
   }
 
-  goToDashboard() {
-    this.navCtrl.setRoot(DashboardPage)
+  ionViewDidLoad() {
+    this.log.verbose('WelcomePage', 'ionViewDidLoad()')
+  }
+
+  async goToDashboard() {
+    this.log.verbose('WelcomePage', 'goToDashboard()')
+
+    try {
+      await this.navCtrl.setRoot(DashboardPage)
+    } catch (e) {
+      this.log.warn('WelcomePage', 'goToDashboard() exception:%s', e.message)
+      await this.navCtrl.push(LoginPage)
+    }
+
   }
 }

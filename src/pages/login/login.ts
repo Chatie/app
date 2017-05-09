@@ -28,7 +28,7 @@ import { DashboardPage }  from '../../pages/dashboard/'
   templateUrl:  'login.html',
 })
 export class LoginPage implements OnInit, OnDestroy {
-  private status:   Subscription
+  private validSub: Subscription
   private loading:  Loading | null              = null
 
   public email:     string
@@ -48,13 +48,13 @@ export class LoginPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.log.verbose('LoginPage', 'ngOnInit()')
 
-    this.status = this.auth.valid.subscribe(valid => {
-      this.log.verbose('LoginPage', 'constructor() Auth.status.subscribe() got:%s', valid)
+    this.validSub = this.auth.valid.subscribe(valid => {
+      this.log.verbose('LoginPage', 'constructor() Auth.valid.subscribe() got:%s', valid)
       if (valid) {
         this.onLogin()
       }
     })
-    this.log.silly('LoginPage', 'constructor() Auth.status.subscribe()-ed')
+    this.log.silly('LoginPage', 'constructor() Auth.valid.subscribe()-ed')
 
   }
   onLogin(): void {
@@ -65,7 +65,7 @@ export class LoginPage implements OnInit, OnDestroy {
   ionViewDidLoad() {
     this.log.verbose('LoginPage', 'ngOnInit()')
 
-    if (this.auth.valid) {
+    if (this.auth.snapshot.valid) {
       this.gotoDashboardPage()
     }
   }
@@ -74,8 +74,8 @@ export class LoginPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.log.verbose('LoginPage', 'ngOnDestroy()')
 
-    if (this.status) {
-      this.status.unsubscribe()
+    if (this.validSub) {
+      this.validSub.unsubscribe()
     }
   }
 
@@ -127,11 +127,6 @@ export class LoginPage implements OnInit, OnDestroy {
       await this.navCtrl.setRoot(DashboardPage)
     } catch (e) {
       this.log.verbose('LoginPage', 'gotoDashboardPage() exception:%s', e.message)
-      this.alertCtrl.create({
-        title: 'No entry!',
-        subTitle: 'You shall not pass',
-        buttons: ['Okay'],
-      }).present()
     }
   }
 
