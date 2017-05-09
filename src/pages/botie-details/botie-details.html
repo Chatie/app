@@ -22,48 +22,40 @@
   >
   </wechaty>
 
-
-  <h1>Wechaty Bot Id: {{ id }}</h1>
-
-  <p>token: {{ token }}, heartbeat {{ hbCounter }}</p>
-
-  <div [ngSwitch]="!!user">
-
-    <div *ngSwitchCase="true">
-      Congratulations! Wechaty is on duty.
-      <p>Logined with user {{ user.name }}</p>
-    </div>
-
-    <div *ngSwitchDefault>
-      <div *ngIf="scan?.url">
-        <img [src]="scan.url"/>
-      </div>
-      <!-- ELSE -->
-      <div *ngIf="!(scan?.url)">
-        Wechaty Initializing...
-      </div>
-    </div>
-
-  </div>
-
-  <ol>
-    <li *ngFor="let message of messages">
-      {{ message }}
-    </li>
-  </ol>
-
-  <button (click)="reset(wechaty)">Reset</button>
-  <button (click)="shutdown(wechaty)">Shutdown</button>
-
-
   <ion-list>
 
-    <ion-list-header>Status</ion-list-header>
+    <ion-item>
+      <h4>
+        <ion-icon name="home"></ion-icon>
+        {{ token }}
+      </h4>
+    </ion-item>
+
+
+    <ion-item [ngSwitch]="!!user">
+
+      <div *ngSwitchCase="true">
+        Congratulations! Wechaty is on duty.
+        <p>Logined with user {{ user.name }}</p>
+      </div>
+
+      <div *ngSwitchDefault>
+        <ion-thumbnail *ngIf="scan?.url">
+          <img [src]="scan.url"/>
+        </ion-thumbnail>
+        <!-- ELSE -->
+        <div *ngIf="!(scan?.url)">
+          Wechaty Initializing...
+        </div>
+      </div>
+
+    </ion-item>
+
 
     <ion-item>
       <ion-icon name="heart"></ion-icon>
-      Heartbeat
-      <ion-note item-right>at 10:49:03</ion-note>
+      Heartbeat #{{ counter }}
+      <ion-note item-right>{{ timestamp }}</ion-note>
     </ion-item>
 
     <ion-item
@@ -76,10 +68,16 @@
 
   </ion-list>
 
+  <ol>
+    <li *ngFor="let message of messages">
+      {{ message }}
+    </li>
+  </ol>
 
-  <p>Last 5 Event Log</p>
 
-  <ion-list>
+  <!-- ion-list>
+    <ion-list-header>Event Logs</ion-list-header>
+
     <ion-item>
       <ion-icon name="ionic"></ion-icon>
       Item
@@ -90,12 +88,15 @@
       Scan
     </ion-item>
 
-    <ion-thumbnail>
-      <img
-        src="https://raw.githubusercontent.com/chatie/wechaty/master/image/BotQrcode.png"
-      />
-    </ion-thumbnail>
 
-  </ion-list>
+  </ion-list -->
+
+  <button
+    ion-button
+    block
+    (click)="shutdown(wechaty)"
+  >
+    Shutdown
+  </button>
 
 </ion-content>

@@ -43,34 +43,6 @@ export class DockieDetailsPage {
   dockie:       Dockie
   dockieStore:  DockieStore
 
-  eventList: any[] = [
-    {
-        type: 'scan',
-        time: '10:01',
-        data: 'fasdfas',
-    },
-    {
-        type: 'login',
-        time: '10:01',
-        data: 'fasdfas',
-    },
-    {
-        type: 'message',
-        time: '10:01',
-        data: 'fasdfas',
-    },
-    {
-        type: 'logout',
-        time: '10:01',
-        data: 'fasdfas',
-    },
-    {
-        type: 'error',
-        time: '10:01',
-        data: 'fasdfas',
-    },
-  ]
-
   constructor(
     public alertCtrl:  AlertController,
     public log:        Brolog,
