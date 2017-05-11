@@ -39,50 +39,50 @@ import {
   DockieStore,
 }                 from '@chatie/db'
 
-import { DockieDetailsPage }  from '../dockie-details/'
-import { DockieCreatePage }   from '../dockie-create/'
+import { HostieDetailsPage }  from '../dockie-details/'
+import { HostieCreatePage }   from '../dockie-create/'
 
 @Component({
-  selector: 'dockie-list',
-  templateUrl: 'dockie-list.html',
+  selector:         'page-hostie-list',
+  templateUrl:      'hostie-list.html',
   changeDetection:  ChangeDetectionStrategy.OnPush,
 })
 
-export class DockieListPage implements OnInit, OnDestroy {
+export class HostieListPage implements OnInit, OnDestroy {
   // dockieList: Dockie[]
-  dockieListSubscription: Subscription
+  hostieListSubscription: Subscription
 
   reordering = false
 
   constructor(
     public database:    Database,
-    public dockieStore: DockieStore,
+    public hostieStore: DockieStore,
     public log:         Brolog,
     public navCtrl:     NavController,
     public navParams:   NavParams,
   ) {
-    this.log.verbose('DockieListPage', 'constructor()')
+    this.log.verbose('HostieListPage', 'constructor()')
   }
 
   ngOnInit() {
-    this.log.verbose('DockieListPage', 'ngOnInit()')
+    this.log.verbose('HostieListPage', 'ngOnInit()')
 
     // this.dockieListSubscription = this.dockieStore.dockies.subscribe(list => {
-    //   this.log.silly('DockieListPage', 'ngOnInit() subscript list: %s', list)
+    //   this.log.silly('HostieListPage', 'ngOnInit() subscript list: %s', list)
     //   this.dockieList = list
     // })
   }
 
   ngOnDestroy() {
-    this.log.verbose('DockieListPage', 'ngOnDestroy()')
+    this.log.verbose('HostieListPage', 'ngOnDestroy()')
 
     // this.dockieListSubscription.unsubscribe()
   }
 
-  gotoDockieDetail(dockie: Dockie, event: any) {
-    this.log.verbose('DockieListPage', 'select(%s, %s)', dockie.id, event)
-    this.navCtrl.push(DockieDetailsPage, {
-      dockie,
+  gotoDockieDetail(hostie: Dockie, event: any) {
+    this.log.verbose('HostieListPage', 'select(%s, %s)', hostie.id, event)
+    this.navCtrl.push(HostieDetailsPage, {
+      hostie,
     })
   }
 
@@ -95,24 +95,24 @@ export class DockieListPage implements OnInit, OnDestroy {
     // TODO save to backend
   }
 
-  dockieIcon(dockie: Dockie) {
-    this.log.verbose('DockieListPage', 'dockieIcon()')
+  hostieIcon(hostie: Dockie) {
+    this.log.verbose('HostieListPage', 'dockieIcon()')
 
-    if (dockie.status === DockieStatus.ONLINE) {
+    if (hostie.status === DockieStatus.ONLINE) {
       return 'ios-home'
     }
     return 'ios-home-outline'
   }
 
-  trash(dockie: Dockie) {
-    this.log.verbose('DockieListPage', 'trash(%s)', dockie.id)
-    if (!dockie.id) {
+  trash(hostie: Dockie) {
+    this.log.verbose('HostieListPage', 'trash(%s)', hostie.id)
+    if (!hostie.id) {
       throw new Error('no dockie id')
     }
-    this.dockieStore.remove(dockie.id)
+    this.hostieStore.remove(hostie.id)
   }
 
   add() {
-    this.navCtrl.push(DockieCreatePage)
+    this.navCtrl.push(HostieCreatePage)
   }
 }

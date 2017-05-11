@@ -14,53 +14,53 @@ import {
 }                     from '@chatie/db'
 
 @Component({
-  selector:     'page-dockie-edit',
-  templateUrl:  'dockie-edit.html',
+  selector:     'page-hostie-edit',
+  templateUrl:  'hostie-edit.html',
 })
-export class DockieEditPage {
-  dockie:       Dockie
-  notify:         (newDockie: Dockie) => Promise<void>
+export class HostieEditPage {
+  hostie:       Dockie
+  notify:         (newHostie: Dockie) => Promise<void>
 
   loading:      Loading | null
 
   constructor(
-    public dockieStore: DockieStore,
+    public hostieStore: DockieStore,
     public log:         Brolog,
     public loadingCtrl: LoadingController,
     public navCtrl:     NavController,
     public navParams:   NavParams,
   ) {
-    this.log.verbose('DockieEditPage', 'constructor()')
+    this.log.verbose('HostieEditPage', 'constructor()')
 
-    this.dockie   = Object.assign({}, navParams.get('dockie'))
+    this.hostie   = Object.assign({}, navParams.get('hostie'))
     this.notify = navParams.get('notify')
-    this.log.silly('DockieEditPage', 'constructor() dockie id:%s', this.dockie.id)
+    this.log.silly('HostieEditPage', 'constructor() hostie id:%s', this.hostie.id)
 
   }
 
   ionViewDidLoad() {
-    this.log.verbose('DockieEditPage', 'ionViewDidLoad()')
+    this.log.verbose('HostieEditPage', 'ionViewDidLoad()')
   }
 
   async save() {
-    this.log.verbose('DockieEditPage', 'save()')
+    this.log.verbose('HostieEditPage', 'save()')
 
     await this.showLoader()
-    const ret = await this.dockieStore.update({
-      id:   this.dockie.id,
-      name: this.dockie.name,
-      note: this.dockie.note,
+    const ret = await this.hostieStore.update({
+      id:   this.hostie.id,
+      name: this.hostie.name,
+      note: this.hostie.note,
     }).toPromise()
-    await this.notify(this.dockie)
+    await this.notify(this.hostie)
     this.hideLoader()
 
-    this.log.silly('DockieEditPage', 'DockieStore.update() return: %s', JSON.stringify(ret))
+    this.log.silly('HostieEditPage', 'DockieStore.update() return: %s', JSON.stringify(ret))
 
     this.navCtrl.pop()
   }
 
   showLoader() {
-    this.log.verbose('DockieEditPage', 'showLoader()')
+    this.log.verbose('HostieEditPage', 'showLoader()')
 
     this.loading = this.loadingCtrl.create({
       content: 'Loading...',
@@ -69,7 +69,7 @@ export class DockieEditPage {
   }
 
   hideLoader() {
-    this.log.verbose('DockieEditPage', 'hideLoader()')
+    this.log.verbose('HostieEditPage', 'hideLoader()')
 
     if (!this.loading) {
       return
