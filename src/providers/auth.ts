@@ -137,6 +137,7 @@ export class Auth {
                                 this.idToken && this.idToken.length,
                                 this.snapshot.profile,
                       )
+        this.log.silly('Auth', 'init() idToken: %s', this.idToken)
 
         this._profile.next({} as Auth0UserProfile)
         this._valid.next(false)
