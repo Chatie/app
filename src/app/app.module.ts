@@ -71,10 +71,10 @@ import { DashboardPage }      from '../pages/dashboard/'
 import { FeedbackPage }       from '../pages/feedback/'
 import { GiftieListPage }     from '../pages/giftie-list/'
 import { HelpPage }           from '../pages/help/'
-import { DockieDetailsPage }  from '../pages/dockie-details/'
-import { DockieEditPage }     from '../pages/dockie-edit/'
-import { DockieListPage }     from '../pages/dockie-list/'
-import { DockieCreatePage }   from '../pages/dockie-create/'
+import { HostieDetailsPage }  from '../pages/dockie-details/'
+import { HostieEditPage }     from '../pages/dockie-edit/'
+import { HostieListPage }     from '../pages/dockie-list/'
+import { HostieCreatePage }   from '../pages/dockie-create/'
 import { LoginPage }          from '../pages/login/'
 import { LogoutPage }         from '../pages/logout/'
 import { SettingPage }        from '../pages/setting/'
@@ -122,10 +122,10 @@ export function getAuthHttp(http: Http) {
     FeedbackPage,
     GiftieListPage,
     HelpPage,
-    DockieCreatePage,
-    DockieDetailsPage,
-    DockieEditPage,
-    DockieListPage,
+    HostieCreatePage,
+    HostieDetailsPage,
+    HostieEditPage,
+    HostieListPage,
     LoginPage,
     LogoutPage,
     SettingPage,
@@ -149,10 +149,10 @@ export function getAuthHttp(http: Http) {
     FeedbackPage,
     GiftieListPage,
     HelpPage,
-    DockieCreatePage,
-    DockieDetailsPage,
-    DockieEditPage,
-    DockieListPage,
+    HostieCreatePage,
+    HostieDetailsPage,
+    HostieEditPage,
+    HostieListPage,
     LoginPage,
     LogoutPage,
     SettingPage,

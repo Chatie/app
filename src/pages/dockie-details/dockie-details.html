@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Dockie Details</ion-title>
+    <ion-title>Hostie Details</ion-title>
 
     <ion-buttons end>
       <button ion-button icon-only (click)="edit()">
@@ -15,18 +15,18 @@
 
   <h4>
     <ion-icon [name]="online()? 'ios-home' : 'ios-home-outline'"></ion-icon>
-    {{ dockie.name }}
+    {{ hostie.name }}
   </h4>
 
   <ion-note>
-    {{ dockie.note }}
+    {{ hostie.note }}
   </ion-note>
 
   <ion-list>
     <div *ngIf="online()">
-      <p>Dockie environment:</p>
+      <p>Hostie environment:</p>
       <ion-item>
-        Wechaty v{{ dockie.version }}
+        Wechaty v{{ hostie.version }}
         <ion-icon [name]="icon()"></ion-icon>
       </ion-item>
     </div>
@@ -38,7 +38,7 @@
       (click)="copy()"
     >
       <ion-icon name="key" item-left></ion-icon>
-      {{ dockie.token }}
+      {{ hostie.token }}
       <ion-icon name="copy" item-right></ion-icon>
     </ion-item>
 
