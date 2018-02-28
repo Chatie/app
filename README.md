@@ -1,9 +1,9 @@
 # chatie-app
-Wechaty Android & Ios & Web App
+Chatie App for Android & Ios & SPA
 
 Chatie.io - Make your own ChatBot in no language, in minutes.
 
-![Powered by Ionic & Angular V2](https://ionicframework.com/img/blog/ionic-angular-v2.jpg "Powered by Ionic & Angular V2")
+![Powered by Ionic & Angular](https://ionicframework.com/img/blog/ionic-angular-v2.jpg "Powered by Ionic & Angular")
 
 title: "Welcome to the Platform!",
 description: "The <b>Ionic Component Documentation</b> showcases a number of useful components that are included out of the box with Ionic.",
@@ -116,3 +116,4 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 ## See Also
 
 * [Motion.AI - Chatbots made easy.](https://www.motion.ai)
+* [Static web publishing for Front-End Developers](https://surge.sh)

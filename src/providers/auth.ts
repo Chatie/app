@@ -62,6 +62,8 @@ export class Auth {
   public get profile() {
     this.log.verbose('Auth', 'get profile()')
     return this._profile.asObservable()
+                        .share()
+                        .distinctUntilChanged()
   }
   private localProfile: Auth0UserProfile
 
@@ -76,6 +78,8 @@ export class Auth {
   public get valid() {
     this.log.verbose('Auth', 'get valid()')
     return this._valid.asObservable() // .share()
+                      .share()
+                      .distinctUntilChanged()
   }
 
   private jwtHelper = new JwtHelper()

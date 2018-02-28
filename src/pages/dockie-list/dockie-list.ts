@@ -1,9 +1,9 @@
 /**
- * Wechaty APP for Android & Ios
+ * Chatie APP for Android & Ios & SPA
  * Your ChatBot Pocket Manager
  *
- * https://github.com/wechaty/wechaty-ionic
- * Zhuohuan LI <zixia@zixia.net>
+ * https://github.com/chatie/app
+ * Huan LI <zixia@zixia.net>
  * License Apache-2.0
  */
 
@@ -37,7 +37,7 @@ import {
   Dockie,
   DockieStatus,
   DockieStore,
-}                 from '@chatie/db'
+}                           from '@chatie/db'
 
 import { HostieDetailsPage }  from '../dockie-details/'
 import { HostieCreatePage }   from '../dockie-create/'
