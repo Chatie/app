@@ -13,7 +13,6 @@ import {
 import {
   CloudSettings,
   CloudModule,
-  Database,
 }                         from '@ionic/cloud-angular'
 import { Storage }        from '@ionic/storage'
 
@@ -33,7 +32,10 @@ import { WechatyModule }  from '@chatie/angular'
 
 import { Brolog }         from 'brolog'
 
-import { DockieStore }    from '@chatie/db'
+import {
+  Db,
+  HostieStore,
+}                         from '@chatie/db'
 
 import { Auth }           from '../providers/auth'
 import { ChatieApp }      from './app.component'
@@ -71,10 +73,10 @@ import { DashboardPage }      from '../pages/dashboard/'
 import { FeedbackPage }       from '../pages/feedback/'
 import { GiftieListPage }     from '../pages/giftie-list/'
 import { HelpPage }           from '../pages/help/'
-import { HostieDetailsPage }  from '../pages/dockie-details/'
-import { HostieEditPage }     from '../pages/dockie-edit/'
-import { HostieListPage }     from '../pages/dockie-list/'
-import { HostieCreatePage }   from '../pages/dockie-create/'
+import { HostieDetailsPage }  from '../pages/hostie-details/'
+import { HostieEditPage }     from '../pages/hostie-edit/'
+import { HostieListPage }     from '../pages/hostie-list/'
+import { HostieCreatePage }   from '../pages/hostie-create/'
 import { LoginPage }          from '../pages/login/'
 import { LogoutPage }         from '../pages/logout/'
 import { SettingPage }        from '../pages/setting/'
@@ -87,19 +89,17 @@ import { WelcomePage }        from '../pages/welcome/'
  * Angular DEPENDENCY INJECTION - Factory Provider
  * https://angular.io/docs/ts/latest/guide/dependency-injection.html#!#factory-provider
  */
-function dockieStoreFactory(
-  auth:     Auth,
-  log:      Brolog,
-  database: Database,
+function dbFactory(
+  auth: Auth,
+  log:  Brolog,
 ) {
-  const dockieStore = DockieStore.instance({
-    database,
+  const db = new Db({
     log,
   })
-  auth.profile.filter(p => !!p)
-              .subscribe(p => p && dockieStore.auth(p.email))
 
-  return dockieStore
+  auth.profile.subscribe( ({email}) => db.setToken(email!))
+
+  return db
 }
 
 // https://github.com/auth0-samples/auth0-ionic2-samples/blob/master/01-Login/src/app/app.module.ts
@@ -173,9 +173,14 @@ export function getAuthHttp(http: Http) {
       useFactory()  { return Brolog.instance('silly') },
     },
     {
-      provide:      DockieStore,
-      useFactory:   dockieStoreFactory,
-      deps:         [Auth, Brolog, Database], // be careful about the seq, must as same as the function define.
+      provide:      Db,
+      useFactory:   dbFactory,
+      deps:         [Auth],
+    },
+    {
+      provide:            HostieStore,
+      useFactory(db: Db)  { return new HostieStore(db) },
+      deps:               [Db], // be careful about the seq, must as same as the function define.
     },
     {
       provide:      ErrorHandler,

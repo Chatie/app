@@ -1,7 +1,7 @@
 {
   "name": "@chatie/app",
   "description": "Chatie: An Ionic project",
-  "version": "0.0.46",
+  "version": "0.1.0",
   "author": "Huan LI <zixia@zixia.net>",
   "homepage": "https://github.com/chatie/app/",
   "license": "Apache-2.0",

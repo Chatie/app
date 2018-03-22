@@ -36,7 +36,7 @@ import { Auth }             from '../providers/auth'
 
 import { BotieListPage }    from '../pages/botie-list/'
 import { DashboardPage }    from '../pages/dashboard/'
-import { HostieListPage }   from '../pages/dockie-list/'
+import { HostieListPage }   from '../pages/hostie-list/'
 import { FeedbackPage }     from '../pages/feedback/'
 import { LoginPage }        from '../pages/login/'
 import { SettingPage }      from '../pages/setting/'

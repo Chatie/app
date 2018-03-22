@@ -19,9 +19,6 @@ import {
   OnDestroy,
 }                           from '@angular/core'
 import {
-  Database,
-}                           from '@ionic/cloud-angular'
-import {
   NavController,
   NavParams,
   // reorderArray,
@@ -34,9 +31,10 @@ import {
 import { Brolog }           from 'brolog'
 
 import {
-  Dockie,
-  DockieStatus,
-  DockieStore,
+  Hostie,
+  HostieStore,
+  Status,
+  // System,
 }                           from '@chatie/db'
 
 import { HostieDetailsPage }  from '../dockie-details/'
@@ -55,8 +53,7 @@ export class HostieListPage implements OnInit, OnDestroy {
   reordering = false
 
   constructor(
-    public database:    Database,
-    public hostieStore: DockieStore,
+    public hostieStore: HostieStore,
     public log:         Brolog,
     public navCtrl:     NavController,
     public navParams:   NavParams,
@@ -79,7 +76,7 @@ export class HostieListPage implements OnInit, OnDestroy {
     // this.dockieListSubscription.unsubscribe()
   }
 
-  gotoDockieDetail(hostie: Dockie, event: any) {
+  gotoDockieDetail(hostie: Hostie, event: any) {
     this.log.verbose('HostieListPage', 'select(%s, %s)', hostie.id, event)
     this.navCtrl.push(HostieDetailsPage, {
       hostie,
@@ -95,21 +92,21 @@ export class HostieListPage implements OnInit, OnDestroy {
     // TODO save to backend
   }
 
-  hostieIcon(hostie: Dockie) {
+  hostieIcon(hostie: Hostie) {
     this.log.verbose('HostieListPage', 'dockieIcon()')
 
-    if (hostie.status === DockieStatus.ONLINE) {
+    if (hostie.status === Status.ON) {
       return 'ios-home'
     }
     return 'ios-home-outline'
   }
 
-  trash(hostie: Dockie) {
+  trash(hostie: Hostie) {
     this.log.verbose('HostieListPage', 'trash(%s)', hostie.id)
     if (!hostie.id) {
       throw new Error('no dockie id')
     }
-    this.hostieStore.remove(hostie.id)
+    this.hostieStore.delete(hostie.id)
   }
 
   add() {
