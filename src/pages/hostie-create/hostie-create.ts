@@ -13,8 +13,8 @@ import {
 import { Auth }           from '../../providers/auth'
 
 @Component({
-  selector: 'page-hostie-create',
-  templateUrl: 'hostie-create.html',
+  selector:     'page-hostie-create',
+  templateUrl:  'hostie-create.html',
 })
 export class HostieCreatePage {
   private token = uuid() as string
