@@ -1,8 +1,13 @@
-import { Component } from '@angular/core'
-import { NavController, NavParams } from 'ionic-angular'
+import { Component }  from '@angular/core'
+import {
+  IonicPage,
+  NavController,
+  NavParams
+}                     from 'ionic-angular'
 
-import { Brolog } from 'brolog'
+import { Brolog }     from 'brolog'
 
+@IonicPage()
 @Component({
   selector:     'page-help',
   templateUrl:  'help.html',
