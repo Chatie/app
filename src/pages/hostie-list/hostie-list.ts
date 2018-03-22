@@ -37,8 +37,8 @@ import {
   // System,
 }                           from '@chatie/db'
 
-import { HostieDetailsPage }  from '../dockie-details/'
-import { HostieCreatePage }   from '../dockie-create/'
+import { HostieDetailsPage }  from '../hostie-details/'
+import { HostieCreatePage }   from '../hostie-create/'
 
 @Component({
   selector:         'page-hostie-list',
@@ -47,7 +47,7 @@ import { HostieCreatePage }   from '../dockie-create/'
 })
 
 export class HostieListPage implements OnInit, OnDestroy {
-  // dockieList: Dockie[]
+  // hostieList: Hostie[]
   hostieListSubscription: Subscription
 
   reordering = false
@@ -64,19 +64,19 @@ export class HostieListPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.log.verbose('HostieListPage', 'ngOnInit()')
 
-    // this.dockieListSubscription = this.dockieStore.dockies.subscribe(list => {
+    // this.hostieListSubscription = this.hostieStore.hosties.subscribe(list => {
     //   this.log.silly('HostieListPage', 'ngOnInit() subscript list: %s', list)
-    //   this.dockieList = list
+    //   this.hostieList = list
     // })
   }
 
   ngOnDestroy() {
     this.log.verbose('HostieListPage', 'ngOnDestroy()')
 
-    // this.dockieListSubscription.unsubscribe()
+    // this.hostieListSubscription.unsubscribe()
   }
 
-  gotoDockieDetail(hostie: Hostie, event: any) {
+  gotoHostieDetail(hostie: Hostie, event: any) {
     this.log.verbose('HostieListPage', 'select(%s, %s)', hostie.id, event)
     this.navCtrl.push(HostieDetailsPage, {
       hostie,
@@ -88,12 +88,12 @@ export class HostieListPage implements OnInit, OnDestroy {
   }
 
   reorder(indexes: number[]) {
-    // this.dockieList = reorderArray(this.dockieList, indexes)
+    // this.hostieList = reorderArray(this.hostieList, indexes)
     // TODO save to backend
   }
 
   hostieIcon(hostie: Hostie) {
-    this.log.verbose('HostieListPage', 'dockieIcon()')
+    this.log.verbose('HostieListPage', 'hostieIcon()')
 
     if (hostie.status === Status.ON) {
       return 'ios-home'
@@ -104,7 +104,7 @@ export class HostieListPage implements OnInit, OnDestroy {
   trash(hostie: Hostie) {
     this.log.verbose('HostieListPage', 'trash(%s)', hostie.id)
     if (!hostie.id) {
-      throw new Error('no dockie id')
+      throw new Error('no hostie id')
     }
     this.hostieStore.delete(hostie.id)
   }

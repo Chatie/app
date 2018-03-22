@@ -19,9 +19,9 @@ import {
 import { Brolog }         from 'brolog'
 
 import {
-  Dockie,
-  DockieStatus,
-  DockieStore,
+  Hostie,
+  Status,
+  HostieStore,
 }                         from '@chatie/db'
 
 import { Auth }           from '../../providers/auth'
@@ -36,7 +36,7 @@ import { HostieListPage } from '../hostie-list/'
 export class DashboardPage implements OnInit, OnDestroy {
   private subscription: Subscription
 
-  hostieList: Dockie[]  = []
+  hostieList: Hostie[]  = []
   hostieActiveNum       = 0
 
   botieList       = [1, 2, 3]
@@ -44,7 +44,7 @@ export class DashboardPage implements OnInit, OnDestroy {
 
   constructor(
     public auth:          Auth,
-    public hostieStore:   DockieStore,
+    public hostieStore:   HostieStore,
     public log:           Brolog,
     public navCtrl:       NavController,
   ) {
@@ -60,9 +60,9 @@ export class DashboardPage implements OnInit, OnDestroy {
   // https://webcake.co/page-lifecycle-hooks-in-ionic-2/
   ngOnInit() {
     this.log.verbose('DashboardPage', 'ngOnInit()')
-    this.subscription = this.hostieStore.hosties.subscribe(list => {
+    this.subscription = this.hostieStore.itemList.subscribe(list => {
       this.hostieList       = list
-      this.hostieActiveNum  = list.filter( l => l.status === DockieStatus.ONLINE )
+      this.hostieActiveNum  = list.filter( l => l.status === Status.ON )
                                   .length
     })
   }
@@ -72,8 +72,8 @@ export class DashboardPage implements OnInit, OnDestroy {
     this.subscription.unsubscribe()
   }
 
-  gotoDockieListPage() {
-    this.log.verbose('DashboardPage', 'gotoDockieListPage()')
+  gotoHostieListPage() {
+    this.log.verbose('DashboardPage', 'gotoHostieListPage()')
     this.navCtrl.push(HostieListPage)
   }
 

@@ -1,1 +1,1 @@
-export * from './dockie-details'
+export * from './hostie-details'

@@ -21,7 +21,7 @@ export class HostieCreatePage {
   private name = 'Hostie #' + this.token.substr(-2, 2)
   private note: string
 
-  private loading = false
+  public loading = false
 
   constructor(
     public auth:        Auth,

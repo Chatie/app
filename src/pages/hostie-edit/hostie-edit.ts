@@ -57,7 +57,7 @@ export class HostieEditPage {
     await this.notify(this.hostie)
     this.hideLoader()
 
-    this.log.silly('HostieEditPage', 'DockieStore.update() return: %s', JSON.stringify(ret))
+    this.log.silly('HostieEditPage', 'HostieStore.update() return: %s', JSON.stringify(ret))
 
     this.navCtrl.pop()
   }

@@ -27,7 +27,7 @@ import {
   System,
 }                           from '@chatie/db'
 
-import { HostieEditPage }   from '../dockie-edit/'
+import { HostieEditPage }   from '../hostie-edit/'
 
 @Component({
   selector:     'page-hostie-details',

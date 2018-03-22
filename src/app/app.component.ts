@@ -42,6 +42,9 @@ import { LoginPage }        from '../pages/login/'
 import { SettingPage }      from '../pages/setting/'
 // import { WelcomePage }    from '../pages/welcome/'
 
+// Week Type Detection of TypeScript 2.4
+// https://blog.mariusschulz.com/2017/12/01/typescript-2-4-weak-type-detection
+
 @Component({
   templateUrl: 'app.html',
 })
@@ -53,13 +56,13 @@ export class ChatieApp {
   // make HelloIonicPage the root (or first) page
   // rootPage: any = WelcomePage
   // rootPage: Type<Component> = DashboardPage
-  rootPage: Type<Component> = LoginPage
-  // rootPage: any = DockieCreatePage
+  rootPage: Type<any> = LoginPage
+  // rootPage: any = HostieCreatePage
 
   pages: Array<{
     title: string,
     icon: string,
-    component: Type<Component>,
+    component: Type<any>,
   }>
 
   constructor(
