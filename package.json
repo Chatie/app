@@ -17,7 +17,7 @@
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
     "lint": "npm run tslint",
-    "tslint": "tslint \"{src,test}/**/*.ts\" && tsc --noEmit",
+    "tslint": "tslint --project tsconfig.json \"{src,tests}/**/*.ts\" && tsc --noEmit",
     "upload": "ionic upload"
   },
   "dependencies": {},
