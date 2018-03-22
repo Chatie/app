@@ -22,7 +22,7 @@ npm run lint
 
   bin/sync-version.sh
 
-  npm version patch
+  npm version patch --without-package-lock
   WECHATY_INNER_PRE_HOOK=1 git push
 
   cat <<'_STR_'
