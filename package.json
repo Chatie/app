@@ -33,13 +33,12 @@
     "@angular/platform-browser": "5.2.9",
     "@angular/platform-browser-dynamic": "5.2.9",
     "@chatie/angular": "^0.1.44",
-    "@chatie/db": "^0.4.6",
+    "@chatie/db": "^0.4.9",
     "@ionic-native/core": "4.5.3",
     "@ionic-native/splash-screen": "4.5.3",
     "@ionic-native/status-bar": "4.5.3",
     "@ionic/pro": "1.0.20",
     "@ionic/storage": "2.1.3",
-    "angular2-jwt": "^0.2.3",
     "brolog": "^1.2.8",
     "cordova-android": "7.0.0",
     "cordova-plugin-device": "^2.0.1",
@@ -50,6 +49,7 @@
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
     "rxjs": "5.5.7",
+    "state-switch": "^0.2.4",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.20"
   },
@@ -58,6 +58,7 @@
     "@types/node": "^9.4.7",
     "babel-eslint": "^8.2.2",
     "eslint": "^4.19.1",
+    "git-scripts": "^0.2.1",
     "typescript": "~2.6.2"
   },
   "cordova": {

@@ -15,7 +15,7 @@ import {
 //   CloudSettings,
 //   CloudModule,
 // }                         from '@ionic/cloud-angular'
-import { Storage }        from '@ionic/storage'
+// import { Storage }        from '@ionic/storage'
 
 import {
   IonicApp,
@@ -23,15 +23,15 @@ import {
   IonicErrorHandler,
 }                         from 'ionic-angular'
 
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
-import { Http }           from '@angular/http'
-import {
-  AuthConfig,
-  AuthHttp,
-}                         from 'angular2-jwt'
+import { HomePage } from '../pages/home/home'
+import { ListPage } from '../pages/list/list'
+// import { Http }           from '@angular/http'
+// import {
+  // AuthConfig,
+  // AuthHttp,
+// }                         from 'angular2-jwt'
 
-import { WechatyModule }  from '@chatie/angular'
+// import { WechatyModule }  from '@chatie/angular'
 
 import { Brolog }         from 'brolog'
 
@@ -42,10 +42,10 @@ import {
   HostieStore,
 }                         from '@chatie/db'
 
-import { Auth }           from '../providers/auth'
+// import { Auth }           from '../providers/auth'
 import { ChatieApp }      from './app.component'
 
-const { app_id } = require('../../ionic.config.json')
+// const { app_id } = require('../../ionic.config.json')
 
 // const cloudSettings: CloudSettings = {
 //   core: {
@@ -72,21 +72,21 @@ const { app_id } = require('../../ionic.config.json')
  * Pages
  */
 import { AboutPage }          from '../pages/about/'
-import { BotieListPage }      from '../pages/botie-list/'
-import { BotieDetailsPage }   from '../pages/botie-details/'
+// import { BotieListPage }      from '../pages/botie-list/'
+// import { BotieDetailsPage }   from '../pages/botie-details/'
 import { DashboardPage }      from '../pages/dashboard/'
-import { FeedbackPage }       from '../pages/feedback/'
-import { GiftieListPage }     from '../pages/giftie-list/'
+// import { FeedbackPage }       from '../pages/feedback/'
+// import { GiftieListPage }     from '../pages/giftie-list/'
 import { HelpPage }           from '../pages/help/'
-import { HostieDetailsPage }  from '../pages/hostie-details/'
-import { HostieEditPage }     from '../pages/hostie-edit/'
-import { HostieListPage }     from '../pages/hostie-list/'
-import { HostieCreatePage }   from '../pages/hostie-create/'
-import { LoginPage }          from '../pages/login/'
-import { LogoutPage }         from '../pages/logout/'
-import { SettingPage }        from '../pages/setting/'
+// import { HostieDetailsPage }  from '../pages/hostie-details/'
+// import { HostieEditPage }     from '../pages/hostie-edit/'
+// import { HostieListPage }     from '../pages/hostie-list/'
+// import { HostieCreatePage }   from '../pages/hostie-create/'
+// import { LoginPage }          from '../pages/login/'
+// import { LogoutPage }         from '../pages/logout/'
+// import { SettingPage }        from '../pages/setting/'
 import { StatusPage }         from '../pages/status/'
-import { UnlockPage }         from '../pages/unlock/'
+// import { UnlockPage }         from '../pages/unlock/'
 import { WelcomePage }        from '../pages/welcome/'
 
 /**
@@ -95,56 +95,57 @@ import { WelcomePage }        from '../pages/welcome/'
  * https://angular.io/docs/ts/latest/guide/dependency-injection.html#!#factory-provider
  */
 function dbFactory(
-  auth: Auth,
+  // auth: Auth,
   log:  Brolog,
 ) {
   const db = new Db({
     log,
   })
 
-  auth.profile.subscribe( ({email}) => db.setToken(email!))
+  db.open()
+  // // auth.profile.subscribe( ({email}) => db.setToken(email!))
 
   return db
 }
 
 // https://github.com/auth0-samples/auth0-ionic2-samples/blob/master/01-Login/src/app/app.module.ts
-const storage = new Storage()
-export function getAuthHttp(http: Http) {
-  return new AuthHttp(new AuthConfig({
-    globalHeaders: [{'Accept': 'application/json'}],
-    tokenGetter: (() => storage.get('id_token')),
-  }), http);
-}
+// const storage = new Storage()
+// export function getAuthHttp(http: Http) {
+//   return new AuthHttp(new AuthConfig({
+//     globalHeaders: [{'Accept': 'application/json'}],
+//     tokenGetter: (() => storage.get('id_token')),
+//   }), http);
+// }
 
 @NgModule({
   declarations: [
     ChatieApp,
     HomePage,
-    ListPage
+    ListPage,
     // Pages
     AboutPage,
-    BotieListPage,
-    BotieDetailsPage,
+    // BotieListPage,
+    // BotieDetailsPage,
     DashboardPage,
-    FeedbackPage,
-    GiftieListPage,
+    // FeedbackPage,
+    // GiftieListPage,
     HelpPage,
-    HostieCreatePage,
-    HostieDetailsPage,
-    HostieEditPage,
-    HostieListPage,
-    LoginPage,
-    LogoutPage,
-    SettingPage,
+    // HostieCreatePage,
+    // HostieDetailsPage,
+    // HostieEditPage,
+    // HostieListPage,
+    // LoginPage,
+    // LogoutPage,
+    // SettingPage,
     StatusPage,
-    UnlockPage,
+    // UnlockPage,
     WelcomePage,
   ],
   imports: [
     BrowserModule,
     // CloudModule.forRoot(cloudSettings),
     IonicModule.forRoot(ChatieApp),
-    WechatyModule,
+    // WechatyModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -153,45 +154,46 @@ export function getAuthHttp(http: Http) {
     ListPage,
     // Pages
     AboutPage,
-    BotieDetailsPage,
-    BotieListPage,
+    // BotieDetailsPage,
+    // BotieListPage,
     DashboardPage,
-    FeedbackPage,
-    GiftieListPage,
+    // FeedbackPage,
+    // GiftieListPage,
     HelpPage,
-    HostieCreatePage,
-    HostieDetailsPage,
-    HostieEditPage,
-    HostieListPage,
-    LoginPage,
-    LogoutPage,
-    SettingPage,
+    // HostieCreatePage,
+    // HostieDetailsPage,
+    // HostieEditPage,
+    // HostieListPage,
+    // LoginPage,
+    // LogoutPage,
+    // SettingPage,
     StatusPage,
-    UnlockPage,
+    // UnlockPage,
     WelcomePage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    AuthHttp,
-    Auth,
-    {
-      provide:      AuthHttp,
-      useFactory:   getAuthHttp,
-      deps:         [Http],
-    },
+    // AuthHttp,
+    // Auth,
+    // {
+    //   provide:      AuthHttp,
+    //   useFactory:   getAuthHttp,
+    //   deps:         [Http],
+    // },
+
     {
       provide:      Brolog,
       useFactory()  { return Brolog.instance('silly') },
     },
     {
-      provide:      Db,
-      useFactory:   dbFactory,
-      deps:         [Auth],
+      provide:        Db,
+      useFactory:     dbFactory,
+      deps:           [Brolog],
     },
     {
       provide:            HostieStore,
-      useFactory(db: Db)  { return new HostieStore(db) },
+      useFactory(db: Db)  { return new HostieStore(db).open() },
       deps:               [Db], // be careful about the seq, must as same as the function define.
     },
     {

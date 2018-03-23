@@ -2,7 +2,7 @@ import { Component }  from '@angular/core'
 import {
   IonicPage,
   NavController,
-  NavParams
+  NavParams,
 }                     from 'ionic-angular'
 
 import { Brolog }     from 'brolog'
@@ -22,7 +22,7 @@ export class HelpPage {
     this.log.verbose('HelpPage', 'constructor()')
   }
 
-  ionViewDidLoad() {
+  public ionViewDidLoad() {
     this.log.verbose('HelpPage', 'ionViewDidLoad()')
   }
 

@@ -22,7 +22,7 @@ export class StatusPage {
     this.log.verbose('StatusPage', 'constructor()')
   }
 
-  ionViewDidLoad() {
+  public ionViewDidLoad() {
     this.log.verbose('StatusPage', 'ionViewDidLoad()')
   }
 

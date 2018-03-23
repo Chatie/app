@@ -19,9 +19,10 @@ import {
   OnDestroy,
 }                           from '@angular/core'
 import {
+  IonicPage,
   NavController,
   NavParams,
-  // reorderArray,
+    // reorderArray,
 }                           from 'ionic-angular'
 import {
   // Observable,
@@ -37,9 +38,10 @@ import {
   // System,
 }                           from '@chatie/db'
 
-import { HostieDetailsPage }  from '../hostie-details/'
-import { HostieCreatePage }   from '../hostie-create/'
+// import { HostieDetailsPage }  from '../hostie-details/'
+// import { HostieCreatePage }   from '../hostie-create/'
 
+@IonicPage()
 @Component({
   selector:         'page-hostie-list',
   templateUrl:      'hostie-list.html',
@@ -47,10 +49,10 @@ import { HostieCreatePage }   from '../hostie-create/'
 })
 
 export class HostieListPage implements OnInit, OnDestroy {
-  // hostieList: Hostie[]
-  hostieListSubscription: Subscription
+  public hostieList: Hostie[]
 
-  reordering = false
+  private hostieListSubscription: Subscription
+  private reordering
 
   constructor(
     public hostieStore: HostieStore,
@@ -59,40 +61,46 @@ export class HostieListPage implements OnInit, OnDestroy {
     public navParams:   NavParams,
   ) {
     this.log.verbose('HostieListPage', 'constructor()')
+
+    this.reordering = false
   }
 
-  ngOnInit() {
+  public ionViewDidLoad() {
+    this.log.verbose('HostieListPage', 'ionViewDidLoad()')
+  }
+
+  public ngOnInit() {
     this.log.verbose('HostieListPage', 'ngOnInit()')
 
-    // this.hostieListSubscription = this.hostieStore.hosties.subscribe(list => {
-    //   this.log.silly('HostieListPage', 'ngOnInit() subscript list: %s', list)
-    //   this.hostieList = list
-    // })
-  }
-
-  ngOnDestroy() {
-    this.log.verbose('HostieListPage', 'ngOnDestroy()')
-
-    // this.hostieListSubscription.unsubscribe()
-  }
-
-  gotoHostieDetail(hostie: Hostie, event: any) {
-    this.log.verbose('HostieListPage', 'select(%s, %s)', hostie.id, event)
-    this.navCtrl.push(HostieDetailsPage, {
-      hostie,
+    this.hostieListSubscription = this.hostieStore.itemList.subscribe(list => {
+      this.log.silly('HostieListPage', 'ngOnInit() subscript list: %s', list)
+      this.hostieList = list
     })
   }
 
-  toggleReordering() {
+  public ngOnDestroy() {
+    this.log.verbose('HostieListPage', 'ngOnDestroy()')
+
+    this.hostieListSubscription.unsubscribe()
+  }
+
+  // public gotoHostieDetail(hostie: Hostie, event: any) {
+  //   this.log.verbose('HostieListPage', 'select(%s, %s)', hostie.id, event)
+  //   this.navCtrl.push(HostieDetailsPage, {
+  //     hostie,
+  //   })
+  // }
+
+  public toggleReordering() {
     this.reordering = !this.reordering
   }
 
-  reorder(indexes: number[]) {
+  public reorder(indexes: number[]) {
     // this.hostieList = reorderArray(this.hostieList, indexes)
     // TODO save to backend
   }
 
-  hostieIcon(hostie: Hostie) {
+  public hostieIcon(hostie: Hostie) {
     this.log.verbose('HostieListPage', 'hostieIcon()')
 
     if (hostie.status === Status.ON) {
@@ -101,7 +109,7 @@ export class HostieListPage implements OnInit, OnDestroy {
     return 'ios-home-outline'
   }
 
-  trash(hostie: Hostie) {
+  public trash(hostie: Hostie) {
     this.log.verbose('HostieListPage', 'trash(%s)', hostie.id)
     if (!hostie.id) {
       throw new Error('no hostie id')
@@ -109,7 +117,7 @@ export class HostieListPage implements OnInit, OnDestroy {
     this.hostieStore.delete(hostie.id)
   }
 
-  add() {
-    this.navCtrl.push(HostieCreatePage)
+  public add() {
+    // this.navCtrl.push(HostieCreatePage)
   }
 }

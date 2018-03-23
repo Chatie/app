@@ -23,16 +23,16 @@ import {
 }                   from '@ionic-native/splash-screen'
 import { Brolog }   from 'brolog'
 
-import { Auth }             from '../providers/auth'
+// import { Auth }             from '../providers/auth'
 
 import { HomePage } from '../pages/home/home'
 import { ListPage } from '../pages/list/list'
-import { BotieListPage }    from '../pages/botie-list/'
+// import { BotieListPage }    from '../pages/botie-list/'
 import { DashboardPage }    from '../pages/dashboard/'
-import { HostieListPage }   from '../pages/hostie-list/'
-import { FeedbackPage }     from '../pages/feedback/'
-import { LoginPage }        from '../pages/login/'
-import { SettingPage }      from '../pages/setting/'
+// import { HostieListPage }   from '../pages/hostie-list/'
+// import { FeedbackPage }     from '../pages/feedback/'
+// import { LoginPage }        from '../pages/login/'
+// import { SettingPage }      from '../pages/setting/'
 // import { WelcomePage }    from '../pages/welcome/'
 
 // Week Type Detection of TypeScript 2.4
@@ -42,18 +42,18 @@ import { SettingPage }      from '../pages/setting/'
   templateUrl: 'app.html',
 })
 export class ChatieApp {
-  @ViewChild(Nav) nav: Nav
+  @ViewChild(Nav) private nav: Nav
 
-  rootPage: any = HomePage
+  public rootPage: any = HomePage
 
-  pages: Array<{
-    title: string,
-    // icon: string,
-    component: any,
+  public pages: Array<{
+    title:      string,
+    icon:       string,
+    component:  any,
  }>
 
   constructor(
-    public auth:      Auth,
+    // public auth:      Auth,
     public log:       Brolog,
     public platform:  Platform,
     public statusBar:     StatusBar,
@@ -66,19 +66,19 @@ export class ChatieApp {
 
     // set our app's pages
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage },
+      { title: 'Home', icon: 'home', component: HomePage },
+      { title: 'List', icon: 'home', component: ListPage },
       { title: 'Dashboard'  , icon: 'speedometer' , component: DashboardPage },
       // { title: 'Gifties'    , icon: 'school'      , component: GiftieListPage },
       // { title: 'Gifties'    , icon: 'flash'       , component: GiftieListPage },
-      { title: 'Boties'     , icon: 'logo-android', component: BotieListPage },
-      { title: 'Hosties'    , icon: 'home'        , component: HostieListPage },
-      { title: 'Setting'    , icon: 'cog'         , component: SettingPage },
-      { title: 'Feedback'   , icon: 'people'      , component: FeedbackPage },
+      // { title: 'Boties'     , icon: 'logo-android', component: BotieListPage },
+      // { title: 'Hosties'    , icon: 'home'        , component: HostieListPage },
+      // { title: 'Setting'    , icon: 'cog'         , component: SettingPage },
+      // { title: 'Feedback'   , icon: 'people'      , component: FeedbackPage },
     ]
   }
 
-  async initializeApp() {
+  public async initializeApp() {
     this.log.verbose('ChatieApp', 'initializeApp()')
 
     const readySource = await this.platform.ready()
@@ -88,31 +88,31 @@ export class ChatieApp {
     // Okay, so the platform is ready and our plugins are available.
     // Here you can do any higher level native things you might need.
 
-    this.auth.valid.subscribe(valid => {
+    // this.auth.valid.subscribe(valid => {
       // this.setupPush(valid)
-    })
+    // })
 
     this.statusBar.styleDefault()
     this.splashScreen.hide()
      /**
-     * https://www.raymondcamden.com/2016/11/04/an-example-of-the-ionic-auth-service-with-ionic-2
-     */
-    if (this.auth.snapshot.valid) {
-      this.rootPage = DashboardPage
+      * https://www.raymondcamden.com/2016/11/04/an-example-of-the-ionic-auth-service-with-ionic-2
+      */
+    // if (this.auth.snapshot.valid) {
+    //   this.rootPage = DashboardPage
 
-      // XXX: do we need to call startupTokenRefresh() at here?
-      // consider to move it to Auth Provider. 201704
-      this.auth.startupTokenRefresh()
-    } else {
-      this.rootPage = LoginPage
-    }
+    //   // XXX: do we need to call startupTokenRefresh() at here?
+    //   // consider to move it to Auth Provider. 201704
+    //   this.auth.startupTokenRefresh()
+    // } else {
+    //   this.rootPage = LoginPage
+    // }
 
     // Schedule a token refresh on app start up
 
     return readySource
   }
 
-  openPage(page: any) {
+  public openPage(page: any) {
     this.log.verbose('ChatieApp', 'openPage(%s)', page.title)
 
     // close the menu when clicking a link from the menu
@@ -122,7 +122,6 @@ export class ChatieApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component)
   }
-
 
   // /**
   //  * Setup Push Service

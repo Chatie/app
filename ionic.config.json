@@ -1,6 +1,8 @@
 {
   "name": "Chatie",
-  "app_id": "f08d588e",
-  "v2": true,
-  "typescript": true
+  "app_id": "053e819b",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
 }

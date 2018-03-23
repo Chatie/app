@@ -15,7 +15,7 @@ import {
 
 import { Brolog }         from 'brolog'
 import { DashboardPage }  from '../dashboard/'
-import { LoginPage }      from '../login/'
+// import { LoginPage }      from '../login/'
 
 @IonicPage()
 @Component({
@@ -33,18 +33,18 @@ export class WelcomePage {
     this.log.verbose('WelcomePage', 'constructor()')
   }
 
-  ionViewDidLoad() {
+  public ionViewDidLoad() {
     this.log.verbose('WelcomePage', 'ionViewDidLoad()')
   }
 
-  async goToDashboard() {
+  public async goToDashboard() {
     this.log.verbose('WelcomePage', 'goToDashboard()')
 
     try {
       await this.navCtrl.setRoot(DashboardPage)
     } catch (e) {
       this.log.warn('WelcomePage', 'goToDashboard() exception:%s', e.message)
-      await this.navCtrl.push(LoginPage)
+      // await this.navCtrl.push(LoginPage)
     }
 
   }

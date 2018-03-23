@@ -20,9 +20,9 @@ import { StatusPage } from '../status/'
   templateUrl:  'about.html',
 })
 export class AboutPage {
-  version = '0.0.0'
-  clickCounter = 0
-  loading: Loading | null = null
+  private loading: Loading | null = null
+  public  version = '0.0.0'
+  public  clickCounter = 0
 
   constructor(
     public alertCtrl:   AlertController,
@@ -36,11 +36,11 @@ export class AboutPage {
     this.initVersion()
   }
 
-  initVersion() {
+  public initVersion() {
     this.log.verbose('AboutPage', 'getVersion()')
 
     try {
-      //FIXME
+      // FIXME
       const packageJson = require('../../../package.json')
       this.version = packageJson.version
     } catch (e) {
@@ -48,15 +48,15 @@ export class AboutPage {
     }
   }
 
-  ionViewDidLoad() {
+  public ionViewDidLoad() {
     this.log.verbose('AboutPage', 'ionViewDidLoad()')
   }
 
-  help() {
+  public help() {
     this.navCtrl.push(HelpPage)
   }
 
-  status() {
+  public status() {
     this.navCtrl.push(StatusPage)
   }
 
@@ -133,7 +133,7 @@ export class AboutPage {
   //   }
   // }
 
-  showLoader(): void {
+  public showLoader(): void {
     this.log.verbose('AboutPage', 'showLoader()')
 
     this.loading = this.loadingCtrl.create({
@@ -142,7 +142,7 @@ export class AboutPage {
     this.loading.present()
   }
 
-  hideLoader(): void {
+  public hideLoader(): void {
     this.log.verbose('AboutPage', 'hideLoader()')
 
     if (!this.loading) {
