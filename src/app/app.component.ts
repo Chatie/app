@@ -8,15 +8,8 @@
  */
 import {
   Component,
-  Type,
   ViewChild,
 }                   from '@angular/core'
-
-import {
-  IPushMessage,
-  Push,
-}                   from '@ionic/cloud-angular'
-
 import {
   Platform,
   MenuController,
@@ -24,16 +17,16 @@ import {
 }                   from 'ionic-angular'
 import {
   StatusBar,
-  Splashscreen,
-}                   from 'ionic-native'
-
+}                   from '@ionic-native/status-bar'
 import {
-  Subscription,
-}                   from 'rxjs/Subscription'
+  SplashScreen,
+}                   from '@ionic-native/splash-screen'
 import { Brolog }   from 'brolog'
 
 import { Auth }             from '../providers/auth'
 
+import { HomePage } from '../pages/home/home'
+import { ListPage } from '../pages/list/list'
 import { BotieListPage }    from '../pages/botie-list/'
 import { DashboardPage }    from '../pages/dashboard/'
 import { HostieListPage }   from '../pages/hostie-list/'
@@ -51,25 +44,20 @@ import { SettingPage }      from '../pages/setting/'
 export class ChatieApp {
   @ViewChild(Nav) nav: Nav
 
-  private pushSubscription: Subscription | null = null
-
-  // make HelloIonicPage the root (or first) page
-  // rootPage: any = WelcomePage
-  // rootPage: Type<Component> = DashboardPage
-  rootPage: Type<any> = LoginPage
-  // rootPage: any = HostieCreatePage
+  rootPage: any = HomePage
 
   pages: Array<{
     title: string,
-    icon: string,
-    component: Type<any>,
-  }>
+    // icon: string,
+    component: any,
+ }>
 
   constructor(
     public auth:      Auth,
     public log:       Brolog,
     public platform:  Platform,
-    public push:      Push,
+    public statusBar:     StatusBar,
+    public splashScreen:  SplashScreen,
     public menu:      MenuController,
   ) {
     this.log.verbose('ChatieApp', 'constructor()')
@@ -78,6 +66,8 @@ export class ChatieApp {
 
     // set our app's pages
     this.pages = [
+      { title: 'Home', component: HomePage },
+      { title: 'List', component: ListPage },
       { title: 'Dashboard'  , icon: 'speedometer' , component: DashboardPage },
       // { title: 'Gifties'    , icon: 'school'      , component: GiftieListPage },
       // { title: 'Gifties'    , icon: 'flash'       , component: GiftieListPage },
@@ -99,13 +89,12 @@ export class ChatieApp {
     // Here you can do any higher level native things you might need.
 
     this.auth.valid.subscribe(valid => {
-      this.setupPush(valid)
+      // this.setupPush(valid)
     })
 
-    StatusBar.styleDefault()
-    Splashscreen.hide()
-
-    /**
+    this.statusBar.styleDefault()
+    this.splashScreen.hide()
+     /**
      * https://www.raymondcamden.com/2016/11/04/an-example-of-the-ionic-auth-service-with-ionic-2
      */
     if (this.auth.snapshot.valid) {
@@ -128,48 +117,51 @@ export class ChatieApp {
 
     // close the menu when clicking a link from the menu
     this.menu.close()
-    // navigate to the new page if it is not the current page
+
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component)
   }
 
-  /**
-   * Setup Push Service
-   */
-  async setupPush(push = true): Promise<void> {
-    this.log.verbose('ChatieApp', 'setupPush(%s)', push)
 
-    try {
-      if (push) {
-        const pushToken = await this.push.register()
-        await this.push.saveToken(pushToken)
-        this.log.silly('ChatieApp', 'setupPush() push token saved: %s', pushToken)
+  // /**
+  //  * Setup Push Service
+  //  */
+  // async setupPush(push = true): Promise<void> {
+  //   this.log.verbose('ChatieApp', 'setupPush(%s)', push)
 
-        this.pushSubscription = this.push.rx.notification().subscribe(msg => {
-          this.onPush(msg)
-        })
-      } else {
-        if (this.pushSubscription) {
-          this.pushSubscription.unsubscribe()
-          this.pushSubscription = null
-        }
-        await this.push.unregister()
-      }
-    } catch (e) {
-      this.log.warn('AppComponent', 'setupPush() exception:%s', e.message)
-    }
+  //   try {
+  //     if (push) {
+  //       const pushToken = await this.push.register()
+  //       await this.push.saveToken(pushToken)
+  //       this.log.silly('ChatieApp', 'setupPush() push token saved: %s', pushToken)
 
-    // do something with the push data
-    // then call finish to let the OS know we are done
-    // push.finish(function() {
-    //     console.log("processing of push data is finished");
-    // }, function() {
-    //     console.log("something went wrong with push.finish for ID = " + data.additionalData.notId)
-    // }, data.additionalData.notId);
+  //       this.pushSubscription = this.push.rx.notification().subscribe(msg => {
+  //         this.onPush(msg)
+  //       })
+  //     } else {
+  //       if (this.pushSubscription) {
+  //         this.pushSubscription.unsubscribe()
+  //         this.pushSubscription = null
+  //       }
+  //       await this.push.unregister()
+  //     }
+  //   } catch (e) {
+  //     this.log.warn('AppComponent', 'setupPush() exception:%s', e.message)
+  //   }
 
-  }
+  //   // do something with the push data
+  //   // then call finish to let the OS know we are done
+  //   // push.finish(function() {
+  //   //     console.log("processing of push data is finished");
+  //   // }, function() {
+  //   //     console.log("something went wrong with push.finish for ID = " + data.additionalData.notId)
+  //   // }, data.additionalData.notId);
 
-  onPush(msg: IPushMessage): void {
-    this.log.verbose('ChatieApp', 'onPush({title:%s,...})', msg.title)
-    alert(msg.title + ': ' + msg.text)
-  }
+  // }
+
+  // onPush(msg: IPushMessage): void {
+  //   this.log.verbose('ChatieApp', 'onPush({title:%s,...})', msg.title)
+  //   alert(msg.title + ': ' + msg.text)
+  // }
 }

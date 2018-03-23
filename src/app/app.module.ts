@@ -6,14 +6,15 @@
  * Huan LI <zixia@zixia.net>
  * License Apache-2.0
  */
+import { BrowserModule } from '@angular/platform-browser'
 import {
   ErrorHandler,
   NgModule,
 }                         from '@angular/core'
-import {
-  CloudSettings,
-  CloudModule,
-}                         from '@ionic/cloud-angular'
+// import {
+//   CloudSettings,
+//   CloudModule,
+// }                         from '@ionic/cloud-angular'
 import { Storage }        from '@ionic/storage'
 
 import {
@@ -22,6 +23,8 @@ import {
   IonicErrorHandler,
 }                         from 'ionic-angular'
 
+import { HomePage } from '../pages/home/home';
+import { ListPage } from '../pages/list/list';
 import { Http }           from '@angular/http'
 import {
   AuthConfig,
@@ -32,6 +35,8 @@ import { WechatyModule }  from '@chatie/angular'
 
 import { Brolog }         from 'brolog'
 
+import { StatusBar }      from '@ionic-native/status-bar'
+import { SplashScreen }   from '@ionic-native/splash-screen'
 import {
   Db,
   HostieStore,
@@ -42,26 +47,26 @@ import { ChatieApp }      from './app.component'
 
 const { app_id } = require('../../ionic.config.json')
 
-const cloudSettings: CloudSettings = {
-  core: {
-    app_id,  // : ionicConfig['app_id'],
-  },
-  push: {
-    sender_id: '673602949542',
-    pluginConfig: {
-      ios: {
-        badge: true,
-        sound: true,
-      },
-      android: {
-        iconColor: '#343434',
-      },
-    },
-  },
-  // 'database': {
-  //   'authType': 'authenticated',
-  // },
-}
+// const cloudSettings: CloudSettings = {
+//   core: {
+//     app_id,  // : ionicConfig['app_id'],
+//   },
+//   push: {
+//     sender_id: '673602949542',
+//     pluginConfig: {
+//       ios: {
+//         badge: true,
+//         sound: true,
+//       },
+//       android: {
+//         iconColor: '#343434',
+//       },
+//     },
+//   },
+//   // 'database': {
+//   //   'authType': 'authenticated',
+//   // },
+// }
 
 /**
  * Pages
@@ -114,6 +119,8 @@ export function getAuthHttp(http: Http) {
 @NgModule({
   declarations: [
     ChatieApp,
+    HomePage,
+    ListPage
     // Pages
     AboutPage,
     BotieListPage,
@@ -132,15 +139,18 @@ export function getAuthHttp(http: Http) {
     StatusPage,
     UnlockPage,
     WelcomePage,
-],
+  ],
   imports: [
-    CloudModule.forRoot(cloudSettings),
+    BrowserModule,
+    // CloudModule.forRoot(cloudSettings),
     IonicModule.forRoot(ChatieApp),
     WechatyModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     ChatieApp,
+    HomePage,
+    ListPage,
     // Pages
     AboutPage,
     BotieDetailsPage,
@@ -161,6 +171,8 @@ export function getAuthHttp(http: Http) {
     WelcomePage,
   ],
   providers: [
+    StatusBar,
+    SplashScreen,
     AuthHttp,
     Auth,
     {
@@ -186,7 +198,7 @@ export function getAuthHttp(http: Http) {
       provide:      ErrorHandler,
       useClass:     IonicErrorHandler,
     },
-    ],
+  ],
 })
 
 export class AppModule {}

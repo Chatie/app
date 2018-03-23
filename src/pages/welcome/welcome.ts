@@ -7,12 +7,17 @@
  * License Apache-2.0
  */
 import { Component }      from '@angular/core'
-import { NavController }  from 'ionic-angular'
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+}                         from 'ionic-angular'
 
 import { Brolog }         from 'brolog'
 import { DashboardPage }  from '../dashboard/'
 import { LoginPage }      from '../login/'
 
+@IonicPage()
 @Component({
   selector: 'page-welcome',
   templateUrl: 'welcome.html',
@@ -23,6 +28,7 @@ export class WelcomePage {
   constructor(
     public log:     Brolog,
     public navCtrl: NavController,
+    public navParams: NavParams,
   ) {
     this.log.verbose('WelcomePage', 'constructor()')
   }

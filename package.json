@@ -1,6 +1,6 @@
 {
   "name": "@chatie/app",
-  "description": "Chatie: An Ionic project",
+  "description": "Chatie App",
   "version": "0.2.1",
   "author": "Huan LI <zixia@zixia.net>",
   "homepage": "https://github.com/chatie/app/",
@@ -14,72 +14,62 @@
   },
   "private": true,
   "scripts": {
+    "build": "ionic-app-scripts build",
+    "clean": "ionic-app-scripts clean",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
-    "lint": "npm run tslint",
-    "tslint": "tslint --project tsconfig.json \"{src,tests}/**/*.ts\" && tsc --noEmit",
-    "upload": "ionic upload"
+    "lint": "npm run lint:ionic && npm run lint:ts",
+    "lint:ts": "tslint --project tsconfig.json \"{src,tests}/**/*.ts\" && tsc --noEmit",
+    "lint:ionic": "ionic-app-scripts lint"
   },
-  "dependencies": {},
-  "devDependencies": {
-    "@angular/cli": "^1.0.0-rc.2",
-    "@angular/common": "2.4.8",
-    "@angular/compiler": "2.4.8",
-    "@angular/compiler-cli": "2.4.8",
-    "@angular/core": "2.4.8",
-    "@angular/forms": "2.4.8",
-    "@angular/http": "2.4.8",
-    "@angular/platform-browser": "2.4.8",
-    "@angular/platform-browser-dynamic": "2.4.8",
-    "@angular/platform-server": "2.4.8",
-    "@chatie/angular": "0.1.36",
-    "@chatie/db": "0.4.6",
-    "@ionic/app-scripts": "1.1.4",
-    "@ionic/cli-build-ionic-angular": "0.0.3",
-    "@ionic/cli-plugin-cordova": "0.0.9",
-    "@ionic/cloud-angular": "0.11.0",
-    "@ionic/storage": "1.1.9",
-    "@types/auth0-js": "^8.3.0",
-    "@types/auth0-lock": "^10.10.1",
-    "@types/node": "^7.0.5",
-    "@types/shortid": "0.0.28",
-    "@types/uuid": "^2.0.29",
-    "angular2-jwt": "0.2.3",
-    "auth0-js": "8.12.0",
-    "auth0-lock": "10.14.0",
-    "babel-eslint": "^8.2.2",
+  "dependencies": {
+    "@angular/animations": "5.2.9",
+    "@angular/common": "5.2.9",
+    "@angular/compiler": "5.2.9",
+    "@angular/compiler-cli": "5.2.9",
+    "@angular/core": "5.2.9",
+    "@angular/forms": "5.2.9",
+    "@angular/http": "5.2.9",
+    "@angular/platform-browser": "5.2.9",
+    "@angular/platform-browser-dynamic": "5.2.9",
+    "@chatie/angular": "^0.1.44",
+    "@chatie/db": "^0.4.6",
+    "@ionic-native/core": "4.5.3",
+    "@ionic-native/splash-screen": "4.5.3",
+    "@ionic-native/status-bar": "4.5.3",
+    "@ionic/pro": "1.0.20",
+    "@ionic/storage": "2.1.3",
+    "angular2-jwt": "^0.2.3",
     "brolog": "^1.2.8",
-    "codelyzer": "^3.0.0-beta.3",
-    "cordova": "6.5.0",
-    "eslint": "^4.18.1",
-    "ionic": "^2.2.3",
-    "ionic-angular": "^2.2.0",
-    "ionic-native": "2.7.0",
+    "cordova-android": "7.0.0",
+    "cordova-plugin-device": "^2.0.1",
+    "cordova-plugin-ionic-keyboard": "^2.0.5",
+    "cordova-plugin-ionic-webview": "^1.1.16",
+    "cordova-plugin-splashscreen": "^5.0.2",
+    "cordova-plugin-whitelist": "^1.3.3",
+    "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
-    "moment": "^2.18.1",
-    "rxjs": "5.0.1",
-    "shortid": "^2.2.8",
-    "state-switch": "0.1.15",
+    "rxjs": "5.5.7",
     "sw-toolbox": "3.6.0",
-    "tslint": "^5.9.1",
-    "typescript": "2.7.2",
-    "uuid": "3.0.1",
-    "zone.js": "0.7.2"
+    "zone.js": "0.8.20"
   },
-  "cordovaPlugins": [
-    "cordova-plugin-whitelist",
-    "cordova-plugin-console",
-    "cordova-plugin-device",
-    "cordova-plugin-statusbar",
-    "cordova-plugin-splashscreen",
-    "ionic-plugin-keyboard"
-  ],
-  "cordovaPlatforms": [
-    "ios",
-    {
-      "platform": "ios",
-      "version": "",
-      "locator": "ios"
-    }
-  ]
+  "devDependencies": {
+    "@ionic/app-scripts": "3.1.8",
+    "@types/node": "^9.4.7",
+    "babel-eslint": "^8.2.2",
+    "eslint": "^4.19.1",
+    "typescript": "~2.6.2"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-ionic-keyboard": {}
+    },
+    "platforms": [
+      "android"
+    ]
+  }
 }

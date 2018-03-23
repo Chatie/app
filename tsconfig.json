@@ -9,7 +9,7 @@
     , "noFallthroughCasesInSwitch": true
     , "strictNullChecks": true
     , "alwaysStrict": true
-    , "noImplicitAny": true
+    , "noImplicitAny": false
     , "noImplicitThis": true,
     "lib": [
       "dom",
