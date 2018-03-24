@@ -20,8 +20,8 @@ import {
 import { Brolog }           from 'brolog'
 
 import {
-  Dockie,
-  DockieStore,
+  Hostie,
+  HostieStore,
 }                             from '@chatie/db'
 
 import { BotieDetailsPage }   from '../botie-details/'
@@ -32,11 +32,11 @@ import { BotieDetailsPage }   from '../botie-details/'
   changeDetection:  ChangeDetectionStrategy.OnPush,
 })
 export class BotieListPage implements OnInit, OnDestroy {
-  // private dockieListSubscription: Subscription
+  // private hostieListSubscription: Subscription
 
   constructor(
     public database:    Database,
-    public dockieStore: DockieStore,
+    public hostieStore: HostieStore,
     public log:         Brolog,
     public navCtrl:     NavController,
     public navParams:   NavParams,
@@ -47,9 +47,9 @@ export class BotieListPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.log.verbose('BotieListPage', 'ngOnInit()')
 
-    // this.dockieListSubscription = this.dockieStore.dockies.subscribe(list => {
-    //   this.log.silly('DockieListPage', 'ngOnInit() subscript list: %s', list)
-    //   this.dockieList = list
+    // this.hostieListSubscription = this.hostieStore.hosties.subscribe(list => {
+    //   this.log.silly('HostieListPage', 'ngOnInit() subscript list: %s', list)
+    //   this.hostieList = list
     // })
   }
 
@@ -60,13 +60,13 @@ export class BotieListPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.log.verbose('BotieListPage', 'ngOnDestroy()')
 
-    // this.dockieListSubscription.unsubscribe()
+    // this.hostieListSubscription.unsubscribe()
   }
 
-  gotoBotieDetail(dockie: Dockie, event: any) {
-    this.log.verbose('BotieListPage', 'gotoBotieDetail({id:%s}, %s)', dockie.id, event)
+  gotoBotieDetail(hostie: Hostie, event: any) {
+    this.log.verbose('BotieListPage', 'gotoBotieDetail({id:%s}, %s)', hostie.id, event)
     this.navCtrl.push(BotieDetailsPage, {
-      token: dockie.token,
+      token: hostie.key,
     })
   }
 

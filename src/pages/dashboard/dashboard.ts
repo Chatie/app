@@ -1,9 +1,9 @@
 /**
- * Wechaty APP for Android & Ios
+ * Chatie APP for Android & Ios & SPA
  * Your ChatBot Pocket Manager
  *
- * https://github.com/wechaty/wechaty-ionic
- * Zhuohuan LI <zixia@zixia.net>
+ * https://github.com/chatie/app
+ * Huan LI <zixia@zixia.net>
  * License Apache-2.0
  */
 import {
@@ -11,7 +11,11 @@ import {
   OnInit,
   OnDestroy,
 }                         from '@angular/core'
-import { NavController }  from 'ionic-angular'
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+}                         from 'ionic-angular'
 import {
   Subscription,
 }                         from 'rxjs/Subscription'
@@ -19,16 +23,17 @@ import {
 import { Brolog }         from 'brolog'
 
 import {
-  Dockie,
-  DockieStatus,
-  DockieStore,
+  Hostie,
+  Status,
+  HostieStore,
 }                         from '@chatie/db'
 
-import { Auth }           from '../../providers/auth'
+// import { Auth }           from '../../providers/auth'
 
-import { BotieListPage }  from '../botie-list/'
+// import { BotieListPage }  from '../botie-list/'
 import { HostieListPage } from '../hostie-list/'
 
+@IonicPage()
 @Component({
   selector:     'page-dashboard',
   templateUrl:  'dashboard.html',
@@ -36,50 +41,60 @@ import { HostieListPage } from '../hostie-list/'
 export class DashboardPage implements OnInit, OnDestroy {
   private subscription: Subscription
 
-  hostieList: Dockie[]  = []
-  hostieActiveNum       = 0
+    public hostieList: Hostie[]
+    public hostieActiveNum
 
-  botieList       = [1, 2, 3]
-  botieActiveNum  = 1
+    // botieList       = [1, 2, 3]
+    // botieActiveNum  = 1
 
   constructor(
-    public auth:          Auth,
-    public hostieStore:   DockieStore,
+    // public auth:          Auth,
+    public hostieStore:   HostieStore,
     public log:           Brolog,
     public navCtrl:       NavController,
+    public navParams:     NavParams,
   ) {
     this.log.verbose('DashboardPage', 'constructor()')
+
+    this.hostieList       = []
+    this.hostieActiveNum  = 0
+  }
+
+  public ionViewDidLoad() {
+    this.log.verbose('DashboardPage', 'ionViewDidLoad()')
   }
 
   // https://devdactic.com/ionic-auth-guards/
-  ionViewCanEnter() {
+  public ionViewCanEnter() {
     this.log.verbose('DashboardPage', 'ionViewCanEnter()')
-    return this.auth.snapshot.valid
+    // return this.auth.snapshot.valid
   }
 
   // https://webcake.co/page-lifecycle-hooks-in-ionic-2/
-  ngOnInit() {
+  public ngOnInit() {
     this.log.verbose('DashboardPage', 'ngOnInit()')
-    this.subscription = this.hostieStore.hosties.subscribe(list => {
+    this.subscription = this.hostieStore.itemList.subscribe(list => {
+      this.log.verbose('DashboardPage', 'ngOnInit() hostieStore.itemList.subscribe()')
       this.hostieList       = list
-      this.hostieActiveNum  = list.filter( l => l.status === DockieStatus.ONLINE )
-                                  .length
+      this.hostieActiveNum  = list
+                                .filter( l => l.status === Status.ON )
+                                .length
     })
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.log.verbose('DashboardPage', 'ngOnDestroy()')
     this.subscription.unsubscribe()
   }
 
-  gotoDockieListPage() {
-    this.log.verbose('DashboardPage', 'gotoDockieListPage()')
+  public gotoHostieListPage() {
+    this.log.verbose('DashboardPage', 'gotoHostieListPage()')
     this.navCtrl.push(HostieListPage)
   }
 
-  gotoBotieListPage() {
+  public gotoBotieListPage() {
     this.log.verbose('DashboardPage', 'gotoBotieListPage()')
-    this.navCtrl.push(BotieListPage)
+    // this.navCtrl.push(BotieListPage)
   }
 
   // gotoBotieDetailsPage() {

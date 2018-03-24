@@ -1,9 +1,9 @@
 /**
- * Wechaty APP for Android & Ios
+ * Chatie APP for Android & Ios & SPA
  * Your ChatBot Pocket Manager
  *
  * https://github.com/chatie/app
- * Zhuohuan LI <zixia@zixia.net>
+ * Huan LI <zixia@zixia.net>
  * License Apache-2.0
  */
 import {
@@ -21,13 +21,13 @@ import {
 import { Brolog }           from 'brolog'
 
 import {
-  Dockie,
-  DockieStatus,
-  DockieStore,
-  DockieRuntime,
+  Hostie,
+  HostieStore,
+  Status,
+  System,
 }                           from '@chatie/db'
 
-import { HostieEditPage }   from '../dockie-edit/'
+import { HostieEditPage }   from '../hostie-edit/'
 
 @Component({
   selector:     'page-hostie-details',
@@ -40,8 +40,8 @@ import { HostieEditPage }   from '../dockie-edit/'
   changeDetection:  ChangeDetectionStrategy.OnPush,
 })
 export class HostieDetailsPage {
-  hostie:       Dockie
-  hostieStore:  DockieStore
+  hostie:       Hostie
+  hostieStore:  HostieStore
 
   constructor(
     public alertCtrl:  AlertController,
@@ -59,25 +59,25 @@ export class HostieDetailsPage {
 
   online(): boolean {
     this.log.verbose('HostieDetailsPage', 'online()')
-    return this.hostie.status === DockieStatus.ONLINE
+    return this.hostie.status === Status.ON
   }
 
   uptime(): number {
     this.log.verbose('HostieDetailsPage', 'uptime()')
-    return Date.now() - this.hostie.create_at
+    return Date.now() - 0 // FIXME
   }
 
   /**
    * http://ionicframework.com/docs/ionicons/
    */
   icon(): string {
-    switch (this.hostie.runtime) {
-      case DockieRuntime.UNKNOWN: return 'help'
-      case DockieRuntime.DOCKER:  return 'cube'
-      case DockieRuntime.LINUX:   return 'logo-tux'
-      case DockieRuntime.WINDOWS: return 'logo-windows'
-      case DockieRuntime.APPLE:   return 'logo-apple'
-      default:                    return 'help'
+    switch (this.hostie.system) {
+      case System.UNKNOWN:  return 'help'
+      case System.DOCKER:   return 'cube'
+      case System.LINUX:    return 'logo-tux'
+      case System.WINDOWS:  return 'logo-windows'
+      case System.MAC:      return 'logo-apple'
+      default:              return 'help'
     }
   }
 
@@ -90,7 +90,7 @@ export class HostieDetailsPage {
           label: 'Token',
           name: 'TOKEN',
           placeholder: 'Token',
-          value: this.hostie.token,
+          value: this.hostie.key,
           disabled: true,
         },
       ],
@@ -107,7 +107,7 @@ export class HostieDetailsPage {
        * [SOLVED] Ionic2 navController pop with params
        * https://forum.ionicframework.com/t/solved-ionic2-navcontroller-pop-with-params/58104
        */
-      notify: (savedHostie: Dockie) => {
+      notify: (savedHostie: Hostie) => {
         this.log.verbose('HostieDetailsPage', 'edit() done() %s',
                                               JSON.stringify(savedHostie),
                         )

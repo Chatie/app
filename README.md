@@ -1,9 +1,9 @@
-# chatie-app
-Wechaty Android & Ios & Web App
+# CHATIE APP
+Chatie App for Android & Ios & Web
 
 Chatie.io - Make your own ChatBot in no language, in minutes.
 
-![Powered by Ionic & Angular V2](https://ionicframework.com/img/blog/ionic-angular-v2.jpg "Powered by Ionic & Angular V2")
+![Powered by Ionic & Angular](https://ionicframework.com/img/blog/ionic-angular-v2.jpg "Powered by Ionic & Angular")
 
 title: "Welcome to the Platform!",
 description: "The <b>Ionic Component Documentation</b> showcases a number of useful components that are included out of the box with Ionic.",
@@ -109,8 +109,8 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 
 ## Todo
 
-* [x] Dockie Event Page
-* [ ] Dockie QR Code Push
+* [x] Hostie Event Page
+* [ ] Hostie QR Code Push
 * [ ] Store Publish
 * [ ] Other
   - [ ] Feedback enable Wilddog & Scrollglue
@@ -120,3 +120,36 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 ## See Also
 
 * [Motion.AI - Chatbots made easy.](https://www.motion.ai)
+* [Static web publishing for Front-End Developers](https://surge.sh)
+
+# CHANGELOG
+
+### v0.2 (master) Feb, 2018
+
+1. Upgrade to Ionic/Angular 5
+1. GraphQL DB Integration
+
+### v0.1  Apri, 2017
+
+1. Auth0 Integration
+1. FastLane.tools Integration
+1. Ionic DB Integration
+
+### v0.0 Dec 16, 2016
+
+1. Build with Ionic/Angular 2
+1. Prototype with Ionic Creator 
+
+# AUTHOR
+
+[Huan LI](http://linkedin.com/in/zixia) \<zixia@zixia.net\>
+
+<a href="https://stackexchange.com/users/265499">
+  <img src="https://stackexchange.com/users/flair/265499.png" width="208" height="58" alt="profile for zixia on Stack Exchange, a network of free, community-driven Q&amp;A sites" title="profile for zixia on Stack Exchange, a network of free, community-driven Q&amp;A sites">
+</a>
+
+# COPYRIGHT & LICENSE
+
+* Code & Docs © 2017-2018 Huan LI \<zixia@zixia.net\>
+* Code released under the Apache-2.0 License
+* Docs released under Creative Commons

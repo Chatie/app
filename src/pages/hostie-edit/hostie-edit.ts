@@ -9,8 +9,8 @@ import {
 import { Brolog }     from 'brolog'
 
 import {
-  Dockie,
-  DockieStore,
+  Hostie,
+  HostieStore,
 }                     from '@chatie/db'
 
 @Component({
@@ -18,13 +18,13 @@ import {
   templateUrl:  'hostie-edit.html',
 })
 export class HostieEditPage {
-  hostie:       Dockie
-  notify:         (newHostie: Dockie) => Promise<void>
+  hostie:       Hostie
+  notify:         (newHostie: Hostie) => Promise<void>
 
   loading:      Loading | null
 
   constructor(
-    public hostieStore: DockieStore,
+    public hostieStore: HostieStore,
     public log:         Brolog,
     public loadingCtrl: LoadingController,
     public navCtrl:     NavController,
@@ -32,6 +32,7 @@ export class HostieEditPage {
   ) {
     this.log.verbose('HostieEditPage', 'constructor()')
 
+    // XXX: why Object.assign ???
     this.hostie   = Object.assign({}, navParams.get('hostie'))
     this.notify = navParams.get('notify')
     this.log.silly('HostieEditPage', 'constructor() hostie id:%s', this.hostie.id)
@@ -46,15 +47,17 @@ export class HostieEditPage {
     this.log.verbose('HostieEditPage', 'save()')
 
     await this.showLoader()
-    const ret = await this.hostieStore.update({
-      id:   this.hostie.id,
-      name: this.hostie.name,
-      note: this.hostie.note,
-    }).toPromise()
+    const ret = await this.hostieStore.update(
+      this.hostie.id!,
+      {
+        name: this.hostie.name,
+        note: this.hostie.note,
+      },
+    )
     await this.notify(this.hostie)
     this.hideLoader()
 
-    this.log.silly('HostieEditPage', 'DockieStore.update() return: %s', JSON.stringify(ret))
+    this.log.silly('HostieEditPage', 'HostieStore.update() return: %s', JSON.stringify(ret))
 
     this.navCtrl.pop()
   }

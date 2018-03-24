@@ -6,22 +6,22 @@ import uuid               from 'uuid'
 
 import {
   Hostie,
-  HostieStatus,
   HostieStore,
+  Status,
 }                         from '@chatie/db'
 
 import { Auth }           from '../../providers/auth'
 
 @Component({
-  selector: 'page-hostie-create',
-  templateUrl: 'hostie-create.html',
+  selector:     'page-hostie-create',
+  templateUrl:  'hostie-create.html',
 })
 export class HostieCreatePage {
   private token = uuid() as string
   private name = 'Hostie #' + this.token.substr(-2, 2)
   private note: string
 
-  private loading = false
+  public loading = false
 
   constructor(
     public auth:        Auth,
@@ -45,18 +45,19 @@ export class HostieCreatePage {
       throw new Error('no auth user/email')
     }
     const newHostie: Hostie = {
-      email:      profile.email,
-      token:      this.token,
+      key:      this.token,
       name:       this.name,
       note:       this.note,
-      update_at: Date.now(),
-      status:     HostieStatus.OFFLINE,
-      create_at: Date.now(),
+      status:     Status.OFF,
     }
 
     this.log.silly('HostieCreatePage', 'save() newHostie: %s', JSON.stringify(newHostie))
 
-    this.hostieStore.insert(newHostie).subscribe(_ => {
+    this.hostieStore.create({
+      name: this.name,
+      key: this.token,
+      ownerId: 'zixia',
+    }).then(() => {
       this.navCtrl.pop()
     })
   }
