@@ -42,3 +42,4 @@ project.zip
 Chatie*.apk
 Chatie*.ipa
 package-lock.json
+/res/
