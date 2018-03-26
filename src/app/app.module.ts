@@ -8,6 +8,7 @@
  */
 import { BrowserModule } from '@angular/platform-browser'
 import {
+  APP_INITIALIZER,
   ErrorHandler,
   NgModule,
 }                         from '@angular/core'
@@ -22,6 +23,8 @@ import {
   IonicModule,
   IonicErrorHandler,
 }                         from 'ionic-angular'
+
+import { log }      from '../config'
 
 import { HomePage } from '../pages/home/home'
 import { ListPage } from '../pages/list/list'
@@ -96,16 +99,23 @@ import { WelcomePage }        from '../pages/welcome/'
  */
 function dbFactory(
   // auth: Auth,
-  log:  Brolog,
+  brolog:  Brolog,
 ) {
   const db = new Db({
-    log,
+    log: brolog,
   })
 
-  db.open()
   // // auth.profile.subscribe( ({email}) => db.setToken(email!))
 
   return db
+}
+
+function configFactory(
+  db: Db,
+) {
+  return async () => {
+    await db.open()
+  }
 }
 
 // https://github.com/auth0-samples/auth0-ionic2-samples/blob/master/01-Login/src/app/app.module.ts
@@ -184,21 +194,27 @@ function dbFactory(
 
     {
       provide:      Brolog,
-      useFactory()  { return Brolog.instance('silly') },
+      useValue:     log,
     },
     {
-      provide:        Db,
-      useFactory:     dbFactory,
-      deps:           [Brolog],
+      provide:      Db,
+      useFactory:   dbFactory,
+      deps:         [Brolog],
     },
     {
-      provide:            HostieStore,
-      useFactory(db: Db)  { return new HostieStore(db).open() },
-      deps:               [Db], // be careful about the seq, must as same as the function define.
+      provide:      HostieStore,
+      useFactory:   (db: Db) => new HostieStore(db),
+      deps:         [Db],
     },
     {
       provide:      ErrorHandler,
       useClass:     IonicErrorHandler,
+    },
+    {
+      provide:      APP_INITIALIZER,
+      useFactory:   configFactory,
+      deps:         [Db],
+      multi:        true,
     },
   ],
 })
