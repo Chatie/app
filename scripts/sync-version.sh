@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
+if git status | grep "nothing to commit" > /dev/null 2>&1; then
+  echo 'Clean repository - nothing to commit.'
+  exit 0
+fi
+
 VERSION=$(jq -r .version < package.json)
 
 MAJOR_MINOR=${VERSION%.*}
@@ -23,12 +28,7 @@ echo
 echo "$MSG"
 echo
 
+echo 'Prepareing to commit...'
 git add config.xml
-
-if git status | grep "nothing to commit" > /dev/null 2>&1; then
-  echo 'Clean repository - nothing to commit.'
-else
-  echo 'Prepareing to commit...'
-  git commit -m "$MSG"
-fi
+git commit -m "$MSG"
 
