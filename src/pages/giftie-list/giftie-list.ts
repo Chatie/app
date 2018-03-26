@@ -1,5 +1,6 @@
 import { Component }    from '@angular/core'
 import {
+  IonicPage,
   NavController,
   NavParams,
 }                       from 'ionic-angular'
@@ -14,12 +15,13 @@ interface Giftie {
   description:  string,
 }
 
+@IonicPage()
 @Component({
   selector: 'page-giftie-list',
   templateUrl: 'giftie-list.html',
 })
 export class GiftieListPage {
-  gifties: Giftie[] = [
+  public gifties: Giftie[] = [
     {
       icon:         'undo',
       title:        'Auto Reply',
@@ -81,11 +83,11 @@ export class GiftieListPage {
     this.log.verbose('GiftieListPage', 'constructor()')
   }
 
-  ionViewDidLoad() {
+  public ionViewDidLoad() {
     this.log.verbose('GiftieListPage', 'ionViewDidLoad()')
   }
 
-  unlock() {
+  public unlock() {
     this.navCtrl.push(UnlockPage)
   }
 }

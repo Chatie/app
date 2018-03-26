@@ -1,5 +1,6 @@
 import { Component }    from '@angular/core'
 import {
+  IonicPage,
   NavController,
   NavParams,
 }                       from 'ionic-angular'
@@ -20,21 +21,22 @@ interface WechatyEvent {
   data: string,
 }
 
+@IonicPage()
 @Component({
   selector: 'page-botie-details',
   templateUrl: 'botie-details.html',
 })
 export class BotieDetailsPage {
 
-  token: string
-  messageList: string[]
-  scan: ScanInfo | null
-  user: UserInfo | null
-  counter: number
+  public token: string
+  public messageList: string[]
+  public scan: ScanInfo | null
+  public user: UserInfo | null
+  public counter: number
 
-  timestamp: string
+  public timestamp: string
 
-  eventList: WechatyEvent[]
+  public eventList: WechatyEvent[]
 
   constructor(
     public log:       Brolog,
@@ -46,11 +48,11 @@ export class BotieDetailsPage {
     this.log.verbose('BotieDetails', 'constructor() with token:%s', this.token)
   }
 
-  ionViewDidLoad() {
+  public ionViewDidLoad() {
     this.log.verbose('BotieDetails', 'ionViewDidLoad()')
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.log.verbose('BotieDetailsPage', 'ngOnInit()')
 
     this.eventList    = []
@@ -58,11 +60,11 @@ export class BotieDetailsPage {
     this.counter      = 0
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.log.verbose('BotieDetailsPage', 'ngOnDestroy()')
   }
 
-  onMessage(msg: any) {
+  public onMessage(msg: any) {
     this.log.verbose('BotieDetailsPage', 'onMessage(%s)', msg)
     this.messageList.push(msg)
     this.eventList.push({
@@ -71,12 +73,12 @@ export class BotieDetailsPage {
       data: msg,
     })
   }
-  onHeartbeat(e: any) {
+  public onHeartbeat(e: any) {
     this.log.silly('BotieDetailsPage', 'onHeartbeat(%s)', e)
     this.counter++
     this.timestamp = moment().format('LTS')
   }
-  onScan(scan: ScanInfo) {
+  public onScan(scan: ScanInfo) {
     this.log.verbose('BotieDetailsPage', 'onScan(%d: %s)', scan.code, scan.url)
     this.scan = scan
     this.eventList.push({
@@ -85,7 +87,7 @@ export class BotieDetailsPage {
       data: scan.url,
     })
   }
-  onLogin(user: UserInfo) {
+  public onLogin(user: UserInfo) {
     this.log.verbose('BotieDetailsPage', 'onLogin(%s)', user.name)
     this.user = user
     this.scan = null
@@ -95,7 +97,7 @@ export class BotieDetailsPage {
       data: user.name,
     })
   }
-  onLogout(e: UserInfo) {
+  public onLogout(e: UserInfo) {
     this.log.verbose('BotieDetailsPage', 'onLogout(%s)', e.name)
     this.user = null
     this.eventList.push({
@@ -104,7 +106,7 @@ export class BotieDetailsPage {
       data: e.name,
     })
   }
-  onError(e: any) {
+  public onError(e: any) {
     this.log.verbose('BotieDetailsPage', 'onError(%s)', e)
     this.eventList.push({
       type: 'error',
@@ -113,13 +115,13 @@ export class BotieDetailsPage {
     })
   }
 
-  shutdown(wechaty: WechatyComponent) {
+  public shutdown(wechaty: WechatyComponent) {
     this.log.verbose('BotieDetailsPage', 'shutdown()')
     this.scan = this.user = null
     wechaty.shutdown('by web bot component')
   }
 
-  eventToIcon(eventName: string): string {
+  public eventToIcon(eventName: string): string {
     switch (eventName) {
       case 'scan':    return 'qr-scanner'
       case 'login':   return 'log-in'

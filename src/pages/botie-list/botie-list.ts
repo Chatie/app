@@ -5,9 +5,7 @@ import {
   OnDestroy,
 }                           from '@angular/core'
 import {
-  Database,
-}                           from '@ionic/cloud-angular'
-import {
+  IonicPage,
   NavController,
   NavParams,
   // reorderArray,
@@ -26,6 +24,7 @@ import {
 
 import { BotieDetailsPage }   from '../botie-details/'
 
+@IonicPage()
 @Component({
   selector:         'page-botie-list',
   templateUrl:      'botie-list.html',
@@ -44,7 +43,7 @@ export class BotieListPage implements OnInit, OnDestroy {
     this.log.verbose('BotieListPage', 'constructor()')
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.log.verbose('BotieListPage', 'ngOnInit()')
 
     // this.hostieListSubscription = this.hostieStore.hosties.subscribe(list => {
@@ -53,17 +52,17 @@ export class BotieListPage implements OnInit, OnDestroy {
     // })
   }
 
-  ionViewDidLoad() {
+  public ionViewDidLoad() {
     this.log.verbose('BotieListPage', 'ionViewDidLoad()')
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.log.verbose('BotieListPage', 'ngOnDestroy()')
 
     // this.hostieListSubscription.unsubscribe()
   }
 
-  gotoBotieDetail(hostie: Hostie, event: any) {
+  public gotoBotieDetail(hostie: Hostie, event: any) {
     this.log.verbose('BotieListPage', 'gotoBotieDetail({id:%s}, %s)', hostie.id, event)
     this.navCtrl.push(BotieDetailsPage, {
       token: hostie.key,

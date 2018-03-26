@@ -1,5 +1,6 @@
 import { Component }  from '@angular/core'
 import {
+  IonicPage,
   LoadingController,
   Loading,
   NavController,
@@ -13,15 +14,16 @@ import {
   HostieStore,
 }                     from '@chatie/db'
 
+@IonicPage()
 @Component({
   selector:     'page-hostie-edit',
   templateUrl:  'hostie-edit.html',
 })
 export class HostieEditPage {
-  hostie:       Hostie
-  notify:         (newHostie: Hostie) => Promise<void>
+  public hostie:       Hostie
+  public notify:         (newHostie: Hostie) => Promise<void>
 
-  loading:      Loading | null
+  public loading:      Loading | null
 
   constructor(
     public hostieStore: HostieStore,
@@ -39,11 +41,11 @@ export class HostieEditPage {
 
   }
 
-  ionViewDidLoad() {
+  public ionViewDidLoad() {
     this.log.verbose('HostieEditPage', 'ionViewDidLoad()')
   }
 
-  async save() {
+  public async save() {
     this.log.verbose('HostieEditPage', 'save()')
 
     await this.showLoader()
@@ -62,7 +64,7 @@ export class HostieEditPage {
     this.navCtrl.pop()
   }
 
-  showLoader() {
+  public showLoader() {
     this.log.verbose('HostieEditPage', 'showLoader()')
 
     this.loading = this.loadingCtrl.create({
@@ -71,7 +73,7 @@ export class HostieEditPage {
     return this.loading.present()
   }
 
-  hideLoader() {
+  public hideLoader() {
     this.log.verbose('HostieEditPage', 'hideLoader()')
 
     if (!this.loading) {

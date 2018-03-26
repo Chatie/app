@@ -14,6 +14,7 @@ import {
 
 import {
   AlertController,
+  IonicPage,
   NavController,
   NavParams,
 }                           from 'ionic-angular'
@@ -29,6 +30,7 @@ import {
 
 import { HostieEditPage }   from '../hostie-edit/'
 
+@IonicPage()
 @Component({
   selector:     'page-hostie-details',
   templateUrl:  'hostie-details.html',
@@ -40,8 +42,8 @@ import { HostieEditPage }   from '../hostie-edit/'
   changeDetection:  ChangeDetectionStrategy.OnPush,
 })
 export class HostieDetailsPage {
-  hostie:       Hostie
-  hostieStore:  HostieStore
+  public hostie:       Hostie
+  public hostieStore:  HostieStore
 
   constructor(
     public alertCtrl:  AlertController,
@@ -57,12 +59,12 @@ export class HostieDetailsPage {
     this.log.silly('HostieDetailsPage', 'constructor() hostie id:%s', this.hostie.id)
   }
 
-  online(): boolean {
+  public online(): boolean {
     this.log.verbose('HostieDetailsPage', 'online()')
     return this.hostie.status === Status.ON
   }
 
-  uptime(): number {
+  public uptime(): number {
     this.log.verbose('HostieDetailsPage', 'uptime()')
     return Date.now() - 0 // FIXME
   }
@@ -70,7 +72,7 @@ export class HostieDetailsPage {
   /**
    * http://ionicframework.com/docs/ionicons/
    */
-  icon(): string {
+  public icon(): string {
     switch (this.hostie.system) {
       case System.UNKNOWN:  return 'help'
       case System.DOCKER:   return 'cube'
@@ -81,7 +83,7 @@ export class HostieDetailsPage {
     }
   }
 
-  copy() {
+  public copy() {
     this.alertCtrl.create({
       title:    'Copy TOKEN',
       subTitle: 'Use this string as WECHATY_TOKEN',
@@ -98,7 +100,7 @@ export class HostieDetailsPage {
     }).present()
   }
 
-  edit() {
+  public edit() {
     this.log.verbose('HostieDetailsPage', 'edit() hostie #%s', this.hostie.id)
 
     this.navCtrl.push(HostieEditPage, {

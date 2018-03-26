@@ -1,5 +1,6 @@
 import { Component }        from '@angular/core'
 import {
+  IonicPage,
   NavController,
   NavParams,
 }                           from 'ionic-angular'
@@ -8,6 +9,7 @@ import { AuthHttp }         from 'angular2-jwt'
 
 import { Brolog }           from 'brolog'
 
+@IonicPage()
 @Component({
   selector:     'page-unlock',
   templateUrl:  'unlock.html',
@@ -23,11 +25,11 @@ export class UnlockPage {
     this.log.verbose('UnlockPage', 'constructor()')
   }
 
-  ionViewDidLoad() {
+  public ionViewDidLoad() {
     this.log.verbose('UnlockPage', 'ionViewDidLoad()')
   }
 
-  securedPing() {
+  public securedPing() {
     // Here we use authHttp to make an authenticated
     // request to the server. Change the endpoint up for
     // one that points to your own server.

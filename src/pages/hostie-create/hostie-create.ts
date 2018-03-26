@@ -1,5 +1,8 @@
 import { Component }      from '@angular/core'
-import { NavController }  from 'ionic-angular'
+import {
+  IonicPage,
+  NavController,
+}  from 'ionic-angular'
 
 import { Brolog }         from 'brolog'
 import uuid               from 'uuid'
@@ -12,6 +15,7 @@ import {
 
 import { Auth }           from '../../providers/auth'
 
+@IonicPage()
 @Component({
   selector:     'page-hostie-create',
   templateUrl:  'hostie-create.html',
@@ -32,11 +36,11 @@ export class HostieCreatePage {
     this.log.verbose('HostieCreatePage', 'constructor()')
   }
 
-  ionViewDidLoad() {
+  public ionViewDidLoad() {
     this.log.verbose('HostieCreatePage', 'ionViewDidLoad()')
   }
 
-  async save() {
+  public async save() {
     this.log.verbose('HostieCreatePage', 'save()')
     this.loading = true
 

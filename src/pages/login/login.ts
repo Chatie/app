@@ -4,10 +4,8 @@ import {
   OnDestroy,
 }                         from '@angular/core'
 import {
-  User,
-}                         from '@ionic/cloud-angular'
-import {
   AlertController,
+  IonicPage,
   LoadingController,
   Loading,
   NavController,
@@ -23,6 +21,7 @@ import { Brolog }         from 'brolog'
 
 import { DashboardPage }  from '../../pages/dashboard/'
 
+@IonicPage()
 @Component({
   selector:     'page-login',
   templateUrl:  'login.html',
@@ -45,7 +44,7 @@ export class LoginPage implements OnInit, OnDestroy {
     this.log.verbose('LoginPage', 'constructor()')
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.log.verbose('LoginPage', 'ngOnInit()')
 
     this.validSub = this.auth.valid.subscribe(valid => {
@@ -57,12 +56,12 @@ export class LoginPage implements OnInit, OnDestroy {
     this.log.silly('LoginPage', 'constructor() Auth.valid.subscribe()-ed')
 
   }
-  onLogin(): void {
+  public onLogin(): void {
     this.log.verbose('LoginPage', 'onLogin()')
     this.gotoDashboardPage()
   }
 
-  ionViewDidLoad() {
+  public ionViewDidLoad() {
     this.log.verbose('LoginPage', 'ngOnInit()')
 
     if (this.auth.snapshot.valid) {
@@ -71,7 +70,7 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   // https://webcake.co/page-lifecycle-hooks-in-ionic-2/
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.log.verbose('LoginPage', 'ngOnDestroy()')
 
     if (this.validSub) {
@@ -79,7 +78,7 @@ export class LoginPage implements OnInit, OnDestroy {
     }
   }
 
-  async login(): Promise<void> {
+  public async login(): Promise<void> {
     this.log.verbose('LoginPage', 'login()')
 
     this.auth.login()
@@ -102,7 +101,7 @@ export class LoginPage implements OnInit, OnDestroy {
   //   this.navCtrl.setRoot(LoginPage)
   // }
 
-  showLoader(): void {
+  public showLoader(): void {
     this.log.verbose('LoginPage', 'showLoader()')
 
     this.loading = this.loadingCtrl.create({
@@ -111,7 +110,7 @@ export class LoginPage implements OnInit, OnDestroy {
     this.loading.present()
   }
 
-  hideLoader(): void {
+  public hideLoader(): void {
     this.log.verbose('LoginPage', 'hideLoader()')
 
     if (!this.loading) {
@@ -121,7 +120,7 @@ export class LoginPage implements OnInit, OnDestroy {
     this.loading = null
   }
 
-  async gotoDashboardPage(): Promise<void> {
+  public async gotoDashboardPage(): Promise<void> {
     this.log.verbose('LoginPage', 'gotoDashboardPage()')
     try {
       await this.navCtrl.setRoot(DashboardPage)
