@@ -44,6 +44,7 @@
     "brolog": "^1.2.8",
     "cordova-android": "7.0.0",
     "cordova-plugin-device": "^2.0.1",
+    "cordova-plugin-ionic": "^3.1.3",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^1.1.16",
     "cordova-plugin-splashscreen": "^5.0.2",
@@ -71,11 +72,17 @@
       "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
-      "cordova-plugin-ionic-webview": {}
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-ionic": {
+        "APP_ID": "053e819b",
+        "CHANNEL_NAME": "Master",
+        "UPDATE_METHOD": "background",
+        "WARN_DEBUG": "true",
+        "UPDATE_API": "https://api.ionicjs.com",
+        "MAX_STORE": "2"
+      }
     },
-    "platforms": [
-      "android"
-    ]
+    "platforms": []
   },
   "git": {
     "scripts": {

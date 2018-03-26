@@ -80,5 +80,12 @@
     <plugin name="cordova-plugin-device" spec="^2.0.1" />
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
-    <engine name="android" spec="~7.0.0" />
+    <plugin name="cordova-plugin-ionic" spec="^3.1.3">
+        <variable name="APP_ID" value="053e819b" />
+        <variable name="CHANNEL_NAME" value="Master" />
+        <variable name="UPDATE_METHOD" value="background" />
+        <variable name="WARN_DEBUG" value="true" />
+        <variable name="UPDATE_API" value="https://api.ionicjs.com" />
+        <variable name="MAX_STORE" value="2" />
+    </plugin>
 </widget>
