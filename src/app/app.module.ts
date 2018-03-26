@@ -26,8 +26,6 @@ import {
 
 import { log }      from '../config'
 
-import { HomePage } from '../pages/home/home'
-import { ListPage } from '../pages/list/list'
 // import { Http }           from '@angular/http'
 // import {
   // AuthConfig,
@@ -133,8 +131,6 @@ function configFactory(
 @NgModule({
   declarations: [
     ChatieApp,
-    HomePage,
-    ListPage,
     // Pages
     AboutPage,
     // BotieListPage,
@@ -163,8 +159,6 @@ function configFactory(
   bootstrap: [IonicApp],
   entryComponents: [
     ChatieApp,
-    HomePage,
-    ListPage,
     // Pages
     AboutPage,
     // BotieDetailsPage,
