@@ -76,5 +76,10 @@
     "platforms": [
       "android"
     ]
+  },
+  "git": {
+    "scripts": {
+      "pre-push": "./scripts/pre-push.sh"
+    }
   }
 }
