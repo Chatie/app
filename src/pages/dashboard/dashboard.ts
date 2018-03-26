@@ -55,6 +55,7 @@ export class DashboardPage implements OnInit, OnDestroy {
     public navParams:     NavParams,
   ) {
     this.log.verbose('DashboardPage', 'constructor()')
+    this.log.verbose('DashboardPage', 'constructor(hostieStore=%s)', hostieStore)
 
     this.hostieList       = []
     this.hostieActiveNum  = 0
@@ -73,12 +74,16 @@ export class DashboardPage implements OnInit, OnDestroy {
   // https://webcake.co/page-lifecycle-hooks-in-ionic-2/
   public ngOnInit() {
     this.log.verbose('DashboardPage', 'ngOnInit()')
+    console.log(this.hostieStore)
+    console.log(this.hostieStore.itemList)
+    console.log(this.hostieStore.itemList.subscribe)
+
     this.subscription = this.hostieStore.itemList.subscribe(list => {
       this.log.verbose('DashboardPage', 'ngOnInit() hostieStore.itemList.subscribe()')
       this.hostieList       = list
       this.hostieActiveNum  = list
-                                .filter( l => l.status === Status.ON )
-                                .length
+                              .filter( l => l.status === Status.ON )
+                              .length
     })
   }
 
