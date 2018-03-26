@@ -5,8 +5,6 @@ import {
   NavParams,
 }                           from 'ionic-angular'
 
-// import { AuthHttp }         from 'angular2-jwt'
-
 import { Brolog }           from 'brolog'
 
 @IonicPage()
@@ -17,7 +15,6 @@ import { Brolog }           from 'brolog'
 export class UnlockPage {
 
   constructor(
-    // public authHttp:  AuthHttp,
     public log:       Brolog,
     public navCtrl:   NavController,
     public navParams: NavParams,

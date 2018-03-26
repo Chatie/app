@@ -126,7 +126,7 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 
 ### v0.2 (master) Feb, 2018
 
-1. Upgrade to Ionic/Angular 5
+1. Upgrade to Ionic 3 & Angular 5
 1. GraphQL DB Integration
 
 ### v0.1  Apri, 2017

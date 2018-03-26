@@ -23,14 +23,14 @@ import {
 }                   from '@ionic-native/splash-screen'
 import { Brolog }   from 'brolog'
 
-// import { Auth }             from '../providers/auth'
+import { Auth }             from '../providers/auth'
 
 // import { BotieListPage }    from '../pages/botie-list/'
 import { DashboardPage }    from '../pages/dashboard/'
 // import { HostieListPage }   from '../pages/hostie-list/'
-// import { FeedbackPage }     from '../pages/feedback/'
+import { FeedbackPage }     from '../pages/feedback/'
 // import { LoginPage }        from '../pages/login/'
-// import { SettingPage }      from '../pages/setting/'
+import { SettingPage }      from '../pages/setting/'
 // import { WelcomePage }    from '../pages/welcome/'
 
 // Week Type Detection of TypeScript 2.4
@@ -51,15 +51,13 @@ export class ChatieApp {
   }>
 
   constructor(
-    // public auth:      Auth,
-    public log:       Brolog,
-    public platform:  Platform,
+    public auth:          Auth,
+    public log:           Brolog,
+    public menu:          MenuController,
+    public platform:      Platform,
     public statusBar:     StatusBar,
     public splashScreen:  SplashScreen,
-    public menu:      MenuController,
   ) {
-    console.log(log)
-    console.log(this.log)
     this.log.verbose('ChatieApp', 'constructor()')
 
     this.initializeApp()
@@ -71,8 +69,8 @@ export class ChatieApp {
       // { title: 'Gifties'    , icon: 'flash'       , component: GiftieListPage },
       // { title: 'Boties'     , icon: 'logo-android', component: BotieListPage },
       // { title: 'Hosties'    , icon: 'home'        , component: HostieListPage },
-      // { title: 'Setting'    , icon: 'cog'         , component: SettingPage },
-      // { title: 'Feedback'   , icon: 'people'      , component: FeedbackPage },
+      { title: 'Setting'    , icon: 'cog'         , component: SettingPage },
+      { title: 'Feedback'   , icon: 'people'      , component: FeedbackPage },
     ]
   }
 

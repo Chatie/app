@@ -23,9 +23,7 @@ import {
   IonicErrorHandler,
 }                         from 'ionic-angular'
 
-// import { Http }           from '@angular/http'
-
-// import { WechatyModule }  from '@chatie/angular'
+import { WechatyModule }  from '@chatie/angular'
 
 import { Brolog }         from 'brolog'
 
@@ -73,24 +71,24 @@ import { ChatieApp }      from './app.component'
 // }
 
 /**
- * Pages
+ * << Pages >>
  */
 import { AboutPage }          from '../pages/about/'
-// import { BotieListPage }      from '../pages/botie-list/'
-// import { BotieDetailsPage }   from '../pages/botie-details/'
+import { BotieListPage }      from '../pages/botie-list/'
+import { BotieDetailsPage }   from '../pages/botie-details/'
 import { DashboardPage }      from '../pages/dashboard/'
-// import { FeedbackPage }       from '../pages/feedback/'
-// import { GiftieListPage }     from '../pages/giftie-list/'
+import { FeedbackPage }       from '../pages/feedback/'
+import { GiftieListPage }     from '../pages/giftie-list/'
 import { HelpPage }           from '../pages/help/'
-// import { HostieDetailsPage }  from '../pages/hostie-details/'
-// import { HostieEditPage }     from '../pages/hostie-edit/'
-// import { HostieListPage }     from '../pages/hostie-list/'
-// import { HostieCreatePage }   from '../pages/hostie-create/'
-// import { LoginPage }          from '../pages/login/'
-// import { LogoutPage }         from '../pages/logout/'
-// import { SettingPage }        from '../pages/setting/'
+import { HostieDetailsPage }  from '../pages/hostie-details/'
+import { HostieEditPage }     from '../pages/hostie-edit/'
+import { HostieListPage }     from '../pages/hostie-list/'
+import { HostieCreatePage }   from '../pages/hostie-create/'
+import { LoginPage }          from '../pages/login/'
+import { LogoutPage }         from '../pages/logout/'
+import { SettingPage }        from '../pages/setting/'
 import { StatusPage }         from '../pages/status/'
-// import { UnlockPage }         from '../pages/unlock/'
+import { UnlockPage }         from '../pages/unlock/'
 import { WelcomePage }        from '../pages/welcome/'
 
 /**
@@ -148,23 +146,23 @@ export function jwtOptionsFactory(storage: Storage) {
 @NgModule({
   declarations: [
     ChatieApp,
-    // Pages
+    // << Pages >>
     AboutPage,
-    // BotieListPage,
-    // BotieDetailsPage,
+    BotieListPage,
+    BotieDetailsPage,
     DashboardPage,
-    // FeedbackPage,
-    // GiftieListPage,
+    FeedbackPage,
+    GiftieListPage,
     HelpPage,
-    // HostieCreatePage,
-    // HostieDetailsPage,
-    // HostieEditPage,
-    // HostieListPage,
-    // LoginPage,
-    // LogoutPage,
-    // SettingPage,
+    HostieCreatePage,
+    HostieDetailsPage,
+    HostieEditPage,
+    HostieListPage,
+    LoginPage,
+    LogoutPage,
+    SettingPage,
     StatusPage,
-    // UnlockPage,
+    UnlockPage,
     WelcomePage,
   ],
   imports: [
@@ -179,28 +177,28 @@ export function jwtOptionsFactory(storage: Storage) {
         deps:       [Storage],
       },
     }),
-    // WechatyModule,
+    WechatyModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     ChatieApp,
-    // Pages
+    // << Pages >>
     AboutPage,
-    // BotieDetailsPage,
-    // BotieListPage,
+    BotieDetailsPage,
+    BotieListPage,
     DashboardPage,
-    // FeedbackPage,
-    // GiftieListPage,
+    FeedbackPage,
+    GiftieListPage,
     HelpPage,
-    // HostieCreatePage,
-    // HostieDetailsPage,
-    // HostieEditPage,
-    // HostieListPage,
-    // LoginPage,
-    // LogoutPage,
-    // SettingPage,
+    HostieCreatePage,
+    HostieDetailsPage,
+    HostieEditPage,
+    HostieListPage,
+    LoginPage,
+    LogoutPage,
+    SettingPage,
     StatusPage,
-    // UnlockPage,
+    UnlockPage,
     WelcomePage,
   ],
   providers: [
