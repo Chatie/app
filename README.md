@@ -60,6 +60,10 @@ How to use Observable.
 * [The Difference Between Throttling and Debouncing](https://css-tricks.com/the-difference-between-throttling-and-debouncing/)
 * [RxJS: Don’t Unsubscribe](https://medium.com/@benlesh/rxjs-dont-unsubscribe-6753ed4fda87)
 
+### Machine Learning
+
+* [architecture-free neural network library for node.js and the browser](http://caza.la/synaptic)
+
 ## Features
 
 * Passwordless Auth

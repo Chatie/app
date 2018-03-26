@@ -13,6 +13,4 @@
     , "resources/": true
     , "plugins": true
   }
-  ,
-  "editor.useTabStops": false
 }
