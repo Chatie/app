@@ -1,13 +1,12 @@
 import {
   Injectable,
-}                   from '@angular/core'
-import { Storage }  from '@ionic/storage'
+}                     from '@angular/core'
+// import { HttpClient } from '@angular/common/http'
+import { Storage }    from '@ionic/storage'
 
-// import {
-//   AuthHttp,
-//   JwtHelper,
-//   tokenNotExpired,
-// }                   from 'angular2-jwt'
+import {
+  JwtHelperService,
+}                   from '@auth0/angular-jwt'
 import {
   Auth0UserProfile,
   WebAuth,
@@ -82,9 +81,6 @@ export class Auth {
                       .distinctUntilChanged()
   }
 
-  private jwtHelper = new JwtHelper()
-  private storage   = new Storage()
-
   private accessToken:  string | null = null
   private refreshToken: string | null = null
   private _idToken:     string | null = null
@@ -105,8 +101,10 @@ export class Auth {
   private refreshSubscription: Subscription
 
   constructor(
-    public authHttp:  AuthHttp,
-    public log:       Brolog,
+    public log:         Brolog,
+    // public httpClient:  HttpClient,
+    public jwtHelper:   JwtHelperService,
+    public storage:     Storage,
   ) {
     this.log.verbose('Auth', 'constructor()')
 
@@ -361,11 +359,10 @@ getProfile(idToken: string): Observable<any>{
   public authenticated(): boolean {
     // Check if there's an unexpired JWT
     // It searches for an item in localStorage with key == 'id_token'
-    // return tokenNotExpired()
-    const valid = !!this.idToken && tokenNotExpired(STORAGE_KEY.ID_TOKEN, this.idToken)
-    this.log.verbose('Auth', 'authenticated(): %s', valid)
+    const invalid = !this.idToken || this.jwtHelper.isTokenExpired(this.idToken)
+    this.log.verbose('Auth', 'authenticated(): %s', !invalid)
 
-    return valid
+    return !invalid
   }
 
   private scheduleExpire(idToken: string|null): void {
@@ -450,33 +447,33 @@ getProfile(idToken: string): Observable<any>{
     if (this.snapshot.valid) {
       // If the user is authenticated, use the token stream
       // provided by angular2-jwt and flatMap the token
-      const source = this.authHttp.tokenStream.flatMap(
-        token => {
-          // Get the expiry time to generate
-          // a delay in milliseconds
-          const now: number = new Date().valueOf()
-          const jwtExp: number = this.jwtHelper.decodeToken(token).exp
-          const exp: Date = new Date(0)
-          exp.setUTCSeconds(jwtExp)
+      // const source = this.authHttp.tokenStream.flatMap(
+      //   token => {
+      //     // Get the expiry time to generate
+      //     // a delay in milliseconds
+      //     const now: number = new Date().valueOf()
+      //     const jwtExp: number = this.jwtHelper.decodeToken(token).exp
+      //     const exp: Date = new Date(0)
+      //     exp.setUTCSeconds(jwtExp)
 
-          // XXX the delay should be shorter
-          // becasue we should emit refresh before scheduleExpire()
-          // maybe 1 hour?
-          const delay: number = exp.valueOf() - now
+      //     // XXX the delay should be shorter
+      //     // becasue we should emit refresh before scheduleExpire()
+      //     // maybe 1 hour?
+      //     const delay: number = exp.valueOf() - now
 
-          // Use the delay in a timer to
-          // run the refresh at the proper time
-          return Observable.timer(delay)
-        },
-      )
+      //     // Use the delay in a timer to
+      //     // run the refresh at the proper time
+      //     return Observable.timer(delay)
+      //   },
+      // )
 
-      // Once the delay time from above is
-      // reached, get a new JWT and schedule
-      // additional refreshes
-      source.subscribe(() => {
-        this.getNewJwt()
-        this.scheduleRefresh()
-      })
+      // // Once the delay time from above is
+      // // reached, get a new JWT and schedule
+      // // additional refreshes
+      // source.subscribe(() => {
+      //   this.getNewJwt()
+      //   this.scheduleRefresh()
+      // })
     }
   }
 

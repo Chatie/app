@@ -39,7 +39,7 @@ export class LoginPage implements OnInit, OnDestroy {
     public log:         Brolog,
     public loadingCtrl: LoadingController,
     public navCtrl:     NavController,
-    public user:        User,
+    // public user:        User,
   ) {
     this.log.verbose('LoginPage', 'constructor()')
   }

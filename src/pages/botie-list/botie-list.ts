@@ -34,7 +34,7 @@ export class BotieListPage implements OnInit, OnDestroy {
   // private hostieListSubscription: Subscription
 
   constructor(
-    public database:    Database,
+    // public database:    Database,
     public hostieStore: HostieStore,
     public log:         Brolog,
     public navCtrl:     NavController,

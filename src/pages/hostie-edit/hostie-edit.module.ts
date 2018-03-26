@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
-import { HostieEditPage } from './hostie-edit';
+import { NgModule } from '@angular/core'
+import { IonicPageModule } from 'ionic-angular'
+import { HostieEditPage } from './hostie-edit'
 
 @NgModule({
   declarations: [

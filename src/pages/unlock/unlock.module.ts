@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
-import { UnlockPage } from './unlock';
+import { NgModule } from '@angular/core'
+import { IonicPageModule } from 'ionic-angular'
+import { UnlockPage } from './unlock'
 
 @NgModule({
   declarations: [

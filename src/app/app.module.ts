@@ -12,11 +12,10 @@ import {
   ErrorHandler,
   NgModule,
 }                         from '@angular/core'
-// import {
-//   CloudSettings,
-//   CloudModule,
-// }                         from '@ionic/cloud-angular'
-// import { Storage }        from '@ionic/storage'
+import {
+  IonicStorageModule,
+  Storage,
+}                         from '@ionic/storage'
 
 import {
   IonicApp,
@@ -24,13 +23,7 @@ import {
   IonicErrorHandler,
 }                         from 'ionic-angular'
 
-import { log }      from '../config'
-
 // import { Http }           from '@angular/http'
-// import {
-  // AuthConfig,
-  // AuthHttp,
-// }                         from 'angular2-jwt'
 
 // import { WechatyModule }  from '@chatie/angular'
 
@@ -40,10 +33,20 @@ import { StatusBar }      from '@ionic-native/status-bar'
 import { SplashScreen }   from '@ionic-native/splash-screen'
 import {
   Db,
+  DbOptions,
   HostieStore,
 }                         from '@chatie/db'
 
-// import { Auth }           from '../providers/auth'
+import {
+  JWT_OPTIONS,
+  JwtModule,
+  JwtModuleOptions,
+}                           from '@auth0/angular-jwt'
+import { HttpClientModule } from '@angular/common/http'
+
+import { log }      from '../config'
+
+import { Auth }           from '../providers/auth'
 import { ChatieApp }      from './app.component'
 
 // const { app_id } = require('../../ionic.config.json')
@@ -96,12 +99,16 @@ import { WelcomePage }        from '../pages/welcome/'
  * https://angular.io/docs/ts/latest/guide/dependency-injection.html#!#factory-provider
  */
 function dbFactory(
-  // auth: Auth,
-  brolog:  Brolog,
+  auth:   Auth,
+  brolog: Brolog,
 ) {
-  const db = new Db({
+  const dbOptions: DbOptions = {
     log: brolog,
-  })
+  }
+
+  const db = new Db(dbOptions)
+
+  // auth.token.subscribe(token => db.setToken(token))
 
   // // auth.profile.subscribe( ({email}) => db.setToken(email!))
 
@@ -119,14 +126,24 @@ function configFactory(
   }
 }
 
-// https://github.com/auth0-samples/auth0-ionic2-samples/blob/master/01-Login/src/app/app.module.ts
-// const storage = new Storage()
-// export function getAuthHttp(http: Http) {
-//   return new AuthHttp(new AuthConfig({
-//     globalHeaders: [{'Accept': 'application/json'}],
-//     tokenGetter: (() => storage.get('id_token')),
-//   }), http);
-// }
+export function jwtOptionsFactory(storage: Storage) {
+  const jwtOptions: JwtModuleOptions = {
+    config: {
+      tokenGetter: () => {
+        return storage.get('access_token')
+      },
+      whitelistedDomains: [
+        'localhost:3001',
+        'chatie.io',
+      ],
+      blacklistedRoutes: ['localhost:3001/auth/'],
+      throwNoTokenError: false,
+      skipWhenExpired: true,
+    },
+  }
+
+  return jwtOptions.config
+}
 
 @NgModule({
   declarations: [
@@ -152,8 +169,16 @@ function configFactory(
   ],
   imports: [
     BrowserModule,
-    // CloudModule.forRoot(cloudSettings),
+    HttpClientModule,
     IonicModule.forRoot(ChatieApp),
+    IonicStorageModule.forRoot(),
+    JwtModule.forRoot({
+      jwtOptionsProvider: {
+        provide:    JWT_OPTIONS,
+        useFactory: jwtOptionsFactory,
+        deps:       [Storage],
+      },
+    }),
     // WechatyModule,
   ],
   bootstrap: [IonicApp],
@@ -179,16 +204,9 @@ function configFactory(
     WelcomePage,
   ],
   providers: [
+    Auth,
     StatusBar,
     SplashScreen,
-    // AuthHttp,
-    // Auth,
-    // {
-    //   provide:      AuthHttp,
-    //   useFactory:   getAuthHttp,
-    //   deps:         [Http],
-    // },
-
     {
       provide:      Brolog,
       useValue:     log,
@@ -196,7 +214,7 @@ function configFactory(
     {
       provide:      Db,
       useFactory:   dbFactory,
-      deps:         [Brolog],
+      deps:         [Auth, Brolog],
     },
     {
       provide:      HostieStore,

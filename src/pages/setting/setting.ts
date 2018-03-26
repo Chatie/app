@@ -1,5 +1,6 @@
 import { Component }  from '@angular/core'
 import {
+  IonicPage,
   NavController,
   NavParams,
 }                     from 'ionic-angular'
@@ -26,19 +27,19 @@ export class SettingPage {
     this.log.verbose('SettingPage', 'constructor()')
   }
 
-  ionViewDidLoad() {
+  public ionViewDidLoad() {
     this.log.verbose('SettingPage', 'ionViewDidLoad()')
   }
 
-  about() {
+  public about() {
     this.navCtrl.push(AboutPage)
   }
 
-  help() {
+  public help() {
     this.navCtrl.push(HelpPage)
   }
 
-  gotoLogoutPage() {
+  public gotoLogoutPage() {
     this.navCtrl.push(LogoutPage)
   }
 }

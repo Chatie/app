@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
-import { SettingPage } from './setting';
+import { NgModule } from '@angular/core'
+import { IonicPageModule } from 'ionic-angular'
+import { SettingPage } from './setting'
 
 @NgModule({
   declarations: [
