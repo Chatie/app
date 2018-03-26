@@ -1,7 +1,7 @@
 {
   "name": "@chatie/app",
   "description": "Chatie App",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "author": "Huan LI <zixia@zixia.net>",
   "homepage": "https://github.com/chatie/app/",
   "license": "Apache-2.0",
