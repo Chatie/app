@@ -3,11 +3,11 @@ import {
 }                   from '@angular/core'
 import { Storage }  from '@ionic/storage'
 
-import {
-  AuthHttp,
-  JwtHelper,
-  tokenNotExpired,
-}                   from 'angular2-jwt'
+// import {
+//   AuthHttp,
+//   JwtHelper,
+//   tokenNotExpired,
+// }                   from 'angular2-jwt'
 import {
   Auth0UserProfile,
   WebAuth,
@@ -113,7 +113,7 @@ export class Auth {
     this.init()
   }
 
-  async init() {
+  public async init() {
     this.log.verbose('Auth', 'init()')
 
     this.snapshot     = {} as AuthSnapshot
@@ -251,7 +251,7 @@ export class Auth {
     return auth0Lock
   }
 
-  async getProfile(): Promise<Auth0UserProfile> {
+  public async getProfile(): Promise<Auth0UserProfile> {
     this.log.verbose('Auth', 'getProfile()')
 
     return new Promise<Auth0UserProfile>((resolve, reject) => {
@@ -281,7 +281,7 @@ export class Auth {
     })
   }
 
-  getWebAuth() {
+  public getWebAuth() {
     this.log.verbose('Auth', 'getWebAuth()')
 
     return new WebAuth({
@@ -433,13 +433,13 @@ getProfile(idToken: string): Observable<any>{
       const iat = new Date(0)
       const exp = new Date(0)
 
-      const delay = (exp.setUTCSeconds(jwtExp) - iat.setUTCSeconds(jwtIat));
+      const delay = (exp.setUTCSeconds(jwtExp) - iat.setUTCSeconds(jwtIat))
 
       return Observable.interval(delay)
     })
 
     this.refreshSubscription = source.subscribe(() => {
-      this.getNewJwt();
+      this.getNewJwt()
     })
   }
 
@@ -467,15 +467,16 @@ getProfile(idToken: string): Observable<any>{
           // Use the delay in a timer to
           // run the refresh at the proper time
           return Observable.timer(delay)
-        })
+        },
+      )
 
-        // Once the delay time from above is
-        // reached, get a new JWT and schedule
-        // additional refreshes
-        source.subscribe(() => {
-          this.getNewJwt()
-          this.scheduleRefresh()
-        })
+      // Once the delay time from above is
+      // reached, get a new JWT and schedule
+      // additional refreshes
+      source.subscribe(() => {
+        this.getNewJwt()
+        this.scheduleRefresh()
+      })
     }
   }
 
@@ -537,7 +538,7 @@ getProfile(idToken: string): Observable<any>{
     }
   }
 
-  async save(): Promise<void> {
+  public async save(): Promise<void> {
     this.log.verbose('Auth', 'save()')
 
     await this.storage.ready()
@@ -549,7 +550,7 @@ getProfile(idToken: string): Observable<any>{
     this.storage.set(STORAGE_KEY.USER_PROFILE,  this.snapshot.profile)
   }
 
-  async remove(): Promise<void> {
+  public async remove(): Promise<void> {
     this.log.verbose('Auth', 'remove()')
 
     await this.storage.ready()
@@ -566,7 +567,7 @@ getProfile(idToken: string): Observable<any>{
     this.refreshToken = null
   }
 
-  async load(): Promise<void> {
+  public async load(): Promise<void> {
     this.log.verbose('Auth', 'load()')
 
     await this.storage.ready()

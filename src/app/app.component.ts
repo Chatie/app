@@ -25,8 +25,6 @@ import { Brolog }   from 'brolog'
 
 // import { Auth }             from '../providers/auth'
 
-import { HomePage } from '../pages/home/home'
-import { ListPage } from '../pages/list/list'
 // import { BotieListPage }    from '../pages/botie-list/'
 import { DashboardPage }    from '../pages/dashboard/'
 // import { HostieListPage }   from '../pages/hostie-list/'
@@ -44,13 +42,13 @@ import { DashboardPage }    from '../pages/dashboard/'
 export class ChatieApp {
   @ViewChild(Nav) private nav: Nav
 
-  public rootPage: any = HomePage
+  public rootPage: any = DashboardPage
 
   public pages: Array<{
     title:      string,
     icon:       string,
     component:  any,
- }>
+  }>
 
   constructor(
     // public auth:      Auth,
@@ -60,14 +58,14 @@ export class ChatieApp {
     public splashScreen:  SplashScreen,
     public menu:      MenuController,
   ) {
+    console.log(log)
+    console.log(this.log)
     this.log.verbose('ChatieApp', 'constructor()')
 
     this.initializeApp()
 
     // set our app's pages
     this.pages = [
-      { title: 'Home', icon: 'home', component: HomePage },
-      { title: 'List', icon: 'home', component: ListPage },
       { title: 'Dashboard'  , icon: 'speedometer' , component: DashboardPage },
       // { title: 'Gifties'    , icon: 'school'      , component: GiftieListPage },
       // { title: 'Gifties'    , icon: 'flash'       , component: GiftieListPage },

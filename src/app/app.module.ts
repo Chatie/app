@@ -109,12 +109,15 @@ function dbFactory(
 
   return db
 }
+function hostieStoreFactory(db: Db) {
+  return new HostieStore(db)
+}
 
 function configFactory(
   db: Db,
 ) {
   return async () => {
-    await db.open()
+    // await db.open()
   }
 }
 
@@ -203,7 +206,7 @@ function configFactory(
     },
     {
       provide:      HostieStore,
-      useFactory:   (db: Db) => new HostieStore(db),
+      useFactory:   hostieStoreFactory,
       deps:         [Db],
     },
     {
