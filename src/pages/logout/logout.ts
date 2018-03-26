@@ -1,5 +1,6 @@
 import { Component }  from '@angular/core'
 import {
+  IonicPage,
   Loading,
   LoadingController,
   NavController,
@@ -11,12 +12,13 @@ import { Brolog }     from 'brolog'
 import { Auth }       from '../../providers/auth'
 import { LoginPage }  from '../login/'
 
+@IonicPage()
 @Component({
   selector:     'page-logout',
   templateUrl:  'logout.html',
 })
 export class LogoutPage {
-  loading: Loading | null = null
+  public loading: Loading | null = null
 
   constructor(
     public auth:        Auth,
@@ -29,7 +31,7 @@ export class LogoutPage {
 
   }
 
-  ionViewDidLoad() {
+  public ionViewDidLoad() {
     this.log.verbose('LogoutPage', 'ionViewDidLoad()')
 
     if (!this.auth.snapshot.valid) {
@@ -38,7 +40,7 @@ export class LogoutPage {
 
   }
 
-  showLoader(): void {
+  public showLoader(): void {
     this.log.verbose('LogoutPage', 'showLoader()')
 
     this.loading = this.loadingCtrl.create({
@@ -47,7 +49,7 @@ export class LogoutPage {
     this.loading.present()
   }
 
-  hideLoader(): void {
+  public hideLoader(): void {
     this.log.verbose('LogoutPage', 'hideLoader()')
 
     if (!this.loading) {
@@ -57,7 +59,7 @@ export class LogoutPage {
     this.loading = null
   }
 
-  async logout() {
+  public async logout() {
     this.log.verbose('LogoutPage', 'logout()')
 
     this.showLoader()

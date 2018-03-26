@@ -10,6 +10,7 @@ import { AboutPage }  from '../about/'
 import { HelpPage }   from '../help/'
 import { LogoutPage } from '../logout/'
 
+@IonicPage()
 @Component({
   selector:     'page-setting',
   templateUrl:  'setting.html',
