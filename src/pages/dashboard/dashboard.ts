@@ -12,9 +12,6 @@ import {
   OnDestroy,
 }                         from '@angular/core'
 import {
-  Pro,
-}                         from '@ionic/pro'
-import {
   IonicPage,
   NavController,
   NavParams,
@@ -58,24 +55,6 @@ export class DashboardPage implements OnInit, OnDestroy {
     public navParams:     NavParams,
   ) {
     this.log.verbose('DashboardPage', 'constructor()')
-
-    Pro.monitoring.exception(new Error('test pro monitoring exception'))
-    Pro.monitoring.log('This happens sometimes for level: error', { level: 'error' })
-    try {
-      Pro.monitoring.call(() => {
-        throw new Error('test Pro.monitoring.call() error')
-      })
-    } catch (e) {
-      console.log('call function exception catched')
-    }
-    const newFn = Pro.monitoring.wrap(() => {
-      throw new Error('test Pro.monitoring.wrap newFn() error')
-    })
-    try {
-      newFn()
-    } catch (e) {
-      console.log('call wrap func error')
-    }
 
     this.hostieList       = []
     this.hostieActiveNum  = 0

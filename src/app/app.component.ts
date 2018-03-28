@@ -28,9 +28,9 @@ import { Auth }             from '../providers/auth'
 // import { BotieListPage }    from '../pages/botie-list/'
 import { DashboardPage }    from '../pages/dashboard/'
 // import { HostieListPage }   from '../pages/hostie-list/'
-import { FeedbackPage }     from '../pages/feedback/'
+// import { FeedbackPage }     from '../pages/feedback/'
 // import { LoginPage }        from '../pages/login/'
-import { SettingPage }      from '../pages/setting/'
+// import { SettingPage }      from '../pages/setting/'
 // import { WelcomePage }    from '../pages/welcome/'
 
 // Week Type Detection of TypeScript 2.4
@@ -69,8 +69,8 @@ export class ChatieApp {
       // { title: 'Gifties'    , icon: 'flash'       , component: GiftieListPage },
       // { title: 'Boties'     , icon: 'logo-android', component: BotieListPage },
       // { title: 'Hosties'    , icon: 'home'        , component: HostieListPage },
-      { title: 'Setting'    , icon: 'cog'         , component: SettingPage },
-      { title: 'Feedback'   , icon: 'people'      , component: FeedbackPage },
+      { title: 'Setting'    , icon: 'cog'         , component: 'SettingPage' },
+      { title: 'Feedback'   , icon: 'people'      , component: 'FeedbackPage' },
     ]
   }
 

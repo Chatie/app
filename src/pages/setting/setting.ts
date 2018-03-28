@@ -4,6 +4,9 @@ import {
   NavController,
   NavParams,
 }                     from 'ionic-angular'
+import {
+  Pro,
+}                     from '@ionic/pro'
 
 import { Brolog }     from 'brolog'
 
@@ -41,5 +44,29 @@ export class SettingPage {
 
   public gotoLogoutPage() {
     this.navCtrl.push(LogoutPage)
+  }
+
+  public testMonitoring() {
+
+    Pro.monitoring.exception(new Error('test Pro.monitoring.exception()'))
+    Pro.monitoring.log('test Pro.monitoring.log() This happens sometimes for level: error', { level: 'error' })
+
+    try {
+      Pro.monitoring.call(() => {
+        throw new Error('test Pro.monitoring.call() error')
+      })
+    } catch (e) {
+      console.log('call function exception still be throwed to outside')
+    }
+
+    const newFn = Pro.monitoring.wrap(() => {
+      throw new Error('test Pro.monitoring.wrap newFn() error')
+    })
+    try {
+      newFn()
+    } catch (e) {
+      console.log('call wrap func error still be throwed to outside')
+    }
+
   }
 }
