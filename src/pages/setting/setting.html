@@ -41,6 +41,15 @@
     Test Monitoring(Exception)
   </ion-item>
 
+  <p>I'm connected to the {{ deployChannel }}.</p>
+
+  <p>Download Progress {{ downloadProgress }} / 100</p>
+
+  <ion-item>
+    <ion-label>Opt in to Beta Features</ion-label>
+    <ion-toggle [(ngModel)]="isBeta" (ionChange)="toggleBeta()"></ion-toggle>
+  </ion-item>
+
   <ion-item
     button
     (click)="gotoLogoutPage()"
