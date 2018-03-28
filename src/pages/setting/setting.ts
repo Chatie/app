@@ -93,7 +93,7 @@ export class SettingPage {
 
   public async toggleBeta() {
     const config = {
-      channel: (this.isBeta ? 'Beta' : 'Production')
+      channel: (this.isBeta ? 'Beta' : 'Production'),
     }
 
     try {
