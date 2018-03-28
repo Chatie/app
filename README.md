@@ -17,6 +17,37 @@ description: "The <b>Ionic Platform</b> is a cloud platform for managing and sca
 
 # Development
 
+## Install
+
+### Android
+
+```shell
+sudo apt install \
+  adb \
+  android-platform-tools-base \
+  android-sdk \
+  android-sdk-platform-23 \
+  android-sdk \
+  android-sdk-platform-tools
+
+cd $ANDROID_HOME
+# download link comes from https://developer.android.com/studio/index.html
+wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip
+sudo unzip -n sdk-tools-linux-3859397.zip
+sudo chmod +x \
+  tools/bin/sdkmanager \
+  tools/bin/avdmanager
+
+# XXX: make sure the following line is required...?
+sudo ./tools/bin/sdkmanager "build-tools;27.0.3"
+
+# IMPORTANT: Accept all the licenses
+./tools/bin/sdkmanager --licenses
+
+```
+
+> https://stackoverflow.com/a/47948540/1123955
+
 ## Build
 
 ```shell

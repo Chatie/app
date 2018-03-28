@@ -9,12 +9,12 @@ KEYSTORE='akamobi.keystore'
   exit 1
 }
 
-APK_RELEASE_UNSIGNED='platforms/android/build/outputs/apk/android-release-unsigned.apk'
+APK_RELEASE_UNSIGNED='platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk'
 APK_RELEASE_SIGNED="Chatie-$VERSION.apk"
 
 # rm before re-build
 rm -f "$APK_RELEASE_UNSIGNED"
-ionic build android --release
+ionic cordova build android --release
 
 jarsigner -verbose \
   -sigalg SHA1withRSA \
@@ -26,7 +26,6 @@ jarsigner -verbose \
 
 # rm before re-generate
 rm -f "$APK_RELEASE_SIGNED"
-zipalign -v 4 \
+/usr/lib/android-sdk/build-tools/*/zipalign -v 4 \
   "$APK_RELEASE_UNSIGNED" \
   "$APK_RELEASE_SIGNED" \
-
