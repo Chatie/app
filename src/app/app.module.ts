@@ -10,6 +10,8 @@ import { BrowserModule } from '@angular/platform-browser'
 import {
   APP_INITIALIZER,
   ErrorHandler,
+  Injectable,
+  Injector,
   NgModule,
 }                         from '@angular/core'
 import {
@@ -23,17 +25,11 @@ import {
   IonicErrorHandler,
 }                         from 'ionic-angular'
 
-import { WechatyModule }  from '@chatie/angular'
-
-import { Brolog }         from 'brolog'
-
+// These are all imports required for Pro Client with Monitoring & Deploy,
+// feel free to merge into existing imports above.
+import { Pro }            from '@ionic/pro'
 import { StatusBar }      from '@ionic-native/status-bar'
 import { SplashScreen }   from '@ionic-native/splash-screen'
-import {
-  Db,
-  DbOptions,
-  HostieStore,
-}                         from '@chatie/db'
 
 import {
   JWT_OPTIONS,
@@ -42,12 +38,50 @@ import {
 }                           from '@auth0/angular-jwt'
 import { HttpClientModule } from '@angular/common/http'
 
-import { log }      from '../config'
+import { Brolog }         from 'brolog'
+
+import { WechatyModule }  from '@chatie/angular'
+import {
+  Db,
+  DbOptions,
+  HostieStore,
+}                         from '@chatie/db'
 
 import { Auth }           from '../providers/auth'
+
+import {
+  VERSION,
+  log,
+}                         from '../config'
+
 import { ChatieApp }      from './app.component'
 
-// const { app_id } = require('../../ionic.config.json')
+const { app_id } = require('../../ionic.config.json')
+Pro.init(app_id, {
+  appVersion: VERSION,
+})
+
+@Injectable()
+export class ProErrorHandler implements ErrorHandler {
+  private ionicErrorHandler: IonicErrorHandler
+
+  constructor(injector: Injector) {
+    try {
+      this.ionicErrorHandler = injector.get(IonicErrorHandler)
+    } catch (e) {
+      // Unable to get the IonicErrorHandler provider, ensure
+      // IonicErrorHandler has been added to the providers list below
+      throw e
+    }
+  }
+
+  public handleError(err: any): void {
+    Pro.monitoring.handleNewError(err)
+    // Remove this if you want to disable Ionic's auto exception handling
+    // in development mode.
+    this.ionicErrorHandler.handleError(err)
+  }
+}
 
 // const cloudSettings: CloudSettings = {
 //   core: {
@@ -73,30 +107,30 @@ import { ChatieApp }      from './app.component'
 /**
  * << Pages >>
  */
-import { AboutPage }          from '../pages/about/'
-import { BotieListPage }      from '../pages/botie-list/'
-import { BotieDetailsPage }   from '../pages/botie-details/'
-import { DashboardPage }      from '../pages/dashboard/'
-import { FeedbackPage }       from '../pages/feedback/'
-import { GiftieListPage }     from '../pages/giftie-list/'
-import { HelpPage }           from '../pages/help/'
-import { HostieDetailsPage }  from '../pages/hostie-details/'
-import { HostieEditPage }     from '../pages/hostie-edit/'
-import { HostieListPage }     from '../pages/hostie-list/'
-import { HostieCreatePage }   from '../pages/hostie-create/'
-import { LoginPage }          from '../pages/login/'
-import { LogoutPage }         from '../pages/logout/'
-import { SettingPage }        from '../pages/setting/'
-import { StatusPage }         from '../pages/status/'
-import { UnlockPage }         from '../pages/unlock/'
-import { WelcomePage }        from '../pages/welcome/'
+import { AboutPageModule }          from '../pages/about/'
+import { BotieListPageModule }      from '../pages/botie-list/'
+import { BotieDetailsPageModule }   from '../pages/botie-details/'
+import { DashboardPageModule }      from '../pages/dashboard/'
+import { FeedbackPageModule }       from '../pages/feedback/'
+import { GiftieListPageModule }     from '../pages/giftie-list/'
+import { HelpPageModule }           from '../pages/help/'
+import { HostieDetailsPageModule }  from '../pages/hostie-details/'
+import { HostieEditPageModule }     from '../pages/hostie-edit/'
+import { HostieListPageModule }     from '../pages/hostie-list/'
+import { HostieCreatePageModule }   from '../pages/hostie-create/'
+import { LoginPageModule }          from '../pages/login/'
+import { LogoutPageModule }         from '../pages/logout/'
+import { SettingPageModule }        from '../pages/setting/'
+import { StatusPageModule }         from '../pages/status/'
+import { UnlockPageModule }         from '../pages/unlock/'
+import { WelcomePageModule }        from '../pages/welcome/'
 
 /**
  *
  * Angular DEPENDENCY INJECTION - Factory Provider
  * https://angular.io/docs/ts/latest/guide/dependency-injection.html#!#factory-provider
  */
-function dbFactory(
+export function dbFactory(
   auth:   Auth,
   brolog: Brolog,
 ) {
@@ -112,11 +146,11 @@ function dbFactory(
 
   return db
 }
-function hostieStoreFactory(db: Db) {
+export function hostieStoreFactory(db: Db) {
   return new HostieStore(db)
 }
 
-function configFactory(
+export function configFactory(
   db: Db,
 ) {
   return async () => {
@@ -147,26 +181,44 @@ export function jwtOptionsFactory(storage: Storage) {
   declarations: [
     ChatieApp,
     // << Pages >>
-    AboutPage,
-    BotieListPage,
-    BotieDetailsPage,
-    DashboardPage,
-    FeedbackPage,
-    GiftieListPage,
-    HelpPage,
-    HostieCreatePage,
-    HostieDetailsPage,
-    HostieEditPage,
-    HostieListPage,
-    LoginPage,
-    LogoutPage,
-    SettingPage,
-    StatusPage,
-    UnlockPage,
-    WelcomePage,
+    // BotieListPage,
+    // BotieDetailsPage,
+    // DashboardPage,
+    // FeedbackPage,
+    // GiftieListPage,
+    // HelpPage,
+    // HostieCreatePage,
+    // HostieDetailsPage,
+    // HostieEditPage,
+    // HostieListPage,
+    // LoginPage,
+    // LogoutPage,
+    // SettingPage,
+    // StatusPage,
+    // UnlockPage,
+    // WelcomePage,
   ],
   imports: [
+    // << Page Modules >>
+    AboutPageModule,
     BrowserModule,
+    BotieDetailsPageModule,
+    BotieListPageModule,
+    DashboardPageModule,
+    FeedbackPageModule,
+    GiftieListPageModule,
+    HelpPageModule,
+    HostieCreatePageModule,
+    HostieDetailsPageModule,
+    HostieEditPageModule,
+    HostieListPageModule,
+    LoginPageModule,
+    LogoutPageModule,
+    SettingPageModule,
+    StatusPageModule,
+    UnlockPageModule,
+    WelcomePageModule,
+    // Others
     HttpClientModule,
     IonicModule.forRoot(ChatieApp),
     IonicStorageModule.forRoot(),
@@ -183,26 +235,26 @@ export function jwtOptionsFactory(storage: Storage) {
   entryComponents: [
     ChatieApp,
     // << Pages >>
-    AboutPage,
-    BotieDetailsPage,
-    BotieListPage,
-    DashboardPage,
-    FeedbackPage,
-    GiftieListPage,
-    HelpPage,
-    HostieCreatePage,
-    HostieDetailsPage,
-    HostieEditPage,
-    HostieListPage,
-    LoginPage,
-    LogoutPage,
-    SettingPage,
-    StatusPage,
-    UnlockPage,
-    WelcomePage,
+    // BotieDetailsPage,
+    // BotieListPage,
+    // DashboardPage,
+    // FeedbackPage,
+    // GiftieListPage,
+    // HelpPage,
+    // HostieCreatePage,
+    // HostieDetailsPage,
+    // HostieEditPage,
+    // HostieListPage,
+    // LoginPage,
+    // LogoutPage,
+    // SettingPage,
+    // StatusPage,
+    // UnlockPage,
+    // WelcomePage,
   ],
   providers: [
     Auth,
+    IonicErrorHandler,
     StatusBar,
     SplashScreen,
     {
@@ -221,7 +273,7 @@ export function jwtOptionsFactory(storage: Storage) {
     },
     {
       provide:      ErrorHandler,
-      useClass:     IonicErrorHandler,
+      useClass:     ProErrorHandler,
     },
     {
       provide:      APP_INITIALIZER,

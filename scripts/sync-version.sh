@@ -18,7 +18,7 @@ sed -i.bak \
 
 rm -f config.xml.bak
 
-MSG="bump(version): app v $VERSION -> $VERSION_NEXT by sync-version.sh"
+MSG="bumping $VERSION -> $VERSION_NEXT"
 echo
 echo "$MSG"
 echo
