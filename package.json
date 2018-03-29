@@ -62,7 +62,6 @@
   "devDependencies": {
     "@ionic/app-scripts": "^3.1.8",
     "@types/auth0-lock": "^10.16.4",
-    "@types/moment": "^2.13.0",
     "@types/node": "^9.4.7",
     "babel-eslint": "^8.2.2",
     "cordova": "^8.0.0",
