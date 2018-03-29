@@ -1,7 +1,7 @@
 {
   "name": "@chatie/app",
   "description": "Chatie App",
-  "version": "0.2.8",
+  "version": "0.2.12",
   "author": "Huan LI <zixia@zixia.net>",
   "homepage": "https://github.com/chatie/app/",
   "license": "Apache-2.0",
@@ -19,9 +19,10 @@
     "ionic:build": "ionic-app-scripts build",
     "ionic:monitoring:syncmaps": "(sleep 1 && echo \"y\n\" && sleep 1 && echo \"y\n\") | ionic monitoring syncmaps",
     "ionic:serve": "ionic-app-scripts serve",
-    "lint": "npm run lint:ionic && npm run lint:ts",
+    "lint": "npm run lint:ts && npm run lint:ionic",
     "lint:ts": "tslint --project tsconfig.json \"{src,tests}/**/*.ts\" && tsc --noEmit",
-    "lint:ionic": "ionic-app-scripts lint"
+    "lint:ionic": "ionic-app-scripts lint",
+    "test": "echo To Be Tested"
   },
   "dependencies": {
     "@angular/animations": "5.2.9",
@@ -44,6 +45,7 @@
     "auth0-lock": "^11.5.1",
     "brolog": "^1.2.14",
     "cordova-android": "7.0.0",
+    "cordova-ios": "4.5.4",
     "cordova-plugin-device": "^2.0.1",
     "cordova-plugin-ionic": "^3.1.3",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
@@ -61,7 +63,6 @@
   "devDependencies": {
     "@ionic/app-scripts": "^3.1.8",
     "@types/auth0-lock": "^10.16.4",
-    "@types/moment": "^2.13.0",
     "@types/node": "^9.4.7",
     "babel-eslint": "^8.2.2",
     "cordova": "^8.0.0",
@@ -85,7 +86,9 @@
         "MAX_STORE": "2"
       }
     },
-    "platforms": []
+    "platforms": [
+      "ios"
+    ]
   },
   "git": {
     "scripts": {
