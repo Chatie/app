@@ -1,0 +1,67 @@
+language: node_js
+node_js:
+  - "9"
+
+os:
+  - linux
+  - osx
+
+addons:
+  apt:
+    packages:
+      - jq
+      - shellcheck
+      - moreutils
+
+cache:
+  directories:
+    - node_modules
+
+before_install:
+  - if [ "$TRAVIS_OS_NAME" == 'linux' ];  then scripts/prepare-linux.sh;  fi
+  - if [ "$TRAVIS_OS_NAME" == 'osx' ];    then scripts/prepare-osx.sh;    fi
+
+script:
+  - echo $TRAVIS_OS_NAME
+  - node --version
+  - npm --version
+  - npm run lint
+  - npm test
+
+after_success:
+  - if [ "$TRAVIS_OS_NAME" == 'linux' ]; then echo 'TODO update coverage'; fi
+
+stages:
+  - test
+  # - pack
+  # - name: deploy
+  #   if: branch =~ ^(master|v\d+\.\d+)
+
+# jobs:
+#   include:
+#     - stage: pack
+#       script:
+#         - npm run test:pack && echo 'Npm pack testing is passed'
+
+#     - stage: deploy
+#       script:
+#         - echo "Deploying to NPM ..."
+#         - npm version
+#         - npm run dist
+
+#       deploy:
+#         provider: npm
+#         email: zixia@zixia.net
+#         api_key: "$NPM_TOKEN"
+#         skip_cleanup: true
+
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/41a19fbf1d54a04e5217
+    on_success: always  # options: [always|never|change] default: always
+    on_failure: always  # options: [always|never|change] default: always
+    on_start: never     # options: [always|never|change] default: always
+  email:
+    on_success: change
+    on_failure: change
