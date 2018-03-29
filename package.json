@@ -18,7 +18,7 @@
     "clean": "ionic-app-scripts clean",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
-    "lint": "npm run lint:ionic && npm run lint:ts",
+    "lint": "npm run lint:ts && npm run lint:ionic",
     "lint:ts": "tslint --project tsconfig.json \"{src,tests}/**/*.ts\" && tsc --noEmit",
     "lint:ionic": "ionic-app-scripts lint",
     "test": "echo To Be Tested"

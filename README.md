@@ -24,7 +24,14 @@ Chatie.io - Make your own ChatBot in no language, in minutes.
 ```shell
 # Ios: https://cocoapods.org/
 $ sudo gem install cocoapods
+
+./scripts/ios.sh
+
 ```
+
+* Xcode -> Product -> 
+    1. Build
+    1. Archive
 
 ## Learning Resources
 
