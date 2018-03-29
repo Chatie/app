@@ -19,7 +19,11 @@ import {
   Observable,
   Subscription,
 }                   from 'rxjs/Rx'
-import              'rxjs/add/operator/map'
+import                   'rxjs/add/operator/map'
+
+import {
+  AUTH0_SETTINGS,
+}                   from '../config'
 
 const STORAGE_KEY = {
   ACCESS_TOKEN:   'access_token',
@@ -30,14 +34,6 @@ const STORAGE_KEY = {
    * Silent Authentication: https://auth0.com/docs/api-auth/tutorials/silent-authentication
    */
   REFRESH_TOKEN:  'refresh_token',
-}
-
-/**
- * Auth0 API Configuration
- */
-const AUTH0 = {
-  CLIENT_ID:  'kW2jmKVAO6xMY9H4fYPUtFJSSRJbe3sz',
-  DOMAIN:     'zixia.auth0.com',
 }
 
 interface AuthSnapshot {
@@ -191,8 +187,8 @@ export class Auth {
     }
 
     const auth0Lock = new Auth0Lock(
-      AUTH0.CLIENT_ID,
-      AUTH0.DOMAIN,
+      AUTH0_SETTINGS.CLIENT_ID,
+      AUTH0_SETTINGS.DOMAIN,
       options,
     )
 
@@ -283,8 +279,8 @@ export class Auth {
     this.log.verbose('Auth', 'getWebAuth()')
 
     return new WebAuth({
-      clientID: AUTH0.CLIENT_ID,
-      domain:   AUTH0.DOMAIN,
+      clientID: AUTH0_SETTINGS.CLIENT_ID,
+      domain:   AUTH0_SETTINGS.DOMAIN,
     })
   }
 
