@@ -15,11 +15,14 @@ title: "What isPlatform?",
 description: "The <b>Ionic Platform</b> is a cloud platform for managing and scaling Ionic apps with integrated services like push notifications, native builds, user auth, and live updating.",
 
 
-# Development
+# DEVELOPMENT
 
-## Install
+## Linux
 
-### Android
+OS: Ubuntu 17.10
+
+### Install Android SDK
+
 
 ```shell
 sudo apt install \
@@ -46,14 +49,32 @@ sudo ./tools/bin/sdkmanager "build-tools;27.0.3"
 
 ```
 
-> https://stackoverflow.com/a/47948540/1123955
+### Build Android APK
 
-## Build
+```shell
+./scripts/android.sh
+```
+
+
+## Mac
+
+### Install ...
 
 ```shell
 # Ios: https://cocoapods.org/
 $ sudo gem install cocoapods
 ```
+
+# APP PUBLISHING
+
+## Google Play
+
+* https://play.google.com/apps/publish/
+
+## Apple Store
+
+* https://developer.apple.com
+* https://itunesconnect.apple.com/
 
 ## Learning Resources
 
