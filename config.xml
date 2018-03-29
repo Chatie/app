@@ -88,4 +88,5 @@
         <variable name="UPDATE_API" value="https://api.ionicjs.com" />
         <variable name="MAX_STORE" value="2" />
     </plugin>
+    <engine name="ios" spec="4.5.4" />
 </widget>
