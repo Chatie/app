@@ -91,6 +91,13 @@ $ sudo gem install cocoapods
 
 ## Auth0
 
+* [OAuth 2.0](https://auth0.com/docs/protocols/oauth2)
+* [Silent Authentication](https://auth0.com/docs/api-auth/tutorials/silent-authentication)
+* [Doc for Get User Info](https://auth0.com/docs/api/authentication#get-user-info)
+* [Calling your APIs with Auth0 tokens](https://auth0.com/docs/api-auth/tutorials/adoption/api-tokens)
+* [User profile claims and scope](https://auth0.com/docs/api-auth/tutorials/adoption/scope-custom-claims)
+* [Tokens used by Auth0](https://auth0.com/docs/tokens)
+* [What is the right setup for Lock + SPA + Native + Rest API?](https://community.auth0.com/t/what-is-the-right-setup-for-lock-spa-native-rest-api/6316/2)
 * [Auth0 Ionic2 Quick Start](https://auth0.com/docs/quickstart/native/ionic2)
 * [Ionic 2 and Auth0(outdated: v0.9)](http://blog.ionic.io/ionic-2-and-auth0/)
 * [Experimenting With Auth0 Passwordless Email Authentication In Angular 2.4.1](https://www.bennadel.com/blog/3207-experimenting-with-auth0-passwordless-email-authentication-in-angular-2-4-1.htm)
