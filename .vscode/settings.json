@@ -1,11 +1,12 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    "typescript.tsdk": "node_modules/typescript/lib"
-  , "editor.tabSize": 2
-  , "window.zoomLevel": 0
-  , "editor.minimap.enabled": true
-  , "files.exclude": {
-      "node_modules/": true
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.tabSize": 2,
+  "window.zoomLevel": 0,
+  "editor.minimap.enabled": true,
+  "files.exclude": {
+      ".sourcemaps/": true
+    , "node_modules/": true
     , "www/": true
     , "platforms/": true
     , "hooks/": true
