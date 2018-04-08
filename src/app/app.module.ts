@@ -16,7 +16,7 @@ import {
 }                         from '@angular/core'
 import {
   IonicStorageModule,
-  Storage,
+  // Storage,
 }                         from '@ionic/storage'
 
 import {
@@ -31,23 +31,16 @@ import { Pro }            from '@ionic/pro'
 import { StatusBar }      from '@ionic-native/status-bar'
 import { SplashScreen }   from '@ionic-native/splash-screen'
 
-import {
-  JWT_OPTIONS,
-  JwtModule,
-  JwtModuleOptions,
-}                           from '@auth0/angular-jwt'
 import { HttpClientModule } from '@angular/common/http'
 
 import { Brolog }         from 'brolog'
 
 import { WechatyModule }  from '@chatie/angular'
 import {
-  Db,
-  DbOptions,
-  HostieStore,
+  DbModule,
 }                         from '@chatie/db'
 
-import { Auth }           from '../providers/auth'
+import { AuthModule }     from 'auth-angular'
 
 import {
   VERSION,
@@ -125,56 +118,11 @@ import { StatusPageModule }         from '../pages/status/'
 import { UnlockPageModule }         from '../pages/unlock/'
 import { WelcomePageModule }        from '../pages/welcome/'
 
-/**
- *
- * Angular DEPENDENCY INJECTION - Factory Provider
- * https://angular.io/docs/ts/latest/guide/dependency-injection.html#!#factory-provider
- */
-export function dbFactory(
-  auth:   Auth,
-  brolog: Brolog,
-) {
-  const dbOptions: DbOptions = {
-    log: brolog,
-  }
-
-  const db = new Db(dbOptions)
-
-  // auth.token.subscribe(token => db.setToken(token))
-
-  // // auth.profile.subscribe( ({email}) => db.setToken(email!))
-
-  return db
-}
-export function hostieStoreFactory(db: Db) {
-  return new HostieStore(db)
-}
-
-export function configFactory(
-  db: Db,
-) {
+export function appInitializerFactory() {
+  // Be careful: this will block the ui when starting the app
   return async () => {
     // await db.open()
   }
-}
-
-export function jwtOptionsFactory(storage: Storage) {
-  const jwtOptions: JwtModuleOptions = {
-    config: {
-      tokenGetter: () => {
-        return storage.get('access_token')
-      },
-      whitelistedDomains: [
-        'localhost:3001',
-        'chatie.io',
-      ],
-      blacklistedRoutes: ['localhost:3001/auth/'],
-      throwNoTokenError: false,
-      skipWhenExpired: true,
-    },
-  }
-
-  return jwtOptions.config
 }
 
 @NgModule({
@@ -219,16 +167,11 @@ export function jwtOptionsFactory(storage: Storage) {
     UnlockPageModule,
     WelcomePageModule,
     // Others
+    AuthModule.forRoot(),
+    DbModule,
     HttpClientModule,
     IonicModule.forRoot(ChatieApp),
     IonicStorageModule.forRoot(),
-    JwtModule.forRoot({
-      jwtOptionsProvider: {
-        provide:    JWT_OPTIONS,
-        useFactory: jwtOptionsFactory,
-        deps:       [Storage],
-      },
-    }),
     WechatyModule,
   ],
   bootstrap: [IonicApp],
@@ -253,7 +196,6 @@ export function jwtOptionsFactory(storage: Storage) {
     // WelcomePage,
   ],
   providers: [
-    Auth,
     IonicErrorHandler,
     StatusBar,
     SplashScreen,
@@ -262,23 +204,13 @@ export function jwtOptionsFactory(storage: Storage) {
       useValue:     log,
     },
     {
-      provide:      Db,
-      useFactory:   dbFactory,
-      deps:         [Auth, Brolog],
-    },
-    {
-      provide:      HostieStore,
-      useFactory:   hostieStoreFactory,
-      deps:         [Db],
-    },
-    {
       provide:      ErrorHandler,
       useClass:     ProErrorHandler,
     },
     {
       provide:      APP_INITIALIZER,
-      useFactory:   configFactory,
-      deps:         [Db],
+      useFactory:   appInitializerFactory,
+      deps:         [],
       multi:        true,
     },
   ],
