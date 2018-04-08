@@ -41,8 +41,8 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <config-file platform="ios" target="*-Info.plist" parent="ITSAppUsesNonExemptEncryption">
-            <false/>
+        <config-file parent="ITSAppUsesNonExemptEncryption" platform="ios" target="*-Info.plist">
+            <false />
         </config-file>
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
