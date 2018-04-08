@@ -39,7 +39,7 @@ import { HostieListPage } from '../hostie-list/'
   templateUrl:  'dashboard.html',
 })
 export class DashboardPage implements OnInit, OnDestroy {
-  private subscription: Subscription
+  private subscription?: Subscription
 
     public hostieList: Hostie[]
     public hostieActiveNum
@@ -89,7 +89,9 @@ export class DashboardPage implements OnInit, OnDestroy {
 
   public ngOnDestroy() {
     this.log.verbose('DashboardPage', 'ngOnDestroy()')
-    this.subscription.unsubscribe()
+    if (this.subscription) {
+      this.subscription.unsubscribe()
+    }
   }
 
   public gotoHostieListPage() {
