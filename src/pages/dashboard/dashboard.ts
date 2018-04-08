@@ -18,13 +18,14 @@ import {
 }                         from 'ionic-angular'
 import {
   Subscription,
-}                         from 'rxjs/Subscription'
+}                         from 'rxjs/Rx'
 
 import { Brolog }         from 'brolog'
 
 import {
+  GiftieStore,
   Hostie,
-  Status,
+  // Status,
   HostieStore,
 }                         from '@chatie/db'
 
@@ -50,6 +51,7 @@ export class DashboardPage implements OnInit, OnDestroy {
   constructor(
     // public auth:          Auth,
     public hostieStore:   HostieStore,
+    public giftieStore:   GiftieStore,
     public log:           Brolog,
     public navCtrl:       NavController,
     public navParams:     NavParams,
@@ -73,17 +75,17 @@ export class DashboardPage implements OnInit, OnDestroy {
   // https://webcake.co/page-lifecycle-hooks-in-ionic-2/
   public ngOnInit() {
     this.log.verbose('DashboardPage', 'ngOnInit()')
-    console.log(this.hostieStore)
-    console.log(this.hostieStore.itemList)
-    console.log(this.hostieStore.itemList.subscribe)
+    // console.log(this.hostieStore)
+    // console.log(this.hostieStore.itemList)
+    // console.log(this.hostieStore.itemList.subscribe)
 
-    this.subscription = this.hostieStore.itemList.subscribe(list => {
-      this.log.verbose('DashboardPage', 'ngOnInit() hostieStore.itemList.subscribe()')
-      this.hostieList       = list
-      this.hostieActiveNum  = list
-                              .filter( l => l.status === Status.ON )
-                              .length
-    })
+    // this.subscription = this.hostieStore.itemList.subscribe(list => {
+    //   this.log.verbose('DashboardPage', 'ngOnInit() hostieStore.itemList.subscribe()')
+    //   this.hostieList       = list
+    //   this.hostieActiveNum  = list
+    //                           .filter( l => l.status === Status.ON )
+    //                           .length
+    // })
   }
 
   public ngOnDestroy() {
