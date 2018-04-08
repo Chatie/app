@@ -15,8 +15,7 @@ import {
   Subscription,
 }                         from 'rxjs/Subscription'
 
-import { Auth }           from '../../providers/auth'
-
+import { Auth }           from 'auth-angular'
 import { Brolog }         from 'brolog'
 
 import { DashboardPage }  from '../../pages/dashboard/'
@@ -47,13 +46,13 @@ export class LoginPage implements OnInit, OnDestroy {
   public ngOnInit() {
     this.log.verbose('LoginPage', 'ngOnInit()')
 
-    this.validSub = this.auth.valid.subscribe(valid => {
-      this.log.verbose('LoginPage', 'constructor() Auth.valid.subscribe() got:%s', valid)
-      if (valid) {
+    this.validSub = this.auth.idToken.subscribe(token => {
+      this.log.verbose('LoginPage', 'constructor() Auth.idToken.subscribe() got:%s', token)
+      if (token) {
         this.onLogin()
       }
     })
-    this.log.silly('LoginPage', 'constructor() Auth.valid.subscribe()-ed')
+    this.log.silly('LoginPage', 'constructor() Auth.idToken.subscribe()-ed')
 
   }
   public onLogin(): void {
@@ -64,9 +63,11 @@ export class LoginPage implements OnInit, OnDestroy {
   public ionViewDidLoad() {
     this.log.verbose('LoginPage', 'ngOnInit()')
 
-    if (this.auth.snapshot.valid) {
-      this.gotoDashboardPage()
-    }
+    this.auth.idToken.first().toPromise().then(token => {
+      if (token) {
+        this.gotoDashboardPage()
+      }
+    })
   }
 
   // https://webcake.co/page-lifecycle-hooks-in-ionic-2/

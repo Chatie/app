@@ -7,9 +7,9 @@ import {
   NavParams,
 }                     from 'ionic-angular'
 
+import { Auth }       from 'auth-angular'
 import { Brolog }     from 'brolog'
 
-import { Auth }       from '../../providers/auth'
 import { LoginPage }  from '../login/'
 
 @IonicPage()
@@ -34,10 +34,11 @@ export class LogoutPage {
   public ionViewDidLoad() {
     this.log.verbose('LogoutPage', 'ionViewDidLoad()')
 
-    if (!this.auth.snapshot.valid) {
-      this.logout()
-    }
-
+    this.auth.idToken.first().toPromise().then(token => {
+      if (!token) {
+        this.logout()
+      }
+    })
   }
 
   public showLoader(): void {

@@ -4,6 +4,7 @@ import {
   NavController,
 }  from 'ionic-angular'
 
+import { Auth }           from 'auth-angular'
 import { Brolog }         from 'brolog'
 import uuid               from 'uuid'
 
@@ -13,7 +14,6 @@ import {
   Status,
 }                         from '@chatie/db'
 
-import { Auth }           from '../../providers/auth'
 
 @IonicPage()
 @Component({
@@ -44,7 +44,8 @@ export class HostieCreatePage {
     this.log.verbose('HostieCreatePage', 'save()')
     this.loading = true
 
-    const profile = this.auth.snapshot.profile
+    const profile = await this.auth.profile.first().toPromise()
+
     if (!profile || !profile.email) {
       throw new Error('no auth user/email')
     }

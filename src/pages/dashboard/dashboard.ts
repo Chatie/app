@@ -20,6 +20,7 @@ import {
   Subscription,
 }                         from 'rxjs/Rx'
 
+// import { Auth }           from 'auth-angular'
 import { Brolog }         from 'brolog'
 
 import {
@@ -29,7 +30,6 @@ import {
   HostieStore,
 }                         from '@chatie/db'
 
-// import { Auth }           from '../../providers/auth'
 
 // import { BotieListPage }  from '../botie-list/'
 import { HostieListPage } from '../hostie-list/'

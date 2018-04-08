@@ -21,9 +21,9 @@ import {
 import {
   SplashScreen,
 }                   from '@ionic-native/splash-screen'
+import { Auth }     from 'auth-angular'
 import { Brolog }   from 'brolog'
 
-import { Auth }             from '../providers/auth'
 
 // import { BotieListPage }    from '../pages/botie-list/'
 import { DashboardPage }    from '../pages/dashboard/'
