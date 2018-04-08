@@ -14,7 +14,6 @@ import {
   Status,
 }                         from '@chatie/db'
 
-
 @IonicPage()
 @Component({
   selector:     'page-hostie-create',
