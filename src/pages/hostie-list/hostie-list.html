@@ -10,7 +10,7 @@
       <button
         ion-button
         (click)="add()"
-        [disabled]="(hostieStore.hosties | async).length"
+        [disabled]="(hostieStore.itemList | async).length"
       >
         <ion-icon name="add"></ion-icon>
       </button>
@@ -26,7 +26,7 @@
     (ionItemReorder)="reorder($event)"
   >
     <ion-item-sliding
-      *ngFor="let hostie of hostieStore.hosties | async"
+      *ngFor="let hostie of hostieStore.itemList | async"
     >
 
       <button ion-item

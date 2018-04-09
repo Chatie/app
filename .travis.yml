@@ -21,15 +21,6 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == 'linux' ];  then scripts/prepare-linux.sh;  fi
   - if [ "$TRAVIS_OS_NAME" == 'osx' ];    then scripts/prepare-osx.sh;    fi
 
-script:
-  - echo $TRAVIS_OS_NAME
-  - node --version
-  - npm --version
-  - npm run lint
-  - npm test
-
-after_success:
-  - if [ "$TRAVIS_OS_NAME" == 'linux' ]; then echo 'TODO update coverage'; fi
 
 stages:
   - test
@@ -37,11 +28,21 @@ stages:
   # - name: deploy
   #   if: branch =~ ^(master|v\d+\.\d+)
 
-# jobs:
-#   include:
-#     - stage: pack
-#       script:
-#         - npm run test:pack && echo 'Npm pack testing is passed'
+jobs:
+  include:
+    - stage: test
+      script:
+        - echo $TRAVIS_OS_NAME
+        - node --version
+        - npm --version
+        - npm run lint
+        - npm test
+      after_success:
+        - if [ "$TRAVIS_OS_NAME" == 'linux' ]; then echo 'TODO update coverage'; fi
+
+    # - stage: pack
+    #   script:
+    #     - npm run test:pack && echo 'Npm pack testing is passed'
 
 #     - stage: deploy
 #       script:

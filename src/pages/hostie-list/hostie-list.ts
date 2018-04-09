@@ -22,7 +22,7 @@ import {
   IonicPage,
   NavController,
   NavParams,
-  // reorderArray,
+  reorderArray,
 }                           from 'ionic-angular'
 import {
   // Observable,
@@ -49,14 +49,14 @@ import { HostieCreatePage }   from '../hostie-create/'
 })
 
 export class HostieListPage implements OnInit, OnDestroy {
-  // hostieList: Hostie[]
+  public hostieList: Hostie[]
   public hostieListSubscription: Subscription
 
   public reordering = false
 
   constructor(
-    public hostieStore: HostieStore,
     public log:         Brolog,
+    public hostieStore: HostieStore,
     public navCtrl:     NavController,
     public navParams:   NavParams,
   ) {
@@ -66,16 +66,18 @@ export class HostieListPage implements OnInit, OnDestroy {
   public ngOnInit() {
     this.log.verbose('HostieListPage', 'ngOnInit()')
 
-    // this.hostieListSubscription = this.hostieStore.hosties.subscribe(list => {
-    //   this.log.silly('HostieListPage', 'ngOnInit() subscript list: %s', list)
-    //   this.hostieList = list
-    // })
+    this.hostieListSubscription = this.hostieStore.itemList.subscribe(list => {
+      this.log.silly('HostieListPage', 'ngOnInit() subscript list: %s', list)
+      this.hostieList = list
+    })
   }
 
   public ngOnDestroy() {
     this.log.verbose('HostieListPage', 'ngOnDestroy()')
 
-    // this.hostieListSubscription.unsubscribe()
+    if (this.hostieListSubscription) {
+      this.hostieListSubscription.unsubscribe()
+    }
   }
 
   public gotoHostieDetail(hostie: Hostie, event: any) {
@@ -90,8 +92,8 @@ export class HostieListPage implements OnInit, OnDestroy {
   }
 
   public reorder(indexes: number[]) {
-    // this.hostieList = reorderArray(this.hostieList, indexes)
-    // TODO save to backend
+    this.hostieList = reorderArray(this.hostieList, {from: 0, to: 1})
+    // TODO: save to backend
   }
 
   public hostieIcon(hostie: Hostie) {

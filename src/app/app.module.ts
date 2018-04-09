@@ -129,29 +129,6 @@ export function appInitializerFactory() {
   }
 }
 
-// export function logFactory() {
-//   log.verbose('AppModule', 'logFactory()')
-
-//   const logLevel = getJsonFromUrl()['BROLOG_LEVEL']
-//   if (logLevel) {
-//     log.level(logLevel)
-//     log.info('AppModule', 'logFactory() log.level(%s)', logLevel)
-//   }
-
-//   return log
-
-//   function getJsonFromUrl() {
-//     // https://stackoverflow.com/questions/8486099/how-do-i-parse-a-url-query-parameters-in-javascript
-//     const query = location.search.substr(1)
-//     const result = {}
-//     query.split('&').forEach(function(part) {
-//       const item = part.split('=')
-//       result[item[0]] = decodeURIComponent(item[1])
-//     })
-//     return result
-//   }
-// }
-
 @NgModule({
   declarations: [
     ChatieApp,
@@ -174,7 +151,9 @@ export function appInitializerFactory() {
     // WelcomePage,
   ],
   imports: [
+
     // << Page Modules >>
+
     AboutPageModule,
     BrowserModule,
     BotieDetailsPageModule,
@@ -193,7 +172,9 @@ export function appInitializerFactory() {
     StatusPageModule,
     UnlockPageModule,
     WelcomePageModule,
+
     // Others
+
     AuthModule.forRoot(),
     DbModule,
     HttpClientModule,

@@ -8,4 +8,4 @@ brew cask cleanup
 brew install \
   moreutils \
   jq \
-  shellcheck \
+  shellcheck

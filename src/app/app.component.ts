@@ -67,7 +67,7 @@ export class ChatieApp {
       // { title: 'Gifties'    , icon: 'school'      , component: GiftieListPage },
       // { title: 'Gifties'    , icon: 'flash'       , component: GiftieListPage },
       // { title: 'Boties'     , icon: 'logo-android', component: BotieListPage },
-      // { title: 'Hosties'    , icon: 'home'        , component: HostieListPage },
+      { title: 'Hosties'    , icon: 'home'        , component: 'HostieListPage' },
       { title: 'Setting'    , icon: 'cog'         , component: 'SettingPage' },
       { title: 'Feedback'   , icon: 'people'      , component: 'FeedbackPage' },
     ]
