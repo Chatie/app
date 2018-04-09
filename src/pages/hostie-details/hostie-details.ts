@@ -92,7 +92,7 @@ export class HostieDetailsPage {
           label: 'Token',
           name: 'TOKEN',
           placeholder: 'Token',
-          value: this.hostie.key,
+          value: this.hostie.token,
           disabled: true,
         },
       ],

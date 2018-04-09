@@ -65,7 +65,7 @@ export class BotieListPage implements OnInit, OnDestroy {
   public gotoBotieDetail(hostie: Hostie, event: any) {
     this.log.verbose('BotieListPage', 'gotoBotieDetail({id:%s}, %s)', hostie.id, event)
     this.navCtrl.push(BotieDetailsPage, {
-      token: hostie.key,
+      token: hostie.token,
     })
   }
 
