@@ -28,7 +28,7 @@ import { Brolog }   from 'brolog'
 import { DashboardPage }    from '../pages/dashboard/'
 // import { HostieListPage }   from '../pages/hostie-list/'
 // import { FeedbackPage }     from '../pages/feedback/'
-// import { LoginPage }        from '../pages/login/'
+import { LoginPage }        from '../pages/login/'
 // import { SettingPage }      from '../pages/setting/'
 // import { WelcomePage }    from '../pages/welcome/'
 
@@ -83,8 +83,8 @@ export class ChatieApp {
     // Okay, so the platform is ready and our plugins are available.
     // Here you can do any higher level native things you might need.
 
-    // this.auth.valid.subscribe(valid => {
-      // this.setupPush(valid)
+    // this.auth.idToken.subscribe(token => {
+    //   this.setupPush(!!token)
     // })
 
     this.statusBar.styleDefault()
@@ -92,23 +92,19 @@ export class ChatieApp {
      /**
       * https://www.raymondcamden.com/2016/11/04/an-example-of-the-ionic-auth-service-with-ionic-2
       */
-    // if (this.auth.snapshot.valid) {
-    //   this.rootPage = DashboardPage
-
-    //   // XXX: do we need to call startupTokenRefresh() at here?
-    //   // consider to move it to Auth Provider. 201704
-    //   this.auth.startupTokenRefresh()
-    // } else {
-    //   this.rootPage = LoginPage
-    // }
-
-    // Schedule a token refresh on app start up
+    this.auth.valid.subscribe(valid => {
+      if (valid) {
+        this.rootPage = DashboardPage
+      } else {
+        this.rootPage = LoginPage
+      }
+    })
 
     return readySource
   }
 
   public openPage(page: any) {
-    this.log.verbose('ChatieApp', 'openPage(%s)', page.title)
+    this.log.verbose('ChatieApp', 'openPage(%s)', page.title || page)
 
     // close the menu when clicking a link from the menu
     this.menu.close()
