@@ -1,7 +1,3 @@
-import { log } from 'brolog'
-export { log }
-log.level('verbose')
-
 const pkg = require('../package.json')
 export const VERSION: string = pkg.version
 
