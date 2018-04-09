@@ -33,7 +33,10 @@ import { SplashScreen }   from '@ionic-native/splash-screen'
 
 import { HttpClientModule } from '@angular/common/http'
 
-import { Brolog }         from 'brolog'
+import {
+  Brolog,
+  log,
+}                         from 'brolog'
 
 import { WechatyModule }  from '@chatie/angular'
 import {
@@ -44,7 +47,6 @@ import { AuthModule }     from 'auth-angular'
 
 import {
   VERSION,
-  log,
 }                         from '../config'
 
 import { ChatieApp }      from './app.component'
@@ -127,28 +129,28 @@ export function appInitializerFactory() {
   }
 }
 
-export function logFactory() {
-  log.verbose('AppModule', 'logFactory()')
+// export function logFactory() {
+//   log.verbose('AppModule', 'logFactory()')
 
-  const logLevel = getJsonFromUrl()['BROLOG_LEVEL']
-  if (logLevel) {
-    log.level(logLevel)
-    log.info('AppModule', 'logFactory() log.level(%s)', logLevel)
-  }
+//   const logLevel = getJsonFromUrl()['BROLOG_LEVEL']
+//   if (logLevel) {
+//     log.level(logLevel)
+//     log.info('AppModule', 'logFactory() log.level(%s)', logLevel)
+//   }
 
-  return log
+//   return log
 
-  function getJsonFromUrl() {
-    // https://stackoverflow.com/questions/8486099/how-do-i-parse-a-url-query-parameters-in-javascript
-    const query = location.search.substr(1)
-    const result = {}
-    query.split('&').forEach(function(part) {
-      const item = part.split('=')
-      result[item[0]] = decodeURIComponent(item[1])
-    })
-    return result
-  }
-}
+//   function getJsonFromUrl() {
+//     // https://stackoverflow.com/questions/8486099/how-do-i-parse-a-url-query-parameters-in-javascript
+//     const query = location.search.substr(1)
+//     const result = {}
+//     query.split('&').forEach(function(part) {
+//       const item = part.split('=')
+//       result[item[0]] = decodeURIComponent(item[1])
+//     })
+//     return result
+//   }
+// }
 
 @NgModule({
   declarations: [
@@ -226,7 +228,7 @@ export function logFactory() {
     SplashScreen,
     {
       provide:      Brolog,
-      useFactory:   logFactory,
+      useValue:     log,
     },
     {
       provide:      ErrorHandler,
