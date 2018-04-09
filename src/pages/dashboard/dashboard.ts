@@ -18,17 +18,17 @@ import {
 }                         from 'ionic-angular'
 import {
   Subscription,
-}                         from 'rxjs/Subscription'
+}                         from 'rxjs/Rx'
 
+// import { Auth }           from 'auth-angular'
 import { Brolog }         from 'brolog'
 
 import {
+  GiftieStore,
   Hostie,
-  Status,
+  // Status,
   HostieStore,
 }                         from '@chatie/db'
-
-// import { Auth }           from '../../providers/auth'
 
 // import { BotieListPage }  from '../botie-list/'
 import { HostieListPage } from '../hostie-list/'
@@ -39,7 +39,7 @@ import { HostieListPage } from '../hostie-list/'
   templateUrl:  'dashboard.html',
 })
 export class DashboardPage implements OnInit, OnDestroy {
-  private subscription: Subscription
+  private subscription?: Subscription
 
     public hostieList: Hostie[]
     public hostieActiveNum
@@ -50,6 +50,7 @@ export class DashboardPage implements OnInit, OnDestroy {
   constructor(
     // public auth:          Auth,
     public hostieStore:   HostieStore,
+    public giftieStore:   GiftieStore,
     public log:           Brolog,
     public navCtrl:       NavController,
     public navParams:     NavParams,
@@ -73,22 +74,24 @@ export class DashboardPage implements OnInit, OnDestroy {
   // https://webcake.co/page-lifecycle-hooks-in-ionic-2/
   public ngOnInit() {
     this.log.verbose('DashboardPage', 'ngOnInit()')
-    console.log(this.hostieStore)
-    console.log(this.hostieStore.itemList)
-    console.log(this.hostieStore.itemList.subscribe)
+    // console.log(this.hostieStore)
+    // console.log(this.hostieStore.itemList)
+    // console.log(this.hostieStore.itemList.subscribe)
 
-    this.subscription = this.hostieStore.itemList.subscribe(list => {
-      this.log.verbose('DashboardPage', 'ngOnInit() hostieStore.itemList.subscribe()')
-      this.hostieList       = list
-      this.hostieActiveNum  = list
-                              .filter( l => l.status === Status.ON )
-                              .length
-    })
+    // this.subscription = this.hostieStore.itemList.subscribe(list => {
+    //   this.log.verbose('DashboardPage', 'ngOnInit() hostieStore.itemList.subscribe()')
+    //   this.hostieList       = list
+    //   this.hostieActiveNum  = list
+    //                           .filter( l => l.status === Status.ON )
+    //                           .length
+    // })
   }
 
   public ngOnDestroy() {
     this.log.verbose('DashboardPage', 'ngOnDestroy()')
-    this.subscription.unsubscribe()
+    if (this.subscription) {
+      this.subscription.unsubscribe()
+    }
   }
 
   public gotoHostieListPage() {

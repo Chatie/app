@@ -188,7 +188,12 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 
 # CHANGELOG
 
-### v0.2 (master) Feb, 2018
+### v0.3 (master) Apr, 2018
+
+1. Promote `Auth` service as a solo npm package [auth-angular](https://github.com/zixia/auth-angular)
+
+
+### v0.2 Feb, 2018
 
 1. Upgrade to Ionic 3 & Angular 5
 1. GraphQL DB Integration
