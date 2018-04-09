@@ -46,13 +46,13 @@ export class LoginPage implements OnInit, OnDestroy {
   public ngOnInit() {
     this.log.verbose('LoginPage', 'ngOnInit()')
 
-    this.validSub = this.auth.idToken.subscribe(token => {
-      this.log.verbose('LoginPage', 'constructor() Auth.idToken.subscribe() got:%s', token)
-      if (token) {
+    this.validSub = this.auth.valid.subscribe(valid => {
+      this.log.verbose('LoginPage', 'constructor() Auth.valid.subscribe() valid=%s', valid)
+      if (valid) {
         this.onLogin()
       }
     })
-    this.log.silly('LoginPage', 'constructor() Auth.idToken.subscribe()-ed')
+    this.log.silly('LoginPage', 'constructor() Auth.valid.subscribe()-ed')
 
   }
   public onLogin(): void {
@@ -63,8 +63,8 @@ export class LoginPage implements OnInit, OnDestroy {
   public ionViewDidLoad() {
     this.log.verbose('LoginPage', 'ngOnInit()')
 
-    this.auth.idToken.first().toPromise().then(token => {
-      if (token) {
+    this.auth.valid.first().toPromise().then(valid => {
+      if (valid) {
         this.gotoDashboardPage()
       }
     })
