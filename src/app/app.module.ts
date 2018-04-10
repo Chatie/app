@@ -121,8 +121,10 @@ import { UnlockPageModule }         from '../pages/unlock/'
 import { WelcomePageModule }        from '../pages/welcome/'
 
 export function appInitializerFactory() {
+  log.verbose('AppModule', 'appInitializerFactory()')
   // Be careful: this will block the ui when starting the app
   return async () => {
+    log.verbose('AppModule', 'appInitializerFactory() ()=>{}')
     // FIXME: Should not wait db open()
     // design better observable to chain the events.
     // await db.open()
