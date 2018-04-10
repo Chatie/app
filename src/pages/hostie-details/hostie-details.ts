@@ -25,7 +25,7 @@ import {
   Hostie,
   HostieStore,
   Status,
-  System,
+  Platform,
 }                           from '@chatie/db'
 
 import { HostieEditPage }   from '../hostie-edit/'
@@ -73,13 +73,13 @@ export class HostieDetailsPage {
    * http://ionicframework.com/docs/ionicons/
    */
   public icon(): string {
-    switch (this.hostie.system) {
-      case System.UNKNOWN:  return 'help'
-      case System.DOCKER:   return 'cube'
-      case System.LINUX:    return 'logo-tux'
-      case System.WINDOWS:  return 'logo-windows'
-      case System.MAC:      return 'logo-apple'
-      default:              return 'help'
+    switch (this.hostie.platform) {
+      case Platform.UNKNOWN:  return 'help'
+      case Platform.DOCKER:   return 'cube'
+      case Platform.LINUX:    return 'logo-tux'
+      case Platform.WIN32:    return 'logo-windows'
+      case Platform.DARWIN:   return 'logo-apple'
+      default:                return 'help'
     }
   }
 
