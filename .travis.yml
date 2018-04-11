@@ -50,14 +50,14 @@ jobs:
         - ionic --version
         - cordova --version
         - npm run build:browser:prod
-        - echo 'app.chatie.io' > www/CNAME
+        - echo 'app.chatie.io' | tee www/CNAME
         - cp resources/icon.png www/assets/imgs/logo.png
         - echo "Deploying to Surge.sh ..."
 
       deploy:
         provider: surge
         project: www/
-        domain: chatie.surge.sh
+        domain: app.chatie.io
         skip_cleanup: true
 
 notifications:
