@@ -56,6 +56,8 @@ Pro.init(app_id, {
   appVersion: VERSION,
 })
 
+log.info('ChatieApp', 'v%s', VERSION)
+
 @Injectable()
 export class ProErrorHandler implements ErrorHandler {
   private ionicErrorHandler: IonicErrorHandler
