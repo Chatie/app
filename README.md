@@ -98,7 +98,16 @@ ionic cordova build browser --prod
 
 ## Web
 
+## Develop
 
+### Debug Switch
+
+By adding `?BROLOG_LEVEL=silly` to URL, you can enable full debug output messages in the console.
+
+For example:
+
+* https://localhost:8100/?BROLOG_LEVEL=silly
+* https://app.chatie.io/?BROLOG_LEVEL=silly
 
 ## Learning Resources
 

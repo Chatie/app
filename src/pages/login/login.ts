@@ -18,7 +18,9 @@ import {
 import { Auth }           from 'auth-angular'
 import { Brolog }         from 'brolog'
 
-import { DashboardPage }  from '../../pages/dashboard/'
+import { VERSION }        from '../../config'
+
+import { DashboardPage }  from '../dashboard/'
 
 @IonicPage()
 @Component({
@@ -32,6 +34,8 @@ export class LoginPage implements OnInit, OnDestroy {
   public email:     string
   public password:  string
 
+  public version:   string
+
   constructor(
     public alertCtrl:   AlertController,
     public auth:        Auth,
@@ -40,6 +44,8 @@ export class LoginPage implements OnInit, OnDestroy {
     public navCtrl:     NavController,
   ) {
     this.log.verbose('LoginPage', 'constructor()')
+
+    this.version = VERSION
   }
 
   public ngOnInit() {
