@@ -1,4 +1,7 @@
-import { Component }  from '@angular/core'
+import {
+  Component,
+  OnInit,
+}  from '@angular/core'
 import {
   IonicPage,
   Loading,
@@ -17,37 +20,43 @@ import { LoginPage }  from '../login/'
   selector:     'page-logout',
   templateUrl:  'logout.html',
 })
-export class LogoutPage {
-  public loading: Loading | null = null
+export class LogoutPage implements OnInit {
+  public loading?:  Loading
 
   constructor(
     public auth:        Auth,
-    public loadingCtrl: LoadingController,
     public log:         Brolog,
+    public loadingCtrl: LoadingController,
     public navCtrl:     NavController,
     public navParams:   NavParams,
   ) {
     this.log.verbose('LogoutPage', 'constructor()')
-
   }
 
-  public ionViewDidLoad() {
-    this.log.verbose('LogoutPage', 'ionViewDidLoad()')
+  public ngOnInit() {
+    this.log.verbose('LogoutPage', 'ngOnInit()')
 
-    this.auth.idToken.first().toPromise().then(token => {
-      if (!token) {
+    this.auth.valid.first().toPromise().then(valid => {
+      if (!valid) {
         this.logout()
       }
     })
   }
 
-  public showLoader(): void {
+  public ionViewDidLoad() {
+    this.log.verbose('LogoutPage', 'ionViewDidLoad()')
+  }
+
+  public async showLoader(): Promise<void> {
     this.log.verbose('LogoutPage', 'showLoader()')
 
+    if (this.loading) {
+      await this.loading.dismissAll()
+    }
     this.loading = this.loadingCtrl.create({
       content: 'Loading...',
     })
-    this.loading.present()
+    await this.loading.present()
   }
 
   public hideLoader(): void {
@@ -57,16 +66,16 @@ export class LogoutPage {
       return
     }
     this.loading.dismissAll()
-    this.loading = null
+    this.loading = undefined
   }
 
   public async logout() {
     this.log.verbose('LogoutPage', 'logout()')
 
-    this.showLoader()
-    this.auth.logout()
-    this.navCtrl.setRoot(LoginPage)
-    this.hideLoader()
+    await this.showLoader()
+    await this.auth.logout()
+    await this.navCtrl.setRoot(LoginPage)
+    await this.hideLoader()
   }
 
 }

@@ -26,8 +26,8 @@ import { DashboardPage }  from '../../pages/dashboard/'
   templateUrl:  'login.html',
 })
 export class LoginPage implements OnInit, OnDestroy {
-  private validSub: Subscription
-  private loading:  Loading | null              = null
+  private validSub?:  Subscription
+  private loading?:   Loading
 
   public email:     string
   public password:  string
@@ -38,7 +38,6 @@ export class LoginPage implements OnInit, OnDestroy {
     public log:         Brolog,
     public loadingCtrl: LoadingController,
     public navCtrl:     NavController,
-    // public user:        User,
   ) {
     this.log.verbose('LoginPage', 'constructor()')
   }
@@ -47,25 +46,9 @@ export class LoginPage implements OnInit, OnDestroy {
     this.log.verbose('LoginPage', 'ngOnInit()')
 
     this.validSub = this.auth.valid.subscribe(valid => {
-      this.log.verbose('LoginPage', 'constructor() Auth.valid.subscribe() valid=%s', valid)
+      this.log.verbose('LoginPage', 'ngOnInit() this.auth.valid.subscribe(valid=%s)', valid)
       if (valid) {
         this.onLogin()
-      }
-    })
-    this.log.silly('LoginPage', 'constructor() Auth.valid.subscribe()-ed')
-
-  }
-  public onLogin(): void {
-    this.log.verbose('LoginPage', 'onLogin()')
-    this.gotoDashboardPage()
-  }
-
-  public ionViewDidLoad() {
-    this.log.verbose('LoginPage', 'ngOnInit()')
-
-    this.auth.valid.first().toPromise().then(valid => {
-      if (valid) {
-        this.gotoDashboardPage()
       }
     })
   }
@@ -77,6 +60,15 @@ export class LoginPage implements OnInit, OnDestroy {
     if (this.validSub) {
       this.validSub.unsubscribe()
     }
+  }
+
+  public ionViewDidLoad() {
+    this.log.verbose('LoginPage', 'ionViewDidLoad()')
+  }
+
+  public onLogin(): void {
+    this.log.verbose('LoginPage', 'onLogin()')
+    this.gotoDashboardPage()
   }
 
   public async login(): Promise<void> {
@@ -96,11 +88,12 @@ export class LoginPage implements OnInit, OnDestroy {
 
   }
 
-  // logout(): void {
-  //   this.log.verbose('LoginPage', 'logout()')
-  //   this.auth.logout()
-  //   this.navCtrl.setRoot(LoginPage)
-  // }
+  public async logout(): Promise<void> {
+    this.log.verbose('LoginPage', 'logout()')
+
+    await this.auth.logout()
+    this.navCtrl.setRoot(LoginPage)
+  }
 
   public showLoader(): void {
     this.log.verbose('LoginPage', 'showLoader()')
@@ -118,7 +111,7 @@ export class LoginPage implements OnInit, OnDestroy {
       return
     }
     this.loading.dismissAll()
-    this.loading = null
+    this.loading = undefined
   }
 
   public async gotoDashboardPage(): Promise<void> {

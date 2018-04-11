@@ -72,6 +72,15 @@ $ sudo gem install cocoapods
 ./scripts/ios.sh
 ```
 
+## Browser
+
+### Build
+
+```shell
+ionic cordova platform add browser
+ionic cordova build browser --prod
+```
+
 # APP PUBLISHING
 
 ## Google Play
@@ -87,9 +96,17 @@ $ sudo gem install cocoapods
     1. Build
     1. Archive
 
+## Web
+
+
+
 ## Learning Resources
 
-## Auth0
+### Angular
+
+* [Angular Package Format v6.0](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview), design document at Google Docs
+
+### Auth0
 
 * [OAuth 2.0](https://auth0.com/docs/protocols/oauth2)
 * [Silent Authentication](https://auth0.com/docs/api-auth/tutorials/silent-authentication)
@@ -169,7 +186,6 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 ## Push
 
 * [PhoneGap Day US Push Workshop 2016 Build a Hybrid Mobile App with Push](http://macdonst.github.io/push-workshop/index.html)
-
 
 ## Todo
 
