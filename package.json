@@ -15,11 +15,13 @@
   "private": true,
   "scripts": {
     "build": "ionic-app-scripts build",
+    "build:browser:prod": "ionic-app-scripts build --prod --aot",
     "clean": "ionic-app-scripts clean",
     "ionic:build": "ionic-app-scripts build",
     "ionic:build:browser": "ionic cordova build browser --aot --prod",
     "ionic:monitoring:syncmaps": "(sleep 1 && echo \"y\n\" && sleep 1 && echo \"y\n\") | ionic monitoring syncmaps",
     "ionic:serve": "ionic-app-scripts serve",
+    "lite:server": "lite-server",
     "lint": "npm run lint:ts && npm run lint:ionic",
     "lint:ts": "tslint --project tsconfig.json && tsc --noEmit",
     "lint:ionic": "ionic-app-scripts lint",
@@ -78,6 +80,7 @@
     "eslint": "^4.19.1",
     "git-scripts": "^0.2.1",
     "ionic": "^3.20.0",
+    "lite-server": "^2.3.0",
     "typescript": "~2.6.2"
   },
   "cordova": {

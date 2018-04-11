@@ -46,15 +46,16 @@ jobs:
 
     - stage: deploy
       script:
-        - echo "Deploying to Surge ..."
+        - echo "Building Web Pages ..."
         - ionic --version
         - cordova --version
-        - npm run ionic:build:browser
-        - echo 'app.chatie.io' > platforms/browser/www/CNAME
+        - npm run build:browser:prod
+        - echo 'app.chatie.io' > www/CNAME
+        - echo "Deploying to Surge.sh ..."
 
       deploy:
         provider: surge
-        project: platforms/browser/www/
+        project: www/
         domain: chatie.surge.sh
         skip_cleanup: true
 

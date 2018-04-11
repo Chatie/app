@@ -1,0 +1,5 @@
+{
+  "port": 8100,
+  "files": ["./www/**/*.{html,htm,css,js}"],
+  "server": { "baseDir": "./www" }
+}
