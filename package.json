@@ -17,6 +17,7 @@
     "build": "ionic-app-scripts build",
     "build:browser:prod": "ionic-app-scripts build --prod --aot",
     "clean": "ionic-app-scripts clean",
+    "deploy:browser:surge": "bash scripts/deploy-surge.sh",
     "ionic:build": "ionic-app-scripts build",
     "ionic:build:browser": "ionic cordova build browser --aot --prod",
     "ionic:monitoring:syncmaps": "(sleep 1 && echo \"y\n\" && sleep 1 && echo \"y\n\") | ionic monitoring syncmaps",
@@ -81,6 +82,7 @@
     "git-scripts": "^0.2.1",
     "ionic": "^3.20.0",
     "lite-server": "^2.3.0",
+    "surge": "^0.20.1",
     "typescript": "~2.6.2"
   },
   "cordova": {

@@ -20,13 +20,16 @@ import {
   Subscription,
 }                         from 'rxjs/Rx'
 
-// import { Auth }           from 'auth-angular'
+import { Auth }           from 'auth-angular'
 import { Brolog }         from 'brolog'
 
 import {
+  Botie,
+  BotieStore,
+  // Giftie,
   GiftieStore,
+  Status,
   Hostie,
-  // Status,
   HostieStore,
 }                         from '@chatie/db'
 
@@ -39,16 +42,17 @@ import { HostieListPage } from '../hostie-list/'
   templateUrl:  'dashboard.html',
 })
 export class DashboardPage implements OnInit, OnDestroy {
-  private subscription?: Subscription
+  private hostieSubscription?: Subscription
 
     public hostieList: Hostie[]
-    public hostieActiveNum
+    public hostieOnlineNum: number
 
-    // botieList       = [1, 2, 3]
-    // botieActiveNum  = 1
+    public botieList: Botie[]
+    public botieOnlineNum: number
 
   constructor(
-    // public auth:          Auth,
+    public auth:          Auth,
+    public botieStore:    BotieStore,
     public hostieStore:   HostieStore,
     public giftieStore:   GiftieStore,
     public log:           Brolog,
@@ -58,7 +62,10 @@ export class DashboardPage implements OnInit, OnDestroy {
     this.log.verbose('DashboardPage', 'constructor()')
 
     this.hostieList       = []
-    this.hostieActiveNum  = 0
+    this.hostieOnlineNum  = 0
+
+    this.botieList        = []
+    this.botieOnlineNum   = 0
   }
 
   public ionViewDidLoad() {
@@ -68,7 +75,7 @@ export class DashboardPage implements OnInit, OnDestroy {
   // https://devdactic.com/ionic-auth-guards/
   public ionViewCanEnter() {
     this.log.verbose('DashboardPage', 'ionViewCanEnter()')
-    // return this.auth.snapshot.valid
+    return this.auth.valid.first().toPromise()
   }
 
   // https://webcake.co/page-lifecycle-hooks-in-ionic-2/
@@ -78,19 +85,28 @@ export class DashboardPage implements OnInit, OnDestroy {
     // console.log(this.hostieStore.itemList)
     // console.log(this.hostieStore.itemList.subscribe)
 
-    // this.subscription = this.hostieStore.itemList.subscribe(list => {
-    //   this.log.verbose('DashboardPage', 'ngOnInit() hostieStore.itemList.subscribe()')
+    this.hostieSubscription = this.hostieStore.itemList.subscribe(list => {
+      this.log.verbose('DashboardPage', 'ngOnInit() hostieStore.itemList.subscribe() list.length=%d', list.length)
+      this.hostieList       = list
+      this.hostieOnlineNum  = list
+                              .filter( l => l.status === Status.ON )
+                              .length
+    })
+
+    // this.botieSubscription = this.hostieStore.itemList.subscribe(list => {
+    //   this.log.verbose('DashboardPage', 'ngOnInit() hostieStore.itemList.subscribe() list.length=%d', list.length)
     //   this.hostieList       = list
-    //   this.hostieActiveNum  = list
+    //   this.hostieOnlineNum  = list
     //                           .filter( l => l.status === Status.ON )
     //                           .length
     // })
+
   }
 
   public ngOnDestroy() {
     this.log.verbose('DashboardPage', 'ngOnDestroy()')
-    if (this.subscription) {
-      this.subscription.unsubscribe()
+    if (this.hostieSubscription) {
+      this.hostieSubscription.unsubscribe()
     }
   }
 

@@ -51,6 +51,7 @@ jobs:
         - cordova --version
         - npm run build:browser:prod
         - echo 'app.chatie.io' > www/CNAME
+        - cp resources/icon.png www/assets/imgs/logo.png
         - echo "Deploying to Surge.sh ..."
 
       deploy:

@@ -67,7 +67,7 @@ export class HostieListPage implements OnInit, OnDestroy {
     this.log.verbose('HostieListPage', 'ngOnInit()')
 
     this.hostieListSubscription = this.hostieStore.itemList.subscribe(list => {
-      this.log.silly('HostieListPage', 'ngOnInit() subscript list: %s', list)
+      this.log.silly('HostieListPage', 'ngOnInit() subscript list.length=%d', list.length)
       this.hostieList = list
     })
   }

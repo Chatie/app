@@ -18,8 +18,8 @@ import {
 import { Brolog }           from 'brolog'
 
 import {
-  Hostie,
-  HostieStore,
+  Botie,
+  BotieStore,
 }                             from '@chatie/db'
 
 import { BotieDetailsPage }   from '../botie-details/'
@@ -34,8 +34,7 @@ export class BotieListPage implements OnInit, OnDestroy {
   // private hostieListSubscription: Subscription
 
   constructor(
-    // public database:    Database,
-    public hostieStore: HostieStore,
+    public botieStore:  BotieStore,
     public log:         Brolog,
     public navCtrl:     NavController,
     public navParams:   NavParams,
@@ -62,10 +61,10 @@ export class BotieListPage implements OnInit, OnDestroy {
     // this.hostieListSubscription.unsubscribe()
   }
 
-  public gotoBotieDetail(hostie: Hostie, event: any) {
-    this.log.verbose('BotieListPage', 'gotoBotieDetail({id:%s}, %s)', hostie.id, event)
+  public gotoBotieDetail(botie: Botie, event: any) {
+    this.log.verbose('BotieListPage', 'gotoBotieDetail({id:%s}, %s)', botie.id, event)
     this.navCtrl.push(BotieDetailsPage, {
-      token: hostie.token,
+      token: botie.id,
     })
   }
 
