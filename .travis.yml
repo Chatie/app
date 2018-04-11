@@ -50,10 +50,11 @@ jobs:
         - ionic --version
         - cordova --version
         - npm run ionic:build:browser
+        - echo 'app.chatie.io' > platforms/browser/www/CNAME
 
       deploy:
         provider: surge
-        project: platform/browser/www/
+        project: platforms/browser/www/
         domain: chatie.surge.sh
         skip_cleanup: true
 
