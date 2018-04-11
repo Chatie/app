@@ -23,7 +23,8 @@
     "lint": "npm run lint:ts && npm run lint:ionic",
     "lint:ts": "tslint --project tsconfig.json && tsc --noEmit",
     "lint:ionic": "ionic-app-scripts lint",
-    "test": "echo To Be Tested"
+    "test": "echo To Be Test",
+    "test:pack": "echo To Be Pack"
   },
   "dependencies": {
     "@angular/animations": "5.2.9",

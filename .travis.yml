@@ -24,9 +24,9 @@ before_install:
 
 stages:
   - test
-  # - pack
-  # - name: deploy
-  #   if: branch =~ ^(master|v\d+\.\d+)
+  - pack
+  - name: deploy
+    if: branch =~ ^(master|v\d+\.\d+)
 
 jobs:
   include:
@@ -40,9 +40,9 @@ jobs:
       after_success:
         - if [ "$TRAVIS_OS_NAME" == 'linux' ]; then echo 'TODO update coverage'; fi
 
-    # - stage: pack
-    #   script:
-    #     - npm run test:pack && echo 'Npm pack testing is passed'
+    - stage: pack
+      script:
+        - npm run test:pack && echo 'Npm pack testing is passed'
 
     - stage: deploy
       script:
