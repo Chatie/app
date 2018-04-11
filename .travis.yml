@@ -44,17 +44,18 @@ jobs:
     #   script:
     #     - npm run test:pack && echo 'Npm pack testing is passed'
 
-#     - stage: deploy
-#       script:
-#         - echo "Deploying to NPM ..."
-#         - npm version
-#         - npm run dist
+    - stage: deploy
+      script:
+        - echo "Deploying to Surge ..."
+        - ionic --version
+        - cordova --version
+        - npm run ionic:build:browser
 
-#       deploy:
-#         provider: npm
-#         email: zixia@zixia.net
-#         api_key: "$NPM_TOKEN"
-#         skip_cleanup: true
+      deploy:
+        provider: surge
+        project: platform/browser/www/
+        domain: chatie.surge.sh
+        skip_cleanup: true
 
 notifications:
   webhooks:

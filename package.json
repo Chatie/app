@@ -17,6 +17,7 @@
     "build": "ionic-app-scripts build",
     "clean": "ionic-app-scripts clean",
     "ionic:build": "ionic-app-scripts build",
+    "ionic:build:browser": "ionic cordova build browser --aot --prod",
     "ionic:monitoring:syncmaps": "(sleep 1 && echo \"y\n\" && sleep 1 && echo \"y\n\") | ionic monitoring syncmaps",
     "ionic:serve": "ionic-app-scripts serve",
     "lint": "npm run lint:ts && npm run lint:ionic",
