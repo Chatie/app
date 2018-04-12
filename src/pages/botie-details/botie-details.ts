@@ -15,6 +15,10 @@ import {
   UserInfo,
 }                       from '@chatie/angular'
 
+import {
+  // Botie,
+}                       from '@chatie/db'
+
 interface WechatyEvent {
   type: 'scan' | 'login' | 'logout' | 'message' | 'error',
   time: string,
@@ -37,6 +41,8 @@ export class BotieDetailsPage {
   public timestamp: string
 
   public eventList: WechatyEvent[]
+
+  // private botie: Botie
 
   constructor(
     public log:       Brolog,

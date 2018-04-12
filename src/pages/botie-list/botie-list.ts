@@ -12,7 +12,7 @@ import {
 }                           from 'ionic-angular'
 import {
   // Observable,
-  // Subscription,
+  Subscription,
 }                           from 'rxjs/Rx'
 
 import { Brolog }           from 'brolog'
@@ -31,7 +31,9 @@ import { BotieDetailsPage }   from '../botie-details/'
   changeDetection:  ChangeDetectionStrategy.OnPush,
 })
 export class BotieListPage implements OnInit, OnDestroy {
-  // private hostieListSubscription: Subscription
+  private botieListSubscription?: Subscription
+
+  public botieList: Botie[]
 
   constructor(
     public botieStore:  BotieStore,
@@ -45,10 +47,10 @@ export class BotieListPage implements OnInit, OnDestroy {
   public ngOnInit() {
     this.log.verbose('BotieListPage', 'ngOnInit()')
 
-    // this.hostieListSubscription = this.hostieStore.hosties.subscribe(list => {
-    //   this.log.silly('HostieListPage', 'ngOnInit() subscript list: %s', list)
-    //   this.hostieList = list
-    // })
+    this.botieListSubscription = this.botieStore.itemList.subscribe(list => {
+      this.log.silly('BotieListPage', 'ngOnInit() this.botieStore.itemList.subscript() list.length=%d', list.length)
+      this.botieList = list
+    })
   }
 
   public ionViewDidLoad() {
@@ -58,13 +60,17 @@ export class BotieListPage implements OnInit, OnDestroy {
   public ngOnDestroy() {
     this.log.verbose('BotieListPage', 'ngOnDestroy()')
 
-    // this.hostieListSubscription.unsubscribe()
+    if (this.botieListSubscription) {
+      this.botieListSubscription.unsubscribe()
+      this.botieListSubscription = undefined
+    }
   }
 
   public gotoBotieDetail(botie: Botie, event: any) {
     this.log.verbose('BotieListPage', 'gotoBotieDetail({id:%s}, %s)', botie.id, event)
+
     this.navCtrl.push(BotieDetailsPage, {
-      token: botie.id,
+      token: 'blinder-docker',
     })
   }
 

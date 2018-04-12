@@ -16,21 +16,21 @@
     (ionItemReorder)="reorder($event)"
   >
     <ion-item-sliding
-      *ngFor="let hostie of hostieStore.hosties | async"
+      *ngFor="let botie of botieStore.boties | async"
     >
 
       <button ion-item
-        (click)="gotoBotieDetail(hostie, $event)"
+        (click)="gotoBotieDetail(botie, $event)"
       >
 
         <ion-icon item-left
           name="logo-android"
         ></ion-icon>
 
-        {{ hostie.name || 'Unnamed Hostie' }}
+        {{ botie.name || 'Unnamed Botie' }}
 
         <ion-note item-right>
-          {{hostie.note}}
+          {{botie.note}}
         </ion-note>
 
       </button>
@@ -38,7 +38,7 @@
       <ion-item-options>
         <button ion-button
           color="danger"
-          (click)="trash(hostie)"
+          (click)="trash(botie)"
         >
           <ion-icon name="trash"></ion-icon>
           Trash
@@ -52,7 +52,7 @@
   <ion-note padding>
     Notice: we only support 1 Botie in Alpha stage for testing.
     <!-- pre>
-      {{ hostieStore.hosties | async | json }}
+      {{ botieStore.boties | async | json }}
     </pre -->
   </ion-note>
 

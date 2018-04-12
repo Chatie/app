@@ -33,7 +33,7 @@ import {
   HostieStore,
 }                         from '@chatie/db'
 
-// import { BotieListPage }  from '../botie-list/'
+import { BotieListPage }  from '../botie-list/'
 import { HostieListPage } from '../hostie-list/'
 
 @IonicPage()
@@ -42,13 +42,14 @@ import { HostieListPage } from '../hostie-list/'
   templateUrl:  'dashboard.html',
 })
 export class DashboardPage implements OnInit, OnDestroy {
-  private hostieSubscription?: Subscription
+  private hostieSubscription?:  Subscription
+  private botieSubscription?:   Subscription
 
-    public hostieList: Hostie[]
-    public hostieOnlineNum: number
+  public hostieList: Hostie[]
+  public hostieOnlineNum: number
 
-    public botieList: Botie[]
-    public botieOnlineNum: number
+  public botieList: Botie[]
+  public botieOnlineNum: number
 
   constructor(
     public auth:          Auth,
@@ -93,21 +94,29 @@ export class DashboardPage implements OnInit, OnDestroy {
                               .length
     })
 
-    // this.botieSubscription = this.hostieStore.itemList.subscribe(list => {
-    //   this.log.verbose('DashboardPage', 'ngOnInit() hostieStore.itemList.subscribe() list.length=%d', list.length)
-    //   this.hostieList       = list
-    //   this.hostieOnlineNum  = list
-    //                           .filter( l => l.status === Status.ON )
-    //                           .length
-    // })
+    this.botieSubscription = this.hostieStore.itemList.subscribe(list => {
+      this.log.verbose('DashboardPage', 'ngOnInit() hostieStore.itemList.subscribe() list.length=%d', list.length)
+      this.hostieList       = list
+      this.hostieOnlineNum  = list
+                              .filter( l => l.status === Status.ON )
+                              .length
+    })
 
   }
 
   public ngOnDestroy() {
     this.log.verbose('DashboardPage', 'ngOnDestroy()')
+
     if (this.hostieSubscription) {
       this.hostieSubscription.unsubscribe()
+      this.hostieSubscription = undefined
     }
+
+    if (this.botieSubscription) {
+      this.botieSubscription.unsubscribe()
+      this.botieSubscription = undefined
+    }
+
   }
 
   public gotoHostieListPage() {
@@ -117,7 +126,7 @@ export class DashboardPage implements OnInit, OnDestroy {
 
   public gotoBotieListPage() {
     this.log.verbose('DashboardPage', 'gotoBotieListPage()')
-    // this.navCtrl.push(BotieListPage)
+    this.navCtrl.push(BotieListPage)
   }
 
   // gotoBotieDetailsPage() {
