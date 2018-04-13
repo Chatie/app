@@ -21,12 +21,14 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == 'linux' ];  then scripts/prepare-linux.sh;  fi
   - if [ "$TRAVIS_OS_NAME" == 'osx' ];    then scripts/prepare-osx.sh;    fi
 
-
 stages:
   - test
   - pack
   - name: deploy
     if: branch =~ ^(master|v\d+\.\d+)
+        AND (type NOT IN (cron, pull_request))
+
+install: travis_retry npm install
 
 jobs:
   include:
@@ -35,8 +37,11 @@ jobs:
         - echo $TRAVIS_OS_NAME
         - node --version
         - npm --version
-        - npm run lint
+        - ionic --version
+        - cordova --version
+        - ng --version
         - npm test
+
       after_success:
         - if [ "$TRAVIS_OS_NAME" == 'linux' ]; then echo 'TODO update coverage'; fi
 
@@ -47,8 +52,6 @@ jobs:
     - stage: deploy
       script:
         - echo "Building Web Pages ..."
-        - ionic --version
-        - cordova --version
         - npm run build:browser:prod
         - echo 'app.chatie.io' | tee www/CNAME
         - cp resources/icon.png www/assets/imgs/logo.png
