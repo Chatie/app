@@ -35,11 +35,10 @@ import {
   Hostie,
   HostieStore,
   Status,
-  // System,
 }                           from '@chatie/db'
 
-import { HostieDetailsPage }  from '../hostie-details/'
 import { HostieCreatePage }   from '../hostie-create/'
+import { HostieDetailsPage }  from '../hostie-details/'
 
 @IonicPage()
 @Component({
@@ -105,12 +104,12 @@ export class HostieListPage implements OnInit, OnDestroy {
     return 'ios-home-outline'
   }
 
-  public trash(hostie: Hostie) {
+  public async trash(hostie: Hostie): Promise<void> {
     this.log.verbose('HostieListPage', 'trash(%s)', hostie.id)
     if (!hostie.id) {
       throw new Error('no hostie id')
     }
-    this.hostieStore.delete(hostie.id)
+    await this.hostieStore.delete(hostie.id)
   }
 
   public add() {

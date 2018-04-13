@@ -1,0 +1,78 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>New Botie</ion-title>
+
+    <ion-buttons end>
+      <button
+        ion-button
+        (click)="save()"
+      >
+        Save
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-item
+    no-lines
+  >
+    <ion-icon
+      name="md-home"
+      item-left
+    ></ion-icon>
+    <h2>
+      Botie
+    </h2>
+    <p>
+      The place where bot lives in.
+    </p>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Token</ion-label>
+    <ion-input disabled
+      [(ngModel)]="token"
+      type="text"
+    ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Name</ion-label>
+    <ion-input
+      [(ngModel)]="name"
+      type="text"
+    ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Note</ion-label>
+    <ion-textarea
+      [(ngModel)]="note"
+    ></ion-textarea>
+  </ion-item>
+
+  <ion-item-divider no-lines></ion-item-divider>
+
+  <div>
+    <h3>What is a Botie?</h3>
+
+    <p>
+      <strong>Botie</strong> is the home for Botie. In order to make a Botie work, you need a Botie to run Botie.
+    </p>
+
+    <p>More technic:</p>
+
+    <ol>
+      <li>
+        <strong>Botie</strong> is a Wechaty Runtime with CPU &amp; Memory &amp; Network resources.</li>
+      <li>
+        <strong>Botie</strong> is a group of Functions(Gifties) that you want your bot behavior.</li>
+    </ol>
+  </div>
+</ion-content>
