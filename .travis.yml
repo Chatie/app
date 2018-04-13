@@ -35,8 +35,7 @@ jobs:
     - stage: test
       script:
         - echo $TRAVIS_OS_NAME
-        - node --version
-        - npm --version
+        - npm version
         - ionic --version
         - cordova --version
         - ng --version
