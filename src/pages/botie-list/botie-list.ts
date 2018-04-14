@@ -53,10 +53,6 @@ export class BotieListPage implements OnInit, OnDestroy {
     })
   }
 
-  public ionViewDidLoad() {
-    this.log.verbose('BotieListPage', 'ionViewDidLoad()')
-  }
-
   public ngOnDestroy() {
     this.log.verbose('BotieListPage', 'ngOnDestroy()')
 
@@ -64,6 +60,10 @@ export class BotieListPage implements OnInit, OnDestroy {
       this.botieListSubscription.unsubscribe()
       this.botieListSubscription = undefined
     }
+  }
+
+  public ionViewDidLoad() {
+    this.log.verbose('BotieListPage', 'ionViewDidLoad()')
   }
 
   public gotoBotieDetail(botie: Botie, event: any) {
