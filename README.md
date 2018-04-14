@@ -112,6 +112,10 @@ For example:
 
 ## Learning Resources
 
+### Copy Cat Clone
+
+* [Build a WhatsApp Clone with Ionic 2, Angular 2, and Meteor!](https://blog.ionicframework.com/build-a-whatsapp-clone-with-ionic-2-angular-2-and-meteor/)
+
 ### Angular
 
 * [Angular Package Format v6.0](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview), design document at Google Docs
