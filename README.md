@@ -3,7 +3,8 @@ Chatie App for Android & Ios & Web
 
 Chatie.io - Make your own ChatBot in no language, in minutes.
 
-![Powered by Ionic & Angular](https://ionicframework.com/img/blog/ionic-angular-v2.jpg "Powered by Ionic & Angular")
+![Powered by Ionic & Angular](https://chatie.github.io/app/images/ionic-angular-bot.jpg "Bot is Powered by Ionic & Angular")
+> Picture Credit: https://blog.ionicframework.com/angular-2-ionic/
 
 # FEATURES
 
@@ -110,6 +111,10 @@ For example:
 * https://app.chatie.io/?BROLOG_LEVEL=silly
 
 ## Learning Resources
+
+### Copy Cat Clone
+
+* [Build a WhatsApp Clone with Ionic 2, Angular 2, and Meteor!](https://blog.ionicframework.com/build-a-whatsapp-clone-with-ionic-2-angular-2-and-meteor/)
 
 ### Angular
 

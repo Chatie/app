@@ -105,6 +105,7 @@ export class ProErrorHandler implements ErrorHandler {
  * << Pages >>
  */
 import { AboutPageModule }          from '../pages/about/'
+import { BotieCreatePageModule }    from '../pages/botie-create/'
 import { BotieListPageModule }      from '../pages/botie-list/'
 import { BotieDetailsPageModule }   from '../pages/botie-details/'
 import { DashboardPageModule }      from '../pages/dashboard/'
@@ -162,6 +163,7 @@ export function appInitializerFactory() {
 
     AboutPageModule,
     BrowserModule,
+    BotieCreatePageModule,
     BotieDetailsPageModule,
     BotieListPageModule,
     DashboardPageModule,

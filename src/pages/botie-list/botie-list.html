@@ -6,17 +6,27 @@
 
     <ion-title>Botie List</ion-title>
 
+    <ion-buttons end>
+      <button
+        ion-button
+        (click)="add()"
+        [disabled]="(botieStore.itemList | async).length > 3"
+      >
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
 
   <ion-list
     [reorder]="reordering"
     (ionItemReorder)="reorder($event)"
   >
     <ion-item-sliding
-      *ngFor="let botie of botieStore.boties | async"
+      *ngFor="let botie of botieStore.itemList | async"
     >
 
       <button ion-item
@@ -50,7 +60,7 @@
   </ion-list>
 
   <ion-note padding>
-    Notice: we only support 1 Botie in Alpha stage for testing.
+    Notice: we only support 4 Botie in Alpha stage for testing.
     <!-- pre>
       {{ botieStore.boties | async | json }}
     </pre -->

@@ -86,19 +86,19 @@ export class DashboardPage implements OnInit, OnDestroy {
     // console.log(this.hostieStore.itemList)
     // console.log(this.hostieStore.itemList.subscribe)
 
+    this.botieSubscription = this.botieStore.itemList.subscribe(list => {
+      this.log.verbose('DashboardPage', 'ngOnInit() botieStore.itemList.subscribe() list.length=%d', list.length)
+      this.botieList       = list
+      this.botieOnlineNum  = list
+                              .filter(item => item.status === Status.ON )
+                              .length
+    })
+
     this.hostieSubscription = this.hostieStore.itemList.subscribe(list => {
       this.log.verbose('DashboardPage', 'ngOnInit() hostieStore.itemList.subscribe() list.length=%d', list.length)
       this.hostieList       = list
       this.hostieOnlineNum  = list
-                              .filter( l => l.status === Status.ON )
-                              .length
-    })
-
-    this.botieSubscription = this.hostieStore.itemList.subscribe(list => {
-      this.log.verbose('DashboardPage', 'ngOnInit() hostieStore.itemList.subscribe() list.length=%d', list.length)
-      this.hostieList       = list
-      this.hostieOnlineNum  = list
-                              .filter( l => l.status === Status.ON )
+                              .filter( item => item.status === Status.ON )
                               .length
     })
 
@@ -107,14 +107,14 @@ export class DashboardPage implements OnInit, OnDestroy {
   public ngOnDestroy() {
     this.log.verbose('DashboardPage', 'ngOnDestroy()')
 
-    if (this.hostieSubscription) {
-      this.hostieSubscription.unsubscribe()
-      this.hostieSubscription = undefined
-    }
-
     if (this.botieSubscription) {
       this.botieSubscription.unsubscribe()
       this.botieSubscription = undefined
+    }
+
+    if (this.hostieSubscription) {
+      this.hostieSubscription.unsubscribe()
+      this.hostieSubscription = undefined
     }
 
   }

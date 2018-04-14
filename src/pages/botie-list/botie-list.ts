@@ -22,6 +22,7 @@ import {
   BotieStore,
 }                             from '@chatie/db'
 
+import { BotieCreatePage }    from '../botie-create/'
 import { BotieDetailsPage }   from '../botie-details/'
 
 @IonicPage()
@@ -74,4 +75,7 @@ export class BotieListPage implements OnInit, OnDestroy {
     })
   }
 
+  public add() {
+    this.navCtrl.push(BotieCreatePage)
+  }
 }
