@@ -18,8 +18,8 @@ cache:
     - node_modules
 
 before_install:
-  - if [ "$TRAVIS_OS_NAME" == 'linux' ];  then scripts/prepare-linux.sh;  fi
-  - if [ "$TRAVIS_OS_NAME" == 'osx' ];    then scripts/prepare-osx.sh;    fi
+  - if [ "$TRAVIS_OS_NAME" == 'linux' ];  then travis_retry scripts/prepare-linux.sh;  fi
+  - if [ "$TRAVIS_OS_NAME" == 'osx' ];    then travis_retry scripts/prepare-osx.sh;    fi
 
 stages:
   - test
