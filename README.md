@@ -263,3 +263,68 @@ description: "<b>Ionic Framework</b> is an open source SDK that enables develope
 
 title: "What isPlatform?",
 description: "The <b>Ionic Platform</b> is a cloud platform for managing and scaling Ionic apps with integrated services like push notifications, native builds, user auth, and live updating.",
+
+
+# ALPHA DESIGN
+
+```ts
+import { Giftie } from '@chatie/giftie'
+
+```
+
+```ts
+import { Botie } from '@chatie/botie'
+
+const botie = new Botie()
+
+```
+
+```ts
+const botie = new Botie('token')
+
+try {
+  await botie.init()
+  await botie.test().pipe(
+    tap(progress => {
+      console.log('on progress...', progress)
+    })
+  ).toPromise()
+  wechaty.addBotie(botie)
+} catch (e) {
+  if ( e.instanceof(UnitTestingException )) {
+    // botie test fail
+  } else {
+    // other exception
+  }
+}
+
+function addBotie(botie: Botie): Promise<void> {
+  // const eventNameList     = botie.eventNameList()
+  // const eventListenerList = botie.eventListenerList()
+
+  // for (const i in eventNameList) {
+  //   this.addListener(eventNameList[i], eventListenerList[i])
+  // }
+
+  botie.bind(this)
+
+  botie.listener.subscribe.pipe(
+    tap(
+      (event, listener) => this.addListener(event, listener),
+    ),
+  ).toPromise()
+}
+
+function removeBotie(botie: Botie) Promise<void> {
+  botie.listener.subscribe.pipe(
+    tap(
+      (event, listener) => this.removeListener(event, listener),
+    ),
+  ).toPromise()
+}
+
+const wechaty = Wechaty.instance()
+wechaty.setPuppet(new HostiePuppet('token'))
+wechaty.start()
+
+```

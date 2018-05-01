@@ -75,6 +75,14 @@ export class BotieListPage implements OnInit, OnDestroy {
     })
   }
 
+  public async trash(botie: Botie): Promise<void> {
+    this.log.verbose('BotieListPage', 'trash(%s)', botie.id)
+    if (!botie.id) {
+      throw new Error('no botie id')
+    }
+    await this.botieStore.delete(botie.id)
+  }
+
   public add() {
     this.navCtrl.push(BotieCreatePage)
   }
