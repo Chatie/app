@@ -38,7 +38,7 @@ import {
   log,
 }                         from 'brolog'
 
-import { WechatyModule }  from '@chatie/angular'
+// import { WechatyModule }  from '@chatie/angular'
 import {
   DbModule,
 }                         from '@chatie/db'
@@ -188,7 +188,7 @@ export function appInitializerFactory() {
     HttpClientModule,
     IonicModule.forRoot(ChatieApp),
     IonicStorageModule.forRoot(),
-    WechatyModule,
+    // WechatyModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

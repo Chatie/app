@@ -79,11 +79,13 @@ export class BotieDetailsPage {
       data: msg,
     })
   }
+
   public onHeartbeat(e: any) {
     this.log.silly('BotieDetailsPage', 'onHeartbeat(%s)', e)
     this.counter++
     this.timestamp = moment().format('LTS')
   }
+
   public onScan(scan: ScanInfo) {
     this.log.verbose('BotieDetailsPage', 'onScan(%d: %s)', scan.code, scan.url)
     this.scan = scan
@@ -93,6 +95,7 @@ export class BotieDetailsPage {
       data: scan.url,
     })
   }
+
   public onLogin(user: UserInfo) {
     this.log.verbose('BotieDetailsPage', 'onLogin(%s)', user.name)
     this.user = user
@@ -103,6 +106,7 @@ export class BotieDetailsPage {
       data: user.name,
     })
   }
+
   public onLogout(e: UserInfo) {
     this.log.verbose('BotieDetailsPage', 'onLogout(%s)', e.name)
     this.user = null
@@ -112,6 +116,7 @@ export class BotieDetailsPage {
       data: e.name,
     })
   }
+
   public onError(e: any) {
     this.log.verbose('BotieDetailsPage', 'onError(%s)', e)
     this.eventList.push({
