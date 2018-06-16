@@ -89,16 +89,16 @@ export class BotieDetailsPage {
   }
 
   public onScan(scan: ScanInfo) {
-    this.log.verbose('BotieDetailsPage', 'onScan(%d: %s)', scan.code, scan.url)
+    this.log.verbose('BotieDetailsPage', 'onScan(%s)', JSON.stringify(scan))
 
-    this.scanQrcodeValue = scan.url
+    this.scanQrcodeValue = scan.qrcode
 
     // console.log(scan)
 
     this.eventList.push({
       type: 'scan',
       time: moment().format('LTS'),
-      data: scan.url,
+      data: scan.qrcode,
     })
   }
 
