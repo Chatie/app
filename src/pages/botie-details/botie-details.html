@@ -37,12 +37,14 @@
       </div>
 
       <div *ngSwitchDefault>
-        <img
-          *ngIf="scan?.url"
-          [src]="scan.url"
+        <qrcode *ngIf="scanQrcodeValue"
+          [qrdata]="scanQrcodeValue"
+          [size]="256"
+          [level]="'M'"
         >
+        </qrcode>
         <!-- ELSE -->
-        <div *ngIf="!(scan?.url)">
+        <div *ngIf="!(scanQrcodeValue)">
           Wechaty Initializing...
         </div>
       </div>
@@ -91,12 +93,20 @@
 
   </ion-list -->
 
-  <button
+  <!-- button
     ion-button
     block
     (click)="shutdown(wechaty)"
   >
     Shutdown
+  </button -->
+
+  <button
+  ion-button
+  block
+  (click)="logout(wechaty)"
+  >
+    Logout
   </button>
 
 </ion-content>
