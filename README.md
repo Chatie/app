@@ -119,6 +119,7 @@ For example:
 ### Angular
 
 * [Angular Package Format v6.0](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview), design document at Google Docs
+* [How to Build an Angular 5 Material App](https://coursetro.com/posts/code/113/How-to-Build-an-Angular-5-Material-App)
 
 ### Auth0
 

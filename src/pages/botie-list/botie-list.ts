@@ -71,7 +71,7 @@ export class BotieListPage implements OnInit, OnDestroy {
     this.log.verbose('BotieListPage', 'gotoBotieDetail({id:%s}, %s)', botie.id, event)
 
     this.navCtrl.push(BotieDetailsPage, {
-      token: 'blinder-docker',
+      token: botie.token,
     })
   }
 
