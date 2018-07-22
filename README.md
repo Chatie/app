@@ -1,22 +1,17 @@
 # CHATIE APP
+
 Chatie App for Android & Ios & Web
 
 Chatie.io - Make your own ChatBot in no language, in minutes.
 
 ![Powered by Ionic & Angular](https://chatie.github.io/app/images/ionic-angular-bot.jpg "Bot is Powered by Ionic & Angular")
-> Picture Credit: https://blog.ionicframework.com/angular-2-ionic/
+> Picture Credit: <https://blog.ionicframework.com/angular-2-ionic/>
 
 ## FEATURES
 
 * Passwordless Auth
 * Serverless Deploy
 * Languageless Programing
-
-## TODO
-
-1. [Use Lighthouse to improve quality](https://developers.google.com/web/tools/lighthouse/)
-    1. GitHub: https://github.com/ebidel/lighthouse-ci
-    1. Try: https://lighthouse-ci.appspot.com/try
 
 ## DEVELOPMENT
 
@@ -202,6 +197,10 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 * [PhoneGap Day US Push Workshop 2016 Build a Hybrid Mobile App with Push](http://macdonst.github.io/push-workshop/index.html)
 
 ## TODO
+
+1. [Use Lighthouse to improve quality](https://developers.google.com/web/tools/lighthouse/)
+    1. GitHub: <https://github.com/ebidel/lighthouse-ci>
+    1. Try: <https://lighthouse-ci.appspot.com/try>
 
 * [x] Hostie Event Page
 * [ ] Hostie QR Code Push
