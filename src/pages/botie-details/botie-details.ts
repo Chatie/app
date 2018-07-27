@@ -5,7 +5,7 @@ import {
   NavParams,
 }                       from 'ionic-angular'
 
-import * as moment      from 'moment'
+import moment from 'moment'
 
 import { Brolog }       from 'brolog'
 
@@ -34,7 +34,9 @@ export class BotieDetailsPage {
 
   public token: string
   public messageList: string[]
-  public scan: ScanInfo | null
+
+  public scanQrcodeValue: null | string
+
   public user: UserInfo | null
   public counter: number
 
@@ -87,19 +89,26 @@ export class BotieDetailsPage {
   }
 
   public onScan(scan: ScanInfo) {
-    this.log.verbose('BotieDetailsPage', 'onScan(%d: %s)', scan.code, scan.url)
-    this.scan = scan
+    this.log.verbose('BotieDetailsPage', 'onScan(%s)', JSON.stringify(scan))
+
+    this.scanQrcodeValue = scan.qrcode
+
+    // console.log(scan)
+
     this.eventList.push({
       type: 'scan',
       time: moment().format('LTS'),
-      data: scan.url,
+      data: scan.qrcode,
     })
   }
 
   public onLogin(user: UserInfo) {
     this.log.verbose('BotieDetailsPage', 'onLogin(%s)', user.name)
     this.user = user
-    this.scan = null
+    this.scanQrcodeValue = null
+
+    console.log(user)
+
     this.eventList.push({
       type: 'login',
       time: moment().format('LTS'),
@@ -128,8 +137,14 @@ export class BotieDetailsPage {
 
   public shutdown(wechaty: WechatyComponent) {
     this.log.verbose('BotieDetailsPage', 'shutdown()')
-    this.scan = this.user = null
+    this.scanQrcodeValue = this.user = null
     wechaty.shutdown('by web bot component')
+  }
+
+  public logout(wechaty: WechatyComponent) {
+    this.log.verbose('BotieDetailsPage', 'logout()')
+    this.scanQrcodeValue = this.user = null
+    wechaty.logoff('from chatie app')
   }
 
   public eventToIcon(eventName: string): string {

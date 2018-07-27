@@ -1,30 +1,25 @@
 # CHATIE APP
+
 Chatie App for Android & Ios & Web
 
 Chatie.io - Make your own ChatBot in no language, in minutes.
 
 ![Powered by Ionic & Angular](https://chatie.github.io/app/images/ionic-angular-bot.jpg "Bot is Powered by Ionic & Angular")
-> Picture Credit: https://blog.ionicframework.com/angular-2-ionic/
+> Picture Credit: <https://blog.ionicframework.com/angular-2-ionic/>
 
-# FEATURES
+## FEATURES
 
 * Passwordless Auth
 * Serverless Deploy
 * Languageless Programing
 
-# TODO
+## DEVELOPMENT
 
-1. [Use Lighthouse to improve quality](https://developers.google.com/web/tools/lighthouse/)
-    1. GitHub: https://github.com/ebidel/lighthouse-ci
-    1. Try: https://lighthouse-ci.appspot.com/try
-
-# DEVELOPMENT
-
-## Linux
+### Linux
 
 OS: Ubuntu 17.10
 
-### Install Android SDK
+#### Install Android SDK
 
 ```shell
 sudo apt install \
@@ -51,57 +46,56 @@ sudo ./tools/bin/sdkmanager "build-tools;27.0.3"
 
 ```
 
-### Build Android APK
+#### Build Android APK
 
 ```shell
 ./scripts/android.sh
 ```
 
+### Mac
 
-## Mac
-
-### Install ...
+#### Install ...
 
 ```shell
 # Ios: https://cocoapods.org/
 $ sudo gem install cocoapods
 ```
 
-### Build iOS IPA
+#### Build iOS IPA
 
 ```shell
 ./scripts/ios.sh
 ```
 
-## Browser
+### Browser
 
-### Build
+#### Build
 
 ```shell
 ionic cordova platform add browser
 ionic cordova build browser --prod
 ```
 
-# APP PUBLISHING
+## APP PUBLISHING
 
-## Google Play
+### Google Play
 
-* https://play.google.com/apps/publish/
+* <https://play.google.com/apps/publish/>
 
-## Apple Store
+### Apple Store
 
-* https://developer.apple.com
-* https://itunesconnect.apple.com/
+* <https://developer.apple.com>
+* <https://itunesconnect.apple.com/>
 
-1. Xcode -> Product -> 
+1. Xcode -> Product ->
     1. Build
     1. Archive
 
-## Web
+### Web
 
-## Develop
+#### Develop
 
-### Debug Switch
+#### Debug Switch
 
 By adding `?BROLOG_LEVEL=silly` to URL, you can enable full debug output messages in the console.
 
@@ -110,21 +104,22 @@ For example:
 * https://localhost:8100/?BROLOG_LEVEL=silly
 * https://app.chatie.io/?BROLOG_LEVEL=silly
 
-## Learning Resources
+### Learning Resources
 
-### Copy Cat Clone
+#### Copy Cat Clone
 
 * [Build a WhatsApp Clone with Ionic 2, Angular 2, and Meteor!](https://blog.ionicframework.com/build-a-whatsapp-clone-with-ionic-2-angular-2-and-meteor/)
 
-### Angular
+#### Angular
 
 * [Angular Package Format v6.0](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview), design document at Google Docs
+* [How to Build an Angular 5 Material App](https://coursetro.com/posts/code/113/How-to-Build-an-Angular-5-Material-App)
 
-### Material
+#### Material
 
 * [Angular Material And Angular 6 — Material Design For Angular](https://medium.com/codingthesmartway-com-blog/angular-material-and-angular-6-material-design-for-angular-6b1a3ee476f0)
 
-### Auth0
+#### Auth0
 
 * [OAuth 2.0](https://auth0.com/docs/protocols/oauth2)
 * [Silent Authentication](https://auth0.com/docs/api-auth/tutorials/silent-authentication)
@@ -141,14 +136,18 @@ For example:
 * [Verify Access Tokens](https://auth0.com/docs/api-auth/tutorials/verify-access-token)
 * [Auth0 + Scaphold](https://scaphold.io/community/questions/scaphold-social-login/)
 
+<<<<<<< HEAD
 ### RxJS
+=======
+#### Rxjs
+>>>>>>> ec6237233f54b2f152977a6b8964732ce6f054c4
 
 How to use Observable.
 
 * [Observables for ECMAScript](https://github.com/tc39/proposal-observable)
 * [Migrating from RxJS 4 to 5](https://github.com/ReactiveX/rxjs/blob/master/MIGRATION.md)
 
-#### Build from Scratch
+##### Build from Scratch
 
 * [Creating Observable From Scratch(Video)](https://egghead.io/lessons/rxjs-creating-observable-from-scratch)
 * [Learning Observable By Building Observable](https://medium.com/@benlesh/learning-observable-by-building-observable-d5da57405d87)
@@ -165,11 +164,11 @@ How to use Observable.
 * [The Difference Between Throttling and Debouncing](https://css-tricks.com/the-difference-between-throttling-and-debouncing/)
 * [RxJS: Don’t Unsubscribe](https://medium.com/@benlesh/rxjs-dont-unsubscribe-6753ed4fda87)
 
-### Machine Learning
+#### Machine Learning
 
 * [architecture-free neural network library for node.js and the browser](http://caza.la/synaptic)
 
-## Progressive Web Apps
+### Progressive Web Apps
 
 A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like user experience.
 
@@ -177,55 +176,57 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 * [Ionic PWA Blog](http://blog.ionic.io/navigating-the-world-of-progressive-web-apps-with-ionic-2/)
 * [Creating (near) native mobile web app (aka progressive web app) for iOS with Ionic 2](https://technology.amis.nl/2016/08/16/creating-near-native-mobile-web-app-aka-progressive-web-app-for-ios-with-ionic-2/)
 
-## Database
+### Database
 
-### 1. GraphQL
+#### 1. GraphQL
 
 * [Zero to GraphQL in 30 Minutes – Steven Luscher](https://www.youtube.com/watch?v=UBGzsb2UkeY)
 * [New features in GraphQL: Batch, defer, stream, live, and subscribe](https://dev-blog.apollodata.com/new-features-in-graphql-batch-defer-stream-live-and-subscribe-7585d0c28b07#.tzc669fjv)
 * [GraphQL(with Subscription) Backend As A Service](https://scaphold.io/)
 
-### 2. PouchDB
+#### 2. PouchDB
 
 * [Offline Syncing in Ionic 2 with PouchDB & CouchDB](https://www.joshmorony.com/offline-syncing-in-ionic-2-with-pouchdb-couchdb/)
 
-## Testing
+### Testing
 
 * [Writing Marble Tests](https://github.com/ReactiveX/rxjs/blob/master/doc/writing-marble-tests.md)
 * [Introduction to RxJS Marble Testing](https://egghead.io/lessons/rxjs-introduction-to-rxjs-marble-testing)
 
-## Open API Specification
+### Open API Specification
 
 * [Top Specification Formats for REST APIs](http://nordicapis.com/top-specification-formats-for-rest-apis/)
 * [Speed up your RESTful API development in Node.js with Swagger](https://scotch.io/tutorials/speed-up-your-restful-api-development-in-node-js-with-swagger)
 * [Medium.com API Specification](https://github.com/amardeshbd/medium-api-specification)
 * [Writing OpenAPI (Swagger) Specification Tutorial](https://apihandyman.io/writing-openapi-swagger-specification-tutorial-part-1-introduction/)
 
-## Push
+### Push
 
 * [PhoneGap Day US Push Workshop 2016 Build a Hybrid Mobile App with Push](http://macdonst.github.io/push-workshop/index.html)
 
-## Todo
+## TODO
+
+1. [Use Lighthouse to improve quality](https://developers.google.com/web/tools/lighthouse/)
+    1. GitHub: <https://github.com/ebidel/lighthouse-ci>
+    1. Try: <https://lighthouse-ci.appspot.com/try>
 
 * [x] Hostie Event Page
 * [ ] Hostie QR Code Push
 * [ ] Store Publish
 * [ ] Other
-  - [ ] Feedback enable Wilddog & Scrollglue
-  - [ ] Gavatar in menu with Matrix CSS
+  * [ ] Feedback enable Wilddog & Scrollglue
+  * [ ] Gavatar in menu with Matrix CSS
 
-
-## See Also
+## SEE ALSO
 
 * [Motion.AI - Chatbots made easy.](https://www.motion.ai)
 * [Static web publishing for Front-End Developers](https://surge.sh)
 
-# CHANGELOG
+## CHANGELOG
 
 ### v0.3 (master) Apr, 2018
 
 1. Promote `Auth` service as a solo npm package [auth-angular](https://github.com/zixia/auth-angular)
-
 
 ### v0.2 Feb, 2018
 
@@ -241,9 +242,9 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
 ### v0.0 Dec 16, 2016
 
 1. Build with Ionic/Angular 2
-1. Prototype with Ionic Creator 
+1. Prototype with Ionic Creator
 
-# AUTHOR
+## AUTHOR
 
 [Huan LI](http://linkedin.com/in/zixia) \<zixia@zixia.net\>
 
@@ -251,14 +252,14 @@ A Progressive Web App(PWA) uses modern web capabilities to deliver an app-like u
   <img src="https://stackexchange.com/users/flair/265499.png" width="208" height="58" alt="profile for zixia on Stack Exchange, a network of free, community-driven Q&amp;A sites" title="profile for zixia on Stack Exchange, a network of free, community-driven Q&amp;A sites">
 </a>
 
-# COPYRIGHT & LICENSE
+## COPYRIGHT & LICENSE
 
 * Code & Docs © 2017-2018 Huan LI \<zixia@zixia.net\>
 * Code released under the Apache-2.0 License
 * Docs released under Creative Commons
 
-MEMO
-----------------
+## MEMO
+
 title: "Welcome to the Platform!",
 description: "The <b>Ionic Component Documentation</b> showcases a number of useful components that are included out of the box with Ionic.",
 
@@ -267,3 +268,67 @@ description: "<b>Ionic Framework</b> is an open source SDK that enables develope
 
 title: "What isPlatform?",
 description: "The <b>Ionic Platform</b> is a cloud platform for managing and scaling Ionic apps with integrated services like push notifications, native builds, user auth, and live updating.",
+
+## ALPHA DESIGN
+
+```ts
+import { Giftie } from '@chatie/giftie'
+
+```
+
+```ts
+import { Botie } from '@chatie/botie'
+
+const botie = new Botie()
+
+```
+
+```ts
+const botie = new Botie('token')
+
+try {
+  await botie.init()
+  await botie.test().pipe(
+    tap(progress => {
+      console.log('on progress...', progress)
+    })
+  ).toPromise()
+  wechaty.addBotie(botie)
+} catch (e) {
+  if ( e.instanceof(UnitTestingException )) {
+    // botie test fail
+  } else {
+    // other exception
+  }
+}
+
+function addBotie(botie: Botie): Promise<void> {
+  // const eventNameList     = botie.eventNameList()
+  // const eventListenerList = botie.eventListenerList()
+
+  // for (const i in eventNameList) {
+  //   this.addListener(eventNameList[i], eventListenerList[i])
+  // }
+
+  botie.bind(this)
+
+  botie.listener.subscribe.pipe(
+    tap(
+      (event, listener) => this.addListener(event, listener),
+    ),
+  ).toPromise()
+}
+
+function removeBotie(botie: Botie) Promise<void> {
+  botie.listener.subscribe.pipe(
+    tap(
+      (event, listener) => this.removeListener(event, listener),
+    ),
+  ).toPromise()
+}
+
+const wechaty = Wechaty.instance()
+wechaty.setPuppet(new HostiePuppet('token'))
+wechaty.start()
+
+```
