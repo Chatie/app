@@ -120,6 +120,10 @@ For example:
 
 * [Angular Package Format v6.0](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview), design document at Google Docs
 
+### Material
+
+* [Angular Material And Angular 6 — Material Design For Angular](https://medium.com/codingthesmartway-com-blog/angular-material-and-angular-6-material-design-for-angular-6b1a3ee476f0)
+
 ### Auth0
 
 * [OAuth 2.0](https://auth0.com/docs/protocols/oauth2)
@@ -137,7 +141,7 @@ For example:
 * [Verify Access Tokens](https://auth0.com/docs/api-auth/tutorials/verify-access-token)
 * [Auth0 + Scaphold](https://scaphold.io/community/questions/scaphold-social-login/)
 
-### Rxjs
+### RxJS
 
 How to use Observable.
 
