@@ -1,5 +1,7 @@
 # CHATIE APP
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Chatie/app.svg)](https://greenkeeper.io/)
+
 Chatie App for Android & Ios & Web
 
 Chatie.io - Make your own ChatBot in no language, in minutes.
