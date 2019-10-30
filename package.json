@@ -39,7 +39,7 @@
     "@angular/http": "6.1.1",
     "@angular/platform-browser": "6.1.1",
     "@angular/platform-browser-dynamic": "6.1.1",
-    "@auth0/angular-jwt": "^2.0.0",
+    "@auth0/angular-jwt": "^3.0.1",
     "@chatie/angular": "^0.4.8",
     "@chatie/db": "^0.8.21",
     "@chatie/graphql": "^0.6.7",
