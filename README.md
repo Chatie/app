@@ -1,6 +1,6 @@
 # CHATIE APP
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/Chatie/app.svg)](https://greenkeeper.io/)
+
 
 Chatie App for Android & Ios & Web
 
