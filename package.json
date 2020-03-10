@@ -45,7 +45,7 @@
     "@chatie/graphql": "^0.6.7",
     "@ionic-native/core": "4.11.0",
     "@ionic-native/splash-screen": "4.11.0",
-    "@ionic-native/status-bar": "4.11.0",
+    "@ionic-native/status-bar": "4.20.0",
     "@ionic/pro": "^2.0.3",
     "@ionic/storage": "2.1.3",
     "angularx-qrcode": "^1.1.7",
