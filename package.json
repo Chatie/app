@@ -27,7 +27,9 @@
     "lint:ts": "tslint --project tsconfig.json && tsc --noEmit",
     "lint:ionic": "ionic-app-scripts lint",
     "test": "npm run lint && echo To Be Test",
-    "test:pack": "echo To Be Pack"
+    "test:pack": "echo To Be Pack",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "@angular/animations": "6.1.1",
@@ -70,7 +72,8 @@
     "rxjs": "6.2.2",
     "state-switch": "^0.6.2",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.26"
+    "zone.js": "0.8.26",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@angular/cli": "^6.1.2",
@@ -111,5 +114,6 @@
     "scripts": {
       "pre-push": "./scripts/pre-push.sh"
     }
-  }
+  },
+  "snyk": true
 }
