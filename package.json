@@ -64,7 +64,7 @@
     "cuid": "^2.1.1",
     "graphql-tag": "^2.8.0",
     "ionic-angular": "3.9.2",
-    "ionicons": "4.3.0",
+    "ionicons": "4.6.3",
     "jwt-decode": "^2.2.0",
     "moment": "^2.21.0",
     "rxjs": "6.2.2",
